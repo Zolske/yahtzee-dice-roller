@@ -1,16 +1,16 @@
 # **U**ser **C**entered **D**esign  
 ## 1. The **Strategy**  
 ### For who is the website?  
-- for everyone who wants to have fun playing an easy and simple game  
+- for everyone who wants to have fun playing an easy and quick game  
 ### **What the user want is ...**  
 1. **... to play a game online**  
-    *(because it is easy accessible and dose not require a download and installation)*    
+    *(is easy accessible and dose not require a download and installation)*    
   
 2. **... to play an easy to understand game**  
     *(no complicated rules which require a steep learning curve, a game which he (she) may know already)*  
   
 3. **... to relax when playing**  
-    *(short game (10 - 15min) )*
+    *(short game (10 - 15min), not to much decision making required)*
   
 4. **... to have a challenge**  
     *(to play with friends or the computer, set a new high score)*
@@ -22,4 +22,37 @@
    1. **... attract user**  
     *(by providing a fun experience, user may recommend side to friends to play with them)*
    2. **... keep them engaged**  
-   *(every game is different and user can set high score, play with friends or computer)*
+   *(every game is different and user can set high score, play with friends or computer)*  
+
+***
+## 2. The **Scope**  
+### **Features**
+1. playable Yahtzee game
+    - five random generated dices
+    - a "form" where the points can be noted
+    - adding points together
+    - correct rule implementation *(e.g. 3 turns, points must be entered and can not be changed with a better score)*
+2. playable with a friend
+    - player taking turns, playing on the same browser
+3. playable against the computer
+    - computer follows rules and makes decisions where to enter points  
+### **Features for future release:**
+1. connect to a "high score" data base
+    - data exchange with external data base *(ranks highest score)*
+2. tutorial
+    - explaining the user the rules of the game
+3. setting menu
+    - user can change style of the game / website
+4. sound
+    - background music
+    - when dices a rolling
+    - win & lose melody
+***
+## 3. The **Structure**  
+
+***
+## 4. The **Skeleton**  
+
+***
+## 5. The **Surface**  
+
