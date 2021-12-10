@@ -12,6 +12,7 @@
 *** 
 ## Credits
 ### Tools
-- **the logo** was created with [freelogodesign.org](https://www.freelogodesign.org/)
+- **the logo** was created with [freelogodesign](https://www.freelogodesign.org/)
 - **the favicon** was converted with [favicon.io](https://favicon.io/favicon-converter/)
+- **the wireframe** was done with [figma](https://www.figma.com//)
 
