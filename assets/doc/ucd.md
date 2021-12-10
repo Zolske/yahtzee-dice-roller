@@ -64,7 +64,7 @@ sitemap:
 ***
 ## 4. The **Skeleton**  
 ### mobile wireframe
-![mobile wireframe](../images/doc/wireframe_yahtzee-dice-roller_700.webp)  
+![mobile wireframe](../images/doc/wireframe_yahtzee-dice-roller.webp)  
 ### desktop wireframe
 ![desktop wireframe](../images/doc/desktop-wireframe_yahtzee-dice-roller.webp)  
 
