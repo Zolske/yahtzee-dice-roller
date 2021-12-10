@@ -51,7 +51,16 @@
     - win & lose game melody
 ***
 ## 3. The **Structure**  
-![sitemap](../images/doc/sitemap_yathzee-dice-roller.webp)
+### **Information Architecture** (IA)  
+sitemap:
+1. navigation bar:
+    - simple structure
+    - main content to be placed on landing page
+    - future features to include additional pages / menus which would be included in an hamburger menu on the mobile version  
+2. footer:
+    - "contact us" page and links to social media
+![sitemap](../images/doc/sitemap_yahtzee-dice-roller.webp)
+
 ***
 ## 4. The **Skeleton**  
 
