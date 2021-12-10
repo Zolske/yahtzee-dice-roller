@@ -63,6 +63,9 @@ sitemap:
 
 ***
 ## 4. The **Skeleton**  
+### mobile wireframe
+![mobile wireframe](../images/doc/wireframe_yahtzee-dice-roller_600.webp)  
+
 
 ***
 ## 5. The **Surface**  
