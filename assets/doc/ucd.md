@@ -1,4 +1,6 @@
 # **U**ser **C**entered **D**esign  
+*for the website "yahtzee dice roller"*
+***
 ## 1. The **Strategy**  
 ### For who is the website?  
 - for everyone who wants to have fun playing an easy and quick game  
@@ -30,10 +32,10 @@
 1. playable Yahtzee game
     - five random generated dices
     - a "form" where the points can be noted
-    - adding points together
+    - adding points together to show total score
     - correct rule implementation *(e.g. 3 turns, points must be entered and can not be changed with a better score)*
 2. playable with a friend
-    - player taking turns, playing on the same browser
+    - player taking turns playing on the same browser
 3. playable against the computer
     - computer follows rules and makes decisions where to enter points  
 ### **Features for future release:**
@@ -41,15 +43,15 @@
     - data exchange with external data base *(ranks highest score)*
 2. tutorial
     - explaining the user the rules of the game
-3. setting menu
+3. "settings" menu
     - user can change style of the game / website
 4. sound
     - background music
-    - when dices a rolling
-    - win & lose melody
+    - when dices are rolling
+    - win & lose game melody
 ***
 ## 3. The **Structure**  
-
+![sitemap](../images/doc/sitemap_yathzee-dice-roller.webp)
 ***
 ## 4. The **Skeleton**  
 
