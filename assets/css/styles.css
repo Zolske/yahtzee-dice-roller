@@ -1,9 +1,19 @@
 /* imports the 'Monoton' font from google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
+/* color variables */
+:root {
+    --color-header: #FF1414;
+}
+
+html {
+    /* (62.5% of 16px) == 10px == 1rem */
+    font-size: 62.5%;
+}
+
 h1 {
     font-family: 'Monoton', cursive, serif;
-    color: #FF1414;
+    color: var(--color-header);
     letter-spacing: 0.2rem;
     font-size: 2rem;
 }
