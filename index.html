@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="assets/css/normalize.css">
     <!-- add css stylesheet -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- dice animation css -->
+    <link href="assets/css/dice.min.css" rel="stylesheet" />
     <!-- add favicon (https://favicon.io/favicon-converter/) -->
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
     <meta name="description" content="The user can play a dice game called yahtzee with friends or the computer.">
@@ -121,12 +123,30 @@
                 </tr>
             </tbody>
         </table>
-
+        <div class="dice__scene">
+            <div id="dice__cube" class="show-front">
+                <div class="dice__side dice__side--front"></div>
+                <div class="dice__side dice__side--back"></div>
+                <div class="dice__side dice__side--right"></div>
+                <div class="dice__side dice__side--left"></div>
+                <div class="dice__side dice__side--top"></div>
+                <div class="dice__side dice__side--bottom"></div>
+            </div>
+        </div>
+        <button class="demo__button" id="dice__btn">Roll the dice</button>
+        <audio preload="auto" id="dice__audio">
+            <source src="assets/sounds/dice-sound.mp3">
+            </source>
+        </audio>
 
     </main>
     <footer></footer>
 
     <script src="assets/js/script.js"></script>
+    <!-- jquery JavaScript for dice animation -->
+    <script src="assets/js/jquery.slim.min.js"></script>
+    <!-- JavaScript for dice animation -->
+    <script src="assets/js/dice.js"></script>
 </body>
 
 </html>
