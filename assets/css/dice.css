@@ -30,70 +30,69 @@ There are two problems in the base code you need to:
     transform: translateY(15px);
 }
 
+.dice-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 /* Add dice and dots: */
 .dice {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: calc(100px / 2);
+    height: calc(100px / 2);
     transform-style: preserve-3d;
     transition: transform 3s;
 }
 
 .dot {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    margin: -10px 5px 5px -10px;
+    /* change dice size here "/ 2" */
+    width: calc(20px / 2);
+    height: calc(20px / 2);
+    margin: calc(-10px / 2) calc(5px / 2) calc(5px / 2) calc(-10px / 2);
     border-radius: 20px;
     background-color: #ef233c;
     box-shadow: inset 2px 2px #d90429;
-}
-
-.dice-one {
-    margin: 2rem;
-    /* left: 20px;
-    top: 20%; */
-}
-
-.dice-two {
-    margin: 2rem;
-    /* right: 20px;
-    top: 20%; */
 }
 
 .side {
     position: absolute;
     background-color: #ffF;
     border-radius: 5px;
-    width: 100px;
-    height: 100px;
+    /* change dice size here "/ 2" "*/
+    width: calc(100px / 2);
+    height: calc(100px / 2);
     border: 1px solid #e5e5e5;
-    /* text-align: center;
-    line-height: 2em; */
 }
 
 .side:nth-child(1) {
-    transform: translateZ(3.1rem);
+    /* change dice size here "/ 2" */
+    transform: translateZ(calc(3.1rem / 2));
 }
 
 .side:nth-child(6) {
-    transform: rotateY(90deg) translateZ(3.1rem);
+    /* change dice size here "/ 2" */
+    transform: rotateY(90deg) translateZ(calc(3.1rem / 2));
 }
 
 .side:nth-child(3) {
-    transform: rotateY(-90deg) translateZ(3.1rem);
+    /* change dice size here "/ 2" */
+    transform: rotateY(-90deg) translateZ(calc(3.1rem / 2));
 }
 
 .side:nth-child(4) {
-    transform: rotateX(90deg) translateZ(3.1rem);
+    /* change dice size here "/ 2" */
+    transform: rotateX(90deg) translateZ(calc(3.1rem / 2));
 }
 
 .side:nth-child(5) {
-    transform: rotateX(-90deg) translateZ(3.1rem);
+    /* change dice size here "/ 2" */
+    transform: rotateX(-90deg) translateZ(calc(3.1rem / 2));
 }
 
 .side:nth-child(2) {
-    transform: rotateY(-180deg) translateZ(3.1rem);
+    /* change dice size here "/ 2" */
+    transform: rotateY(-180deg) translateZ(calc(3.1rem / 2));
 }
 
 /* dots on the dice */

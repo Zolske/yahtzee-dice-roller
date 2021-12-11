@@ -25,9 +25,10 @@
                 class="header-dice" src="assets/images/logo/logo-dice.svg" alt="two red dices"><br>roller</h1>
     </header>
     <main>
-        <div class="game">
+        <div class="dice-container">
+            <!-- 1st dice === dice1 -->
             <div class="container">
-                <div id='dice1' class="dice dice-one">
+                <div id='dice1' class="dice">
                     <div id="dice-one-side-one" class='side one'>
                         <div class="dot one-1"></div>
                     </div>
@@ -63,9 +64,9 @@
                     </div>
                 </div>
             </div>
-            <!-- 2nd dice -->
+            <!-- 2nd dice === dice2-->
             <div class="container">
-                <div id='dice2' class="dice dice-two">
+                <div id='dice2' class="dice">
                     <div id="dice-two-side-one" class='side one'>
                         <div class="dot one-1"></div>
                     </div>
@@ -101,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 3th dice -->
+            <!-- 3th dice === dice3 -->
             <div class="container">
                 <div id='dice3' class="dice">
                     <div class='side one'>
@@ -139,7 +140,87 @@
                     </div>
                 </div>
             </div>
+            <!-- 4th dice === dice4 -->
+            <div class="container">
+                <div id='dice4' class="dice">
+                    <div id="dice-one-side-one" class='side one'>
+                        <div class="dot one-1"></div>
+                    </div>
+                    <div id="dice-one-side-two" class='side two'>
+                        <div class="dot two-1"></div>
+                        <div class="dot two-2"></div>
+                    </div>
+                    <div id="dice-one-side-three" class='side three'>
+                        <div class="dot three-1"></div>
+                        <div class="dot three-2"></div>
+                        <div class="dot three-3"></div>
+                    </div>
+                    <div id="dice-one-side-four" class='side four'>
+                        <div class="dot four-1"></div>
+                        <div class="dot four-2"></div>
+                        <div class="dot four-3"></div>
+                        <div class="dot four-4"></div>
+                    </div>
+                    <div id="dice-one-side-five" class='side five'>
+                        <div class="dot five-1"></div>
+                        <div class="dot five-2"></div>
+                        <div class="dot five-3"></div>
+                        <div class="dot five-4"></div>
+                        <div class="dot five-5"></div>
+                    </div>
+                    <div id="dice-one-side-six" class='side six'>
+                        <div class="dot six-1"></div>
+                        <div class="dot six-2"></div>
+                        <div class="dot six-3"></div>
+                        <div class="dot six-4"></div>
+                        <div class="dot six-5"></div>
+                        <div class="dot six-6"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 5th dice === dice5 -->
+            <div class="container">
+                <div id='dice5' class="dice">
+                    <div id="dice-one-side-one" class='side one'>
+                        <div class="dot one-1"></div>
+                    </div>
+                    <div id="dice-one-side-two" class='side two'>
+                        <div class="dot two-1"></div>
+                        <div class="dot two-2"></div>
+                    </div>
+                    <div id="dice-one-side-three" class='side three'>
+                        <div class="dot three-1"></div>
+                        <div class="dot three-2"></div>
+                        <div class="dot three-3"></div>
+                    </div>
+                    <div id="dice-one-side-four" class='side four'>
+                        <div class="dot four-1"></div>
+                        <div class="dot four-2"></div>
+                        <div class="dot four-3"></div>
+                        <div class="dot four-4"></div>
+                    </div>
+                    <div id="dice-one-side-five" class='side five'>
+                        <div class="dot five-1"></div>
+                        <div class="dot five-2"></div>
+                        <div class="dot five-3"></div>
+                        <div class="dot five-4"></div>
+                        <div class="dot five-5"></div>
+                    </div>
+                    <div id="dice-one-side-six" class='side six'>
+                        <div class="dot six-1"></div>
+                        <div class="dot six-2"></div>
+                        <div class="dot six-3"></div>
+                        <div class="dot six-4"></div>
+                        <div class="dot six-5"></div>
+                        <div class="dot six-6"></div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <audio preload="auto" id="dice__audio">
+            <source src="assets/sounds/dice-sound.mp3">
+            </source>
+        </audio>
         <!-- button to roll the dice -->
         <div id='roll' class='roll-button button-dice'><button>Roll dice!</button></div>
         <div id='rollZ' class='roll-button button-dice'><button>Roll Zoltans dice!</button></div>
@@ -241,11 +322,6 @@
                 </tr>
             </tbody>
         </table>
-
-        <audio preload="auto" id="dice__audio">
-            <source src="assets/sounds/dice-sound.mp3">
-            </source>
-        </audio>
 
     </main>
     <footer></footer>
