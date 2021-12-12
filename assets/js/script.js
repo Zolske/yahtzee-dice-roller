@@ -9,7 +9,7 @@ Update: the code is based now on CHRIS GODBER  https://icodemag.com/3d-rolling-d
 */
 
 let turnCount = null; // counts how many turns the player has played, max 3, see playTurn()
-let turnScore = [];
+let turnScore = []; //the dice score after ever turn
 
 
 /**
@@ -37,8 +37,9 @@ function diceRoller(diceId) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * rolls only the dices with the attribute data-lock-open === 'true'
+ * 
  */
-function buttonDiceRoller() {
+function buttonDiceRoller(playerId) {
     let dice1 = document.getElementById('dice1').getAttribute('data-lock-open');
     let dice2 = document.getElementById('dice2').getAttribute('data-lock-open');
     let dice3 = document.getElementById('dice3').getAttribute('data-lock-open');
@@ -60,6 +61,8 @@ function buttonDiceRoller() {
     if (dice5 === 'true') {
         let result_dice5 = diceRoller('dice5');
     }
+
+    writeScoreTable(playerId);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,26 +155,28 @@ for (i = 0; i < 5; i++) {
 
 /**
  * function is called when dice button is pressed to handle events
+ * creates array from dice numbers
  */
-
-function playTurn() {
+function playTurn(playerId) {
     turnCount++;
     if (turnCount === 3) {
         document.getElementById('bt-roll-all').setAttribute('disabled', '')
     }
-    buttonDiceRoller();
+    buttonDiceRoller(playerId);
 
     for (i = 1; i <= 5; i++) {
         let dicePosition = document.getElementById('dice' + i).classList;
         // console.log(dicePosition);
         for (z = 1; z <= 6; z++) {
             if (dicePosition.contains('show-' + z)) {
-                console.log('show-' + z)
+                // console.log('show-' + z)
                 turnScore[i - 1] = z;
             }
         }
     }
-    console.log(turnScore);
+    writeScoreTable(playerId);
+    // console.log(turnScore);
+    return turnScore;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -226,14 +231,245 @@ function newPlayer() {
         }
         tableLower.children[i].appendChild(tempTableElement);
     }
+
+    let playerPlayButton = document.createElement("button");
+    playerPlayButton.textContent = playerId + ' play';
+    playerPlayButton.setAttribute('id', 'button-' + playerId);
+    document.getElementById('button-play-place').appendChild(playerPlayButton);
+
+    // document.getElementById('button-' + playerId).addEventListener('click', playTurn);
+    document.getElementById('button-' + playerId).addEventListener('click', function () {
+        playTurn(playerId);
+    });
+
+
+    // let newPlayerPlayButton = `
+    // <button id="button-${playerId}">
+
+    // </button>`
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * analyse score and write points into table 
  */
-function writeScoreTable() {
-    console.log(turnScore);
+function writeScoreTable(playerId) {
+    // for (i = 1; i <= 5; i++) {
+    //     let dicePosition = document.getElementById('dice' + i).classList;
+    //     for (z = 1; z <= 6; z++) {
+    //         if (dicePosition.contains('show-' + z)) {
+    //             turnScore[i - 1] = z;
+    //         }
+    //     }
+    // }
+    // turnScoreTest = [3, 1, 4, 1, 2];
+    // console.log(turnScoreTest);
+
+    let yahtzee;
+    let fourOfKind;
+    let threeOfKind;
+    let fullHouse;
+    let smallStraight;
+    let largeStraight;
+    let sixes;
+    let fives;
+    let fours;
+    let threes;
+    let twos;
+    let aces;
+
+
+    // find out if there is a yahtzee
+    for (i = 1; i <= 6; i++) {
+        let tempNumber = turnScore.filter(point => point === i);
+        // let tempNumber = turnScoreTest.filter(point => point === i);
+        if (tempNumber.length === 5) {
+            yahtzee = true;
+            break;
+        } else {
+            yahtzee = false;
+        }
+    }
+
+    // find out if there is a fourOfKind
+    for (i = 1; i <= 6; i++) {
+        let tempNumber = turnScore.filter(point => point === i);
+        // let tempNumber = turnScoreTest.filter(point => point === i);
+        if (tempNumber.length === 4 || tempNumber.length === 5) {
+            fourOfKind = true;
+            break;
+        } else {
+            fourOfKind = false;
+        }
+    }
+
+    // find out if there is a threeOfKind
+    for (i = 1; i <= 6; i++) {
+        let tempNumber = turnScore.filter(point => point === i);
+        // let tempNumber = turnScoreTest.filter(point => point === i);
+        if (tempNumber.length === 3 || tempNumber.length === 4 || tempNumber.length === 5) {
+            threeOfKind = true;
+            break;
+        } else {
+            threeOfKind = false;
+        }
+    }
+
+    // find out if there is a fullHouse
+    let bigArray = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ];
+    for (i = 1; i <= 6; i++) {
+        let tempNumber = turnScore.filter(point => point === i);
+        // let tempNumber = turnScoreTest.filter(point => point === i);
+        bigArray[i - 1] = tempNumber;
+    }
+
+    breakLoop:
+        for (i = 0; i <= 5; i++) {
+            let arrayLength = bigArray[i].length;
+            if (arrayLength === 3) {
+                for (b = 0; b <= 5; b++) {
+                    arrayLength = bigArray[b].length;
+                    if (arrayLength === 2) {
+                        fullHouse = true;
+                        break breakLoop;
+                    } else {
+                        fullHouse = false;
+                    }
+                }
+            } else {
+                fullHouse = false;
+            }
+        }
+
+    // find out if there is a smallStraight
+    let tempSmallSortAscendant = turnScore;
+    let tempSmallSortDescendant = turnScore;
+
+    // let tempSmallSortAscendant = turnScoreTest;
+    // let tempSmallSortDescendant = turnScoreTest;
+
+    tempSmallSortAscendant.sort((a, b) => a - b);
+    tempSmallSortAscendant = tempSmallSortAscendant.slice(0, 4);
+    tempSmallSortAscendant = tempSmallSortAscendant.toString();
+
+    tempSmallSortDescendant.sort((a, b) => b - a);
+    tempSmallSortDescendant = tempSmallSortDescendant.slice(0, 4);
+    tempSmallSortDescendant = tempSmallSortDescendant.toString();
+
+    if (tempSmallSortAscendant === '1,2,3,4') {
+        smallStraight = true;
+    } else if (tempSmallSortAscendant === '2,3,4,5') {
+        smallStraight = true;
+    } else if (tempSmallSortDescendant === '6,5,4,3') {
+        smallStraight = true;
+    } else {
+        smallStraight = false;
+    }
+
+    // find out if there is a largeStraight
+    let templargeSortAscendant = turnScore;
+    // let templargeSortAscendant = turnScoreTest;
+
+    templargeSortAscendant.sort((a, b) => a - b);
+    templargeSortAscendant = templargeSortAscendant.toString();
+
+    if (templargeSortAscendant === '1,2,3,4,5') {
+        largeStraight = true;
+    } else if (templargeSortAscendant === '2,3,4,5,6') {
+        largeStraight = true;
+    } else {
+        largeStraight = false;
+    }
+
+    // find out if upper section is true
+    let acesElement = document.getElementById('aces' + playerId);
+    let twosElement = document.getElementById('twos' + playerId);
+    let threesElement = document.getElementById('threes' + playerId);
+    let foursElement = document.getElementById('fours' + playerId);
+    let fivesElement = document.getElementById('fives' + playerId);
+    let sixesElement = document.getElementById('sixes' + playerId);
+
+    let tempUpperArray = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ];
+    for (i = 1; i <= 6; i++) {
+        tempUpperArray[i - 1] = turnScore.filter(point => point === i);
+        // tempUpperArray[i - 1] = turnScoreTest.filter(point => point === i);
+        if (tempUpperArray[0].length >= 1) {
+            aces = true;
+            if (!(acesElement.hasAttribute('disabled'))) {
+                acesElement.textContent = tempUpperArray[0].length * 1;
+            }
+        } else {
+            aces = false;
+        }
+        if (tempUpperArray[1].length >= 1) {
+            twos = true;
+            if (!(twosElement.hasAttribute('disabled'))) {
+                twosElement.textContent = tempUpperArray[1].length * 2;
+            }
+        } else {
+            twos = false;
+        }
+        if (tempUpperArray[2].length >= 1) {
+            threes = true;
+            if (!(threesElement.hasAttribute('disabled'))) {
+                threesElement.textContent = tempUpperArray[2].length * 3;
+            }
+        } else {
+            threes = false;
+        }
+        if (tempUpperArray[3].length >= 1) {
+            fours = true;
+            if (!(foursElement.hasAttribute('disabled'))) {
+                foursElement.textContent = tempUpperArray[3].length * 4;
+            }
+        } else {
+            fours = false;
+        }
+        if (tempUpperArray[4].length >= 1) {
+            fives = true;
+            if (!(fivesElement.hasAttribute('disabled'))) {
+                fivesElement.textContent = tempUpperArray[4].length * 5;
+            }
+        } else {
+            fives = false;
+        }
+        if (tempUpperArray[5].length >= 1) {
+            sixes = true;
+            if (!(sixesElement.hasAttribute('disabled'))) {
+                sixesElement.textContent = tempUpperArray[5].length * 6;
+            }
+        } else {
+            sixes = false;
+        }
+    }
+    console.log('the dice show ' + turnScore);
+    console.log('the yahtzee is ' + yahtzee);
+    console.log('the fourOfKind is ' + fourOfKind);
+    console.log('the threeOfKind is ' + threeOfKind);
+    console.log('the fullHouse is ' + fullHouse);
+    console.log('the smallStraight is ' + smallStraight);
+    console.log('the largeStraight is ' + largeStraight);
+    console.log('the aces is ' + aces);
+    console.log('the twos is ' + twos);
+    console.log('the threes is ' + threes);
+    console.log('the fours is ' + fours);
+    console.log('the fives is ' + fives);
+    console.log('the sixes is ' + sixes);
+    console.log('>>> end >>>')
 }
 
 /**
