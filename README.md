@@ -11,7 +11,9 @@
 ## Deployment
 *** 
 ## Credits
-- the **dice animation** code is based on Lena Stanleys [Roll the dice!](https://lenadesign.org/2020/06/18/roll-the-dice/)
+- the code for the **dice animation** is based on  
+Lena Stanleys [Roll the dice!](https://lenadesign.org/2020/06/18/roll-the-dice/) and  
+CHRIS GODBER [icode](https://icodemag.com/3d-rolling-dice-css-javascript/)
 ### Tools
 - **the logo** was created with [freelogodesign](https://www.freelogodesign.org/)
 - **the favicon** was converted with [favicon](https://favicon.io/favicon-converter/)
