@@ -142,10 +142,10 @@ for (i = 0; i < 5; i++) {
 /**
  * creates an array fom the score values
  */
-function diceScore() {
-    let scoreDice1 = document.getElementById('dice1');
-    return scoreDice1
-}
+// function diceScore() {
+//     let scoreDice1 = document.getElementById('dice1');
+//     return scoreDice1
+// }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +177,53 @@ function playTurn() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * creates a new player in the score table
+ */
+function newPlayer() {
+    // let playerName = prompt("Please enter your name", "Harry Potter");
+    let playerName = '  Player 1 '; // need to add validation, no special character, length
+    let playerId = playerName.replace(/\s/g, ''); //remove space from player string to be used as id
+    let tableDataUpper = ['aces', 'twos', 'threes', 'fours', 'fives', 'sixes', 'totalTop', 'bonusTop', 'totalUpper'];
+    let tableUpper = document.getElementById('table-upper');
+    // console.log(tableUpper.children[0]);
+
+    let tableHead = document.createElement("th");
+    tableHead.textContent = 'Player';
+    document.getElementById('table-head').appendChild(tableHead);
+
+    let tablePlayerName = document.createElement("th");
+    tablePlayerName.textContent = playerName;
+    document.getElementById('table-player-name').appendChild(tablePlayerName);
+
+    for (i = 0; i < tableDataUpper.length; i++) {
+        let tempTableElement = document.createElement("th");
+        if ((tableDataUpper[i] === 'totalTop') || (tableDataUpper[i] === 'bonusTop') || (tableDataUpper[i] === 'totalUpper')) {
+            // if (false) {
+            tempTableElement.textContent = '---';
+            tempTableElement.setAttribute('id', tableDataUpper[i] + playerId);
+        } else {
+            let tempButton = document.createElement("button");
+            tempButton.classList.add('table-button');
+            tempButton.textContent = tableDataUpper[i];
+            tempButton.setAttribute('id', tableDataUpper[i] + playerId);
+            tempTableElement.appendChild(tempButton);
+        }
+
+        tableUpper.children[i].appendChild(tempTableElement);
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * analyse score and write points into table 
+ */
+function writeScoreTable() {
+    console.log(turnScore);
+}
+
+/**
  * adds an click event to the button with the class 'bt-roll-all', which triggers the buttonDiceRoller() function
  */
 document.getElementById('bt-roll-all').addEventListener('click', playTurn);
+document.getElementById('create-player').addEventListener('click', newPlayer);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
