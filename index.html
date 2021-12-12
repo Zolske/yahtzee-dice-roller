@@ -8,7 +8,9 @@
     <!-- add normalize stylesheet, sets css base values across browsers -->
     <link rel="stylesheet" href="assets/css/normalize.css">
     <!-- add css for dice animation -->
-    <link rel="stylesheet" href="assets/css/dice.css">
+    <!-- <link rel="stylesheet" href="assets/css/dice.css"> -->
+    <!-- 2nd css style for dice -->
+    <link rel="stylesheet" href="assets/css/dice2.css">
     <!-- add css stylesheet -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <!-- add favicon (https://favicon.io/favicon-converter/) -->
@@ -25,36 +27,205 @@
                 class="header-dice" src="assets/images/logo/logo-dice.svg" alt="two red dices"><br>roller</h1>
     </header>
     <main>
+        <div class="lock-container">
+            <img id="lock-1" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-2" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-3" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-4" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-5" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+        </div>
         <div class="dice-container">
-            <!-- 1st dice === dice1 -->
-            <div class="container">
-                <div id='dice1' class="dice">
-                    <div id="dice-one-side-one" class='side one'>
+            <!-- dice1 -->
+            <div class="cube dice" id='dice1' data-lock-open="true">
+                <div class="cube__face cube__face--1">
+                    <div class="dot one-1"></div>
+                </div>
+                <div class="cube__face cube__face--2">
+                    <div class="dot two-1"></div>
+                    <div class="dot two-2"></div>
+                </div>
+                <div class="cube__face cube__face--3">
+                    <div class="dot three-1"></div>
+                    <div class="dot three-2"></div>
+                    <div class="dot three-3"></div>
+                </div>
+                <div class="cube__face cube__face--4">
+                    <div class="dot four-1"></div>
+                    <div class="dot four-2"></div>
+                    <div class="dot four-3"></div>
+                    <div class="dot four-4"></div>
+                </div>
+                <div class="cube__face cube__face--5">
+                    <div class="dot five-1"></div>
+                    <div class="dot five-2"></div>
+                    <div class="dot five-3"></div>
+                    <div class="dot five-4"></div>
+                    <div class="dot five-5"></div>
+                </div>
+                <div class="cube__face cube__face--6">
+                    <div class="dot six-1"></div>
+                    <div class="dot six-2"></div>
+                    <div class="dot six-3"></div>
+                    <div class="dot six-4"></div>
+                    <div class="dot six-5"></div>
+                    <div class="dot six-6"></div>
+                </div>
+            </div>
+            <!-- dice2 -->
+            <div class="cube dice" id='dice2' data-lock-open="true">
+                <div class="cube__face cube__face--1">
+                    <div class="dot one-1"></div>
+                </div>
+                <div class="cube__face cube__face--2">
+                    <div class="dot two-1"></div>
+                    <div class="dot two-2"></div>
+                </div>
+                <div class="cube__face cube__face--3">
+                    <div class="dot three-1"></div>
+                    <div class="dot three-2"></div>
+                    <div class="dot three-3"></div>
+                </div>
+                <div class="cube__face cube__face--4">
+                    <div class="dot four-1"></div>
+                    <div class="dot four-2"></div>
+                    <div class="dot four-3"></div>
+                    <div class="dot four-4"></div>
+                </div>
+                <div class="cube__face cube__face--5">
+                    <div class="dot five-1"></div>
+                    <div class="dot five-2"></div>
+                    <div class="dot five-3"></div>
+                    <div class="dot five-4"></div>
+                    <div class="dot five-5"></div>
+                </div>
+                <div class="cube__face cube__face--6">
+                    <div class="dot six-1"></div>
+                    <div class="dot six-2"></div>
+                    <div class="dot six-3"></div>
+                    <div class="dot six-4"></div>
+                    <div class="dot six-5"></div>
+                    <div class="dot six-6"></div>
+                </div>
+            </div>
+            <!-- dice3 -->
+            <div class="cube dice" id='dice3' data-lock-open="true">
+                <div class="cube__face cube__face--1">
+                    <div class="dot one-1"></div>
+                </div>
+                <div class="cube__face cube__face--2">
+                    <div class="dot two-1"></div>
+                    <div class="dot two-2"></div>
+                </div>
+                <div class="cube__face cube__face--3">
+                    <div class="dot three-1"></div>
+                    <div class="dot three-2"></div>
+                    <div class="dot three-3"></div>
+                </div>
+                <div class="cube__face cube__face--4">
+                    <div class="dot four-1"></div>
+                    <div class="dot four-2"></div>
+                    <div class="dot four-3"></div>
+                    <div class="dot four-4"></div>
+                </div>
+                <div class="cube__face cube__face--5">
+                    <div class="dot five-1"></div>
+                    <div class="dot five-2"></div>
+                    <div class="dot five-3"></div>
+                    <div class="dot five-4"></div>
+                    <div class="dot five-5"></div>
+                </div>
+                <div class="cube__face cube__face--6">
+                    <div class="dot six-1"></div>
+                    <div class="dot six-2"></div>
+                    <div class="dot six-3"></div>
+                    <div class="dot six-4"></div>
+                    <div class="dot six-5"></div>
+                    <div class="dot six-6"></div>
+                </div>
+            </div>
+            <!-- dice4 -->
+            <div class="cube dice" id='dice4' data-lock-open="true">
+                <div class="cube__face cube__face--1">
+                    <div class="dot one-1"></div>
+                </div>
+                <div class="cube__face cube__face--2">
+                    <div class="dot two-1"></div>
+                    <div class="dot two-2"></div>
+                </div>
+                <div class="cube__face cube__face--3">
+                    <div class="dot three-1"></div>
+                    <div class="dot three-2"></div>
+                    <div class="dot three-3"></div>
+                </div>
+                <div class="cube__face cube__face--4">
+                    <div class="dot four-1"></div>
+                    <div class="dot four-2"></div>
+                    <div class="dot four-3"></div>
+                    <div class="dot four-4"></div>
+                </div>
+                <div class="cube__face cube__face--5">
+                    <div class="dot five-1"></div>
+                    <div class="dot five-2"></div>
+                    <div class="dot five-3"></div>
+                    <div class="dot five-4"></div>
+                    <div class="dot five-5"></div>
+                </div>
+                <div class="cube__face cube__face--6">
+                    <div class="dot six-1"></div>
+                    <div class="dot six-2"></div>
+                    <div class="dot six-3"></div>
+                    <div class="dot six-4"></div>
+                    <div class="dot six-5"></div>
+                    <div class="dot six-6"></div>
+                </div>
+            </div>
+            <!-- dice5 -->
+            <div class="cube dice" id='dice5' data-lock-open="true">
+                <div class="cube__face cube__face--1">
+                    <div class="dot one-1"></div>
+                </div>
+                <div class="cube__face cube__face--2">
+                    <div class="dot two-1"></div>
+                    <div class="dot two-2"></div>
+                </div>
+                <div class="cube__face cube__face--3">
+                    <div class="dot three-1"></div>
+                    <div class="dot three-2"></div>
+                    <div class="dot three-3"></div>
+                </div>
+                <div class="cube__face cube__face--4">
+                    <div class="dot four-1"></div>
+                    <div class="dot four-2"></div>
+                    <div class="dot four-3"></div>
+                    <div class="dot four-4"></div>
+                </div>
+                <div class="cube__face cube__face--5">
+                    <div class="dot five-1"></div>
+                    <div class="dot five-2"></div>
+                    <div class="dot five-3"></div>
+                    <div class="dot five-4"></div>
+                    <div class="dot five-5"></div>
+                </div>
+                <div class="cube__face cube__face--6">
+                    <div class="dot six-1"></div>
+                    <div class="dot six-2"></div>
+                    <div class="dot six-3"></div>
+                    <div class="dot six-4"></div>
+                    <div class="dot six-5"></div>
+                    <div class="dot six-6"></div>
+                </div>
+            </div>
+        </div>
+        <!-- <button class="rollBtn">Roll the Dice</button> -->
+
+        <!-- <div class="dice-container"> -->
+        <!-- 1st dice === dice1 -->
+        <!-- <div class="container">
+                <div id='dice1' class="dice" data-lock-open="true">
+                    <div class='side one'>
                         <div class="dot one-1"></div>
                     </div>
-                    <div id="dice-one-side-two" class='side two'>
-                        <div class="dot two-1"></div>
-                        <div class="dot two-2"></div>
-                    </div>
-                    <div id="dice-one-side-three" class='side three'>
-                        <div class="dot three-1"></div>
-                        <div class="dot three-2"></div>
-                        <div class="dot three-3"></div>
-                    </div>
-                    <div id="dice-one-side-four" class='side four'>
-                        <div class="dot four-1"></div>
-                        <div class="dot four-2"></div>
-                        <div class="dot four-3"></div>
-                        <div class="dot four-4"></div>
-                    </div>
-                    <div id="dice-one-side-five" class='side five'>
-                        <div class="dot five-1"></div>
-                        <div class="dot five-2"></div>
-                        <div class="dot five-3"></div>
-                        <div class="dot five-4"></div>
-                        <div class="dot five-5"></div>
-                    </div>
-                    <div id="dice-one-side-six" class='side six'>
+                    <div class='side six'>
                         <div class="dot six-1"></div>
                         <div class="dot six-2"></div>
                         <div class="dot six-3"></div>
@@ -62,49 +233,33 @@
                         <div class="dot six-5"></div>
                         <div class="dot six-6"></div>
                     </div>
-                </div>
-            </div>
-            <!-- 2nd dice === dice2-->
-            <div class="container">
-                <div id='dice2' class="dice">
-                    <div id="dice-two-side-one" class='side one'>
-                        <div class="dot one-1"></div>
-                    </div>
-                    <div id="dice-two-side-two" class='side two'>
-                        <div class="dot two-1"></div>
-                        <div class="dot two-2"></div>
-                    </div>
-                    <div id="dice-two-side-three" class='side three'>
-                        <div class="dot three-1"></div>
-                        <div class="dot three-2"></div>
-                        <div class="dot three-3"></div>
-                    </div>
-                    <div id="dice-two-side-four" class='side four'>
-                        <div class="dot four-1"></div>
-                        <div class="dot four-2"></div>
-                        <div class="dot four-3"></div>
-                        <div class="dot four-4"></div>
-                    </div>
-                    <div id="dice-two-side-five" class='side five'>
+                    <div class='side five'>
                         <div class="dot five-1"></div>
                         <div class="dot five-2"></div>
                         <div class="dot five-3"></div>
                         <div class="dot five-4"></div>
                         <div class="dot five-5"></div>
                     </div>
-                    <div id="dice-two-side-six" class='side six'>
-                        <div class="dot six-1"></div>
-                        <div class="dot six-2"></div>
-                        <div class="dot six-3"></div>
-                        <div class="dot six-4"></div>
-                        <div class="dot six-5"></div>
-                        <div class="dot six-6"></div>
+                    <div class='side four'>
+                        <div class="dot four-1"></div>
+                        <div class="dot four-2"></div>
+                        <div class="dot four-3"></div>
+                        <div class="dot four-4"></div>
+                    </div>
+                    <div class='side three'>
+                        <div class="dot three-1"></div>
+                        <div class="dot three-2"></div>
+                        <div class="dot three-3"></div>
+                    </div>
+                    <div class='side two'>
+                        <div class="dot two-1"></div>
+                        <div class="dot two-2"></div>
                     </div>
                 </div>
-            </div>
-            <!-- 3th dice === dice3 -->
-            <div class="container">
-                <div id='dice3' class="dice">
+            </div> -->
+        <!-- 2nd dice === dice2-->
+        <!-- <div class="container">
+                <div id='dice2' class="dice" data-lock-open="true">
                     <div class='side one'>
                         <div class="dot one-1"></div>
                     </div>
@@ -139,36 +294,36 @@
                         <div class="dot six-6"></div>
                     </div>
                 </div>
-            </div>
-            <!-- 4th dice === dice4 -->
-            <div class="container">
-                <div id='dice4' class="dice">
-                    <div id="dice-one-side-one" class='side one'>
+            </div> -->
+        <!-- 3th dice === dice3 -->
+        <!-- <div class="container">
+                <div id='dice3' class="dice" data-lock-open="true">
+                    <div class='side one'>
                         <div class="dot one-1"></div>
                     </div>
-                    <div id="dice-one-side-two" class='side two'>
+                    <div class='side two'>
                         <div class="dot two-1"></div>
                         <div class="dot two-2"></div>
                     </div>
-                    <div id="dice-one-side-three" class='side three'>
+                    <div class='side three'>
                         <div class="dot three-1"></div>
                         <div class="dot three-2"></div>
                         <div class="dot three-3"></div>
                     </div>
-                    <div id="dice-one-side-four" class='side four'>
+                    <div class='side four'>
                         <div class="dot four-1"></div>
                         <div class="dot four-2"></div>
                         <div class="dot four-3"></div>
                         <div class="dot four-4"></div>
                     </div>
-                    <div id="dice-one-side-five" class='side five'>
+                    <div class='side five'>
                         <div class="dot five-1"></div>
                         <div class="dot five-2"></div>
                         <div class="dot five-3"></div>
                         <div class="dot five-4"></div>
                         <div class="dot five-5"></div>
                     </div>
-                    <div id="dice-one-side-six" class='side six'>
+                    <div class='side six'>
                         <div class="dot six-1"></div>
                         <div class="dot six-2"></div>
                         <div class="dot six-3"></div>
@@ -177,36 +332,36 @@
                         <div class="dot six-6"></div>
                     </div>
                 </div>
-            </div>
-            <!-- 5th dice === dice5 -->
-            <div class="container">
-                <div id='dice5' class="dice">
-                    <div id="dice-one-side-one" class='side one'>
+            </div> -->
+        <!-- 4th dice === dice4 -->
+        <!-- <div class="container">
+                <div id='dice4' class="dice" data-lock-open="true">
+                    <div class='side one'>
                         <div class="dot one-1"></div>
                     </div>
-                    <div id="dice-one-side-two" class='side two'>
+                    <div class='side two'>
                         <div class="dot two-1"></div>
                         <div class="dot two-2"></div>
                     </div>
-                    <div id="dice-one-side-three" class='side three'>
+                    <div class='side three'>
                         <div class="dot three-1"></div>
                         <div class="dot three-2"></div>
                         <div class="dot three-3"></div>
                     </div>
-                    <div id="dice-one-side-four" class='side four'>
+                    <div class='side four'>
                         <div class="dot four-1"></div>
                         <div class="dot four-2"></div>
                         <div class="dot four-3"></div>
                         <div class="dot four-4"></div>
                     </div>
-                    <div id="dice-one-side-five" class='side five'>
+                    <div class='side five'>
                         <div class="dot five-1"></div>
                         <div class="dot five-2"></div>
                         <div class="dot five-3"></div>
                         <div class="dot five-4"></div>
                         <div class="dot five-5"></div>
                     </div>
-                    <div id="dice-one-side-six" class='side six'>
+                    <div class='side six'>
                         <div class="dot six-1"></div>
                         <div class="dot six-2"></div>
                         <div class="dot six-3"></div>
@@ -215,15 +370,53 @@
                         <div class="dot six-6"></div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> -->
+        <!-- 5th dice === dice5 -->
+        <!-- <div class="container">
+                <div id='dice5' class="dice" data-lock-open="true">
+                    <div class='side one'>
+                        <div class="dot one-1"></div>
+                    </div>
+                    <div class='side two'>
+                        <div class="dot two-1"></div>
+                        <div class="dot two-2"></div>
+                    </div>
+                    <div class='side three'>
+                        <div class="dot three-1"></div>
+                        <div class="dot three-2"></div>
+                        <div class="dot three-3"></div>
+                    </div>
+                    <div class='side four'>
+                        <div class="dot four-1"></div>
+                        <div class="dot four-2"></div>
+                        <div class="dot four-3"></div>
+                        <div class="dot four-4"></div>
+                    </div>
+                    <div class='side five'>
+                        <div class="dot five-1"></div>
+                        <div class="dot five-2"></div>
+                        <div class="dot five-3"></div>
+                        <div class="dot five-4"></div>
+                        <div class="dot five-5"></div>
+                    </div>
+                    <div class='side six'>
+                        <div class="dot six-1"></div>
+                        <div class="dot six-2"></div>
+                        <div class="dot six-3"></div>
+                        <div class="dot six-4"></div>
+                        <div class="dot six-5"></div>
+                        <div class="dot six-6"></div>
+                    </div>
+                </div>
+            </div> -->
+        <!-- </div> -->
         <audio preload="auto" id="dice__audio">
             <source src="assets/sounds/dice-sound.mp3">
             </source>
         </audio>
         <!-- button to roll the dice -->
-        <div id='roll' class='roll-button button-dice'><button>Roll dice!</button></div>
-        <div id='rollZ' class='roll-button button-dice'><button>Roll Zoltans dice!</button></div>
+        <button id="bt-roll-all">Roll all dice!</button>
+        <!-- <div id='rollZ' class='roll-button button-dice'><button>Roll Zoltans dice!</button></div> -->
         <table>
             <thead>
                 <tr>
@@ -327,6 +520,8 @@
     <footer></footer>
 
     <script type="text/javascript" src="assets/js/script.js"></script>
+    <!-- connection to "Font Awesome" -->
+    <script src="https://kit.fontawesome.com/c1f0cff9f2.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

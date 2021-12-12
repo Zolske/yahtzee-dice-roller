@@ -51,7 +51,21 @@ header {
 }
 
 /* <<< end <header> //////////////////////////////////////////////////////////////////////////////////////////////////// */
+.lock-container,
+.dice-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: .5rem;
+}
 
+#lock-1:hover,
+#lock-2:hover,
+#lock-3:hover,
+#lock-4:hover,
+#lock-5:hover {
+    width: 66px;
+    height: 66px;
+}
 
 /* >>> start <table> ///////////////////////////////////////////////////////////////////////////////////////////////////// */
 table,

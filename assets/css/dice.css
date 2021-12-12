@@ -8,8 +8,8 @@ There are two problems in the base code you need to:
 */
 
 /* Style the button: */
-.button-dice {
-    position: relative;
+/* .button-dice { */
+/* position: relative;
     top: 80px;
     padding: 15px 50px;
     color: #fff;
@@ -28,12 +28,7 @@ There are two problems in the base code you need to:
     background: #50514F;
     cursor: pointer;
     transform: translateY(15px);
-}
-
-.dice-container {
-    display: flex;
-    justify-content: space-evenly;
-}
+} */
 
 /* Add dice and dots: */
 .dice {
@@ -147,13 +142,16 @@ There are two problems in the base code you need to:
 }
 
 /* Add .show elements which will spin the dice: */
+/* same number */
 .show-1 {
     transform: rotateX(720deg) rotateZ(-720deg);
 }
 
-.show-6 {
+/* opposite number */
+.show-2 {
     transform: rotateX(-900deg) rotateZ(1080deg);
 }
+
 
 .show-3 {
     transform: rotateY(-450deg) rotateZ(-1440deg);
@@ -167,6 +165,6 @@ There are two problems in the base code you need to:
     transform: rotateX(-810deg) rotateZ(-1080deg);
 }
 
-.show-2 {
+.show-6 {
     transform: rotateX(450deg) rotateZ(-720deg);
 }

@@ -21,4 +21,5 @@
     - ... [pixelbay](https://pixabay.com/)
 - **the color palette** was created with [coolors](https://coolors.co/)
 - **the gradients** where coded with [cssgradient](https://cssgradient.io/)
+- **icons** are from [flaticon](https://www.flaticon.com/)
 
