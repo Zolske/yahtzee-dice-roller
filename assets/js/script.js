@@ -2,10 +2,14 @@
 the dices and the animation is based on here code!
 There are two problems in the base code you need to:
 1. add to css (the sides of the dice are not attached when animation runs):
-   html {font-size: 62.5%;} // add
+html {font-size: 62.5%;} // add
 2. remove from JavaScript (the function rollDice() is called endless and is only stopped through the browser):
-   setTimeout(rollDice(), 1000); // remove
+setTimeout(rollDice(), 1000); // remove
+Update: the code is based now on CHRIS GODBER  https://icodemag.com/3d-rolling-dice-css-javascript/ and the design on Lena Stanleys dice
 */
+
+let turnCount = null; // counts how many turns the player has played, max 3, see playTurn()
+let turnScore = [];
 
 
 /**
@@ -42,23 +46,18 @@ function buttonDiceRoller() {
     let dice5 = document.getElementById('dice5').getAttribute('data-lock-open');
 
     if (dice1 === 'true') {
-        // console.log('dice1' + ' true');
         let result_dice1 = diceRoller('dice1');
     }
     if (dice2 === 'true') {
-        // console.log('dice2' + ' true');
         let result_dice2 = diceRoller('dice2');
     }
     if (dice3 === 'true') {
-        // console.log('dice3' + ' true');
         let result_dice3 = diceRoller('dice3');
     }
     if (dice4 === 'true') {
-        // console.log('dice4' + ' true');
         let result_dice4 = diceRoller('dice4');
     }
     if (dice5 === 'true') {
-        // console.log('dice5' + ' true');
         let result_dice5 = diceRoller('dice5');
     }
 }
@@ -140,9 +139,45 @@ for (i = 0; i < 5; i++) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * creates an array fom the score values
+ */
+function diceScore() {
+    let scoreDice1 = document.getElementById('dice1');
+    return scoreDice1
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * function is called when dice button is pressed to handle events
+ */
+
+function playTurn() {
+    turnCount++;
+    if (turnCount === 3) {
+        document.getElementById('bt-roll-all').setAttribute('disabled', '')
+    }
+    buttonDiceRoller();
+
+    for (i = 1; i <= 5; i++) {
+        let dicePosition = document.getElementById('dice' + i).classList;
+        // console.log(dicePosition);
+        for (z = 1; z <= 6; z++) {
+            if (dicePosition.contains('show-' + z)) {
+                console.log('show-' + z)
+                turnScore[i - 1] = z;
+            }
+        }
+    }
+    console.log(turnScore);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * adds an click event to the button with the class 'bt-roll-all', which triggers the buttonDiceRoller() function
  */
-document.getElementById('bt-roll-all').addEventListener('click', buttonDiceRoller);
+document.getElementById('bt-roll-all').addEventListener('click', playTurn);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
