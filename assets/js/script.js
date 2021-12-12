@@ -185,6 +185,8 @@ function newPlayer() {
     let playerId = playerName.replace(/\s/g, ''); //remove space from player string to be used as id
     let tableDataUpper = ['aces', 'twos', 'threes', 'fours', 'fives', 'sixes', 'totalTop', 'bonusTop', 'totalUpper'];
     let tableUpper = document.getElementById('table-upper');
+    let tableDataLower = ['threeOfKind', 'fourOfKind', 'fullHouse', 'smallStraight', 'largeStraight', 'yahtzee', 'chance', 'totalLower', 'copyTotalUpper', 'total'];
+    let tableLower = document.getElementById('table-lower');
     // console.log(tableUpper.children[0]);
 
     let tableHead = document.createElement("th");
@@ -198,7 +200,6 @@ function newPlayer() {
     for (i = 0; i < tableDataUpper.length; i++) {
         let tempTableElement = document.createElement("th");
         if ((tableDataUpper[i] === 'totalTop') || (tableDataUpper[i] === 'bonusTop') || (tableDataUpper[i] === 'totalUpper')) {
-            // if (false) {
             tempTableElement.textContent = '---';
             tempTableElement.setAttribute('id', tableDataUpper[i] + playerId);
         } else {
@@ -208,8 +209,22 @@ function newPlayer() {
             tempButton.setAttribute('id', tableDataUpper[i] + playerId);
             tempTableElement.appendChild(tempButton);
         }
-
         tableUpper.children[i].appendChild(tempTableElement);
+    }
+
+    for (i = 0; i < tableDataLower.length; i++) {
+        let tempTableElement = document.createElement("th");
+        if ((tableDataLower[i] === 'totalLower') || (tableDataLower[i] === 'copyTotalUpper') || (tableDataLower[i] === 'total')) {
+            tempTableElement.textContent = '---';
+            tempTableElement.setAttribute('id', tableDataLower[i] + playerId);
+        } else {
+            let tempButton = document.createElement("button");
+            tempButton.classList.add('table-button');
+            tempButton.textContent = tableDataLower[i];
+            tempButton.setAttribute('id', tableDataLower[i] + playerId);
+            tempTableElement.appendChild(tempButton);
+        }
+        tableLower.children[i].appendChild(tempTableElement);
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
