@@ -157,9 +157,7 @@ function playTurn(playerId) {
     }
     writeScoreTable(playerId);
 
-    // return turnScore;
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -173,7 +171,6 @@ function newPlayer() {
     let tableUpper = document.getElementById('table-upper');
     let tableDataLower = ['threeOfKind', 'fourOfKind', 'fullHouse', 'smallStraight', 'largeStraight', 'yahtzee', 'chance', 'totalLower', 'copyTotalUpper', 'total'];
     let tableLower = document.getElementById('table-lower');
-    // console.log(tableUpper.children[0]);
 
     let tableHead = document.createElement("th");
     tableHead.textContent = 'Player';
@@ -218,16 +215,9 @@ function newPlayer() {
     playerPlayButton.setAttribute('id', 'button-' + playerId);
     document.getElementById('button-play-place').appendChild(playerPlayButton);
 
-    // document.getElementById('button-' + playerId).addEventListener('click', playTurn);
     document.getElementById('button-' + playerId).addEventListener('click', function () {
         playTurn(playerId);
     });
-
-
-    // let newPlayerPlayButton = `
-    // <button id="button-${playerId}">
-
-    // </button>`
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -235,16 +225,6 @@ function newPlayer() {
  * analyse score and write points into table 
  */
 function writeScoreTable(playerId) {
-    // for (i = 1; i <= 5; i++) {
-    //     let dicePosition = document.getElementById('dice' + i).classList;
-    //     for (z = 1; z <= 6; z++) {
-    //         if (dicePosition.contains('show-' + z)) {
-    //             turnScore[i - 1] = z;
-    //         }
-    //     }
-    // }
-    // turnScoreTest = [3, 1, 4, 1, 2];
-    // console.log(turnScoreTest);
 
     let yahtzee;
     let fourOfKind;
@@ -258,7 +238,6 @@ function writeScoreTable(playerId) {
     let threes;
     let twos;
     let aces;
-
 
     // find out if there is a yahtzee
     for (i = 1; i <= 6; i++) {
