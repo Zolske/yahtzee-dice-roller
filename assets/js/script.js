@@ -10,6 +10,7 @@ Update: the code is based now on CHRIS GODBER  https://icodemag.com/3d-rolling-d
 
 let turnCount = null; // counts how many turns the player has played, max 3, see playTurn()
 let turnScore = []; //the dice score after ever turn
+let playerArray = []; // contains the players of the game
 
 
 /**
@@ -164,9 +165,30 @@ function playTurn(playerId) {
  * creates a new player in the score table
  */
 function newPlayer() {
+
+    let promptMessage = 'Please enter your name ';
+    let playerName;
+    let playerId;
+
+    for (i = 1; i < 10; i++) {
+        playerName = prompt(`${promptMessage}`, `Player ${i}`);
+        playerId = playerName.replace(/\s/g, ''); //remove space from player string to be used as id
+        // let include = playerArray.includes(playerId);
+        if (!playerArray.includes(playerId)) {
+            playerArray.push(playerId);
+            console.log('break me');
+            break;
+        }
+        promptMessage = 'The name ';
+        for (b = 0; b < playerArray.length; b++) {
+            promptMessage += `"${playerArray[b]}" `;
+        }
+        promptMessage += 'is already taken! Please choose a different name';
+    }
+
     // let playerName = prompt("Please enter your name", "Harry Potter");
-    let playerName = '  Player 1 '; // need to add validation, no special character, length
-    let playerId = playerName.replace(/\s/g, ''); //remove space from player string to be used as id
+    // let playerName = '  Player 1 '; // need to add validation, no special character, length
+    // let playerId = playerName.replace(/\s/g, ''); //remove space from player string to be used as id
     let tableDataUpper = ['aces', 'twos', 'threes', 'fours', 'fives', 'sixes', 'totalTop', 'bonusTop', 'totalUpper'];
     let tableUpper = document.getElementById('table-upper');
     let tableDataLower = ['threeOfKind', 'fourOfKind', 'fullHouse', 'smallStraight', 'largeStraight', 'yahtzee', 'chance', 'totalLower', 'copyTotalUpper', 'total'];
@@ -213,7 +235,7 @@ function newPlayer() {
     }
 
     let playerPlayButton = document.createElement("button");
-    playerPlayButton.textContent = playerId + ' play';
+    playerPlayButton.textContent = playerName;
     playerPlayButton.setAttribute('id', 'button-' + playerId);
     document.getElementById('button-play-place').appendChild(playerPlayButton);
 
@@ -587,6 +609,6 @@ for (i = 0; i < 5; i++) {
  * adds an click event to the button with the class 'bt-roll-all', which triggers the buttonDiceRoller() function
  */
 
-document.getElementById('bt-roll-all').addEventListener('click', playTurn);
+// document.getElementById('bt-roll-all').addEventListener('click', playTurn);
 document.getElementById('create-player').addEventListener('click', newPlayer);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
