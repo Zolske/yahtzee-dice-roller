@@ -188,7 +188,8 @@ function newPlayer() {
         } else {
             let tempButton = document.createElement("button");
             tempButton.classList.add('table-button');
-            tempButton.textContent = tableDataUpper[i];
+            // tempButton.textContent = tableDataUpper[i];
+            tempButton.textContent = '---';
             tempButton.setAttribute('id', tableDataUpper[i] + playerId);
             tempTableElement.appendChild(tempButton);
         }
@@ -203,7 +204,8 @@ function newPlayer() {
         } else {
             let tempButton = document.createElement("button");
             tempButton.classList.add('table-button');
-            tempButton.textContent = tableDataLower[i];
+            // tempButton.textContent = tableDataLower[i];
+            tempButton.textContent = '---';
             tempButton.setAttribute('id', tableDataLower[i] + playerId);
             tempTableElement.appendChild(tempButton);
         }
@@ -226,6 +228,17 @@ function newPlayer() {
  */
 function writeScoreTable(playerId) {
 
+    // checks which show class is aplied to the dice id and sves its value into the turnScore array (=== dice result)
+    for (i = 1; i <= 5; i++) {
+        let dicePosition = document.getElementById('dice' + i).classList;
+        for (z = 1; z <= 6; z++) {
+            if (dicePosition.contains('show-' + z)) {
+                turnScore[i - 1] = z;
+            }
+        }
+    }
+
+    let chance;
     let yahtzee;
     let fourOfKind;
     let threeOfKind;
@@ -239,43 +252,85 @@ function writeScoreTable(playerId) {
     let twos;
     let aces;
 
+    // turnScore = [1, 3, 4, 2, 5];
+    console.log(turnScore);
+
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+    const addTogether = (previousValue, currentValue) => previousValue + currentValue;
+
+    // find out if there is a chance
+    let chanceElement = document.getElementById('chance' + playerId);
+
+    // if no 'disabled', points are writer into table and button flashes
+    if (!(chanceElement.hasAttribute('disabled'))) {
+        chanceElement.textContent = turnScore.reduce(addTogether);
+        chanceElement.classList.add("table-button--flash");
+    }
+
     // find out if there is a yahtzee
+    let yahtzeeElement = document.getElementById('yahtzee' + playerId);
+
     for (i = 1; i <= 6; i++) {
         let tempNumber = turnScore.filter(point => point === i);
-        // let tempNumber = turnScoreTest.filter(point => point === i);
         if (tempNumber.length === 5) {
             yahtzee = true;
+            if (!(yahtzeeElement.hasAttribute('disabled'))) {
+                yahtzeeElement.textContent = 50;
+                yahtzeeElement.classList.add("table-button--flash");
+            }
             break;
         } else {
             yahtzee = false;
+            if (!(yahtzeeElement.hasAttribute('disabled'))) {
+                yahtzeeElement.textContent = '---';
+                yahtzeeElement.classList.remove("table-button--flash");
+            }
         }
     }
 
     // find out if there is a fourOfKind
+    let fourOfKindElement = document.getElementById('fourOfKind' + playerId);
+
     for (i = 1; i <= 6; i++) {
         let tempNumber = turnScore.filter(point => point === i);
-        // let tempNumber = turnScoreTest.filter(point => point === i);
         if (tempNumber.length === 4 || tempNumber.length === 5) {
             fourOfKind = true;
+            if (!(fourOfKindElement.hasAttribute('disabled'))) {
+                fourOfKindElement.textContent = turnScore.reduce(addTogether);
+                fourOfKindElement.classList.add("table-button--flash");
+            }
             break;
         } else {
             fourOfKind = false;
+            if (!(fourOfKindElement.hasAttribute('disabled'))) {
+                fourOfKindElement.textContent = '---';
+                fourOfKindElement.classList.remove("table-button--flash");
+            }
         }
     }
 
     // find out if there is a threeOfKind
+    let threeOfKindElement = document.getElementById('threeOfKind' + playerId);
     for (i = 1; i <= 6; i++) {
         let tempNumber = turnScore.filter(point => point === i);
-        // let tempNumber = turnScoreTest.filter(point => point === i);
         if (tempNumber.length === 3 || tempNumber.length === 4 || tempNumber.length === 5) {
             threeOfKind = true;
+            if (!(threeOfKindElement.hasAttribute('disabled'))) {
+                threeOfKindElement.textContent = turnScore.reduce(addTogether);
+                threeOfKindElement.classList.add("table-button--flash");
+            }
             break;
         } else {
             threeOfKind = false;
+            if (!(threeOfKindElement.hasAttribute('disabled'))) {
+                threeOfKindElement.textContent = '---';
+                threeOfKindElement.classList.remove("table-button--flash");
+            }
         }
     }
 
     // find out if there is a fullHouse
+    let fullHouseElement = document.getElementById('fullHouse' + playerId);
     let bigArray = [
         [],
         [],
@@ -286,7 +341,6 @@ function writeScoreTable(playerId) {
     ];
     for (i = 1; i <= 6; i++) {
         let tempNumber = turnScore.filter(point => point === i);
-        // let tempNumber = turnScoreTest.filter(point => point === i);
         bigArray[i - 1] = tempNumber;
     }
 
@@ -298,22 +352,33 @@ function writeScoreTable(playerId) {
                     arrayLength = bigArray[b].length;
                     if (arrayLength === 2) {
                         fullHouse = true;
+                        if (!(fullHouseElement.hasAttribute('disabled'))) {
+                            fullHouseElement.textContent = 25;
+                            fullHouseElement.classList.add("table-button--flash");
+                        }
                         break breakLoop;
                     } else {
                         fullHouse = false;
+                        if (!(fullHouseElement.hasAttribute('disabled'))) {
+                            fullHouseElement.textContent = '---';
+                            fullHouseElement.classList.remove("table-button--flash");
+                        }
                     }
                 }
             } else {
                 fullHouse = false;
+                if (!(fullHouseElement.hasAttribute('disabled'))) {
+                    fullHouseElement.textContent = '---';
+                    fullHouseElement.classList.remove("table-button--flash");
+                }
             }
         }
 
     // find out if there is a smallStraight
+    let smallStraightElement = document.getElementById('smallStraight' + playerId);
+
     let tempSmallSortAscendant = turnScore;
     let tempSmallSortDescendant = turnScore;
-
-    // let tempSmallSortAscendant = turnScoreTest;
-    // let tempSmallSortDescendant = turnScoreTest;
 
     tempSmallSortAscendant.sort((a, b) => a - b);
     tempSmallSortAscendant = tempSmallSortAscendant.slice(0, 4);
@@ -333,9 +398,20 @@ function writeScoreTable(playerId) {
         smallStraight = false;
     }
 
+    // if no 'disabled', points are writer into table and button flashes
+    if (!(smallStraightElement.hasAttribute('disabled'))) {
+        if (smallStraight) {
+            smallStraightElement.textContent = 30;
+            smallStraightElement.classList.add("table-button--flash");
+        } else {
+            smallStraightElement.textContent = '---';
+            smallStraightElement.classList.remove("table-button--flash");
+        }
+    }
+
     // find out if there is a largeStraight
+    let largeStraightElement = document.getElementById('largeStraight' + playerId);
     let templargeSortAscendant = turnScore;
-    // let templargeSortAscendant = turnScoreTest;
 
     templargeSortAscendant.sort((a, b) => a - b);
     templargeSortAscendant = templargeSortAscendant.toString();
@@ -346,6 +422,17 @@ function writeScoreTable(playerId) {
         largeStraight = true;
     } else {
         largeStraight = false;
+    }
+
+    // if no 'disabled', points are writer into table and button flashes
+    if (!(largeStraightElement.hasAttribute('disabled'))) {
+        if (largeStraight) {
+            largeStraightElement.textContent = 40;
+            largeStraightElement.classList.add("table-button--flash");
+        } else {
+            largeStraightElement.textContent = '---';
+            largeStraightElement.classList.remove("table-button--flash");
+        }
     }
 
     // find out if upper section is true
@@ -366,70 +453,106 @@ function writeScoreTable(playerId) {
     ];
     for (i = 1; i <= 6; i++) {
         tempUpperArray[i - 1] = turnScore.filter(point => point === i);
-        // tempUpperArray[i - 1] = turnScoreTest.filter(point => point === i);
         if (tempUpperArray[0].length >= 1) {
             aces = true;
             if (!(acesElement.hasAttribute('disabled'))) {
                 acesElement.textContent = tempUpperArray[0].length * 1;
+                acesElement.classList.add("table-button--flash");
             }
         } else {
             aces = false;
+            if (!(acesElement.hasAttribute('disabled'))) {
+                acesElement.textContent = '---';
+                acesElement.classList.remove("table-button--flash");
+            }
         }
+
         if (tempUpperArray[1].length >= 1) {
             twos = true;
             if (!(twosElement.hasAttribute('disabled'))) {
                 twosElement.textContent = tempUpperArray[1].length * 2;
+                twosElement.classList.add("table-button--flash");
             }
         } else {
             twos = false;
+            if (!(twosElement.hasAttribute('disabled'))) {
+                twosElement.textContent = '---';
+                twosElement.classList.remove("table-button--flash");
+            }
         }
+
         if (tempUpperArray[2].length >= 1) {
             threes = true;
             if (!(threesElement.hasAttribute('disabled'))) {
                 threesElement.textContent = tempUpperArray[2].length * 3;
+                threesElement.classList.add("table-button--flash");
             }
         } else {
             threes = false;
+            if (!(threesElement.hasAttribute('disabled'))) {
+                threesElement.textContent = '---';
+                threesElement.classList.remove("table-button--flash");
+            }
         }
+
         if (tempUpperArray[3].length >= 1) {
             fours = true;
             if (!(foursElement.hasAttribute('disabled'))) {
                 foursElement.textContent = tempUpperArray[3].length * 4;
+                foursElement.classList.add("table-button--flash");
             }
         } else {
             fours = false;
+            if (!(foursElement.hasAttribute('disabled'))) {
+                foursElement.textContent = '---';
+                foursElement.classList.remove("table-button--flash");
+            }
         }
+
         if (tempUpperArray[4].length >= 1) {
             fives = true;
             if (!(fivesElement.hasAttribute('disabled'))) {
                 fivesElement.textContent = tempUpperArray[4].length * 5;
+                fivesElement.classList.add("table-button--flash");
             }
         } else {
             fives = false;
+            if (!(fivesElement.hasAttribute('disabled'))) {
+                fivesElement.textContent = '---';
+                fivesElement.classList.remove("table-button--flash");
+            }
         }
+
         if (tempUpperArray[5].length >= 1) {
             sixes = true;
             if (!(sixesElement.hasAttribute('disabled'))) {
                 sixesElement.textContent = tempUpperArray[5].length * 6;
+                sixesElement.classList.add("table-button--flash");
             }
         } else {
             sixes = false;
+            if (!(sixesElement.hasAttribute('disabled'))) {
+                sixesElement.textContent = '---';
+                sixesElement.classList.remove("table-button--flash");
+            }
         }
+
     }
-    console.log('the dice show ' + turnScore);
-    console.log('the yahtzee is ' + yahtzee);
-    console.log('the fourOfKind is ' + fourOfKind);
-    console.log('the threeOfKind is ' + threeOfKind);
-    console.log('the fullHouse is ' + fullHouse);
-    console.log('the smallStraight is ' + smallStraight);
-    console.log('the largeStraight is ' + largeStraight);
-    console.log('the aces is ' + aces);
-    console.log('the twos is ' + twos);
-    console.log('the threes is ' + threes);
-    console.log('the fours is ' + fours);
-    console.log('the fives is ' + fives);
-    console.log('the sixes is ' + sixes);
-    console.log('>>> end >>>')
+    // console.log('<<< start <<<')
+    // console.log('the dice show ' + turnScore);
+    // console.log('the yahtzee is ' + yahtzee);
+    // console.log('the fourOfKind is ' + fourOfKind);
+    // console.log('the threeOfKind is ' + threeOfKind);
+    // console.log('the fullHouse is ' + fullHouse);
+    // console.log('the smallStraight is ' + smallStraight);
+    // console.log('the largeStraight is ' + largeStraight);
+    // console.log('the aces is ' + aces);
+    // console.log('the twos is ' + twos);
+    // console.log('the threes is ' + threes);
+    // console.log('the fours is ' + fours);
+    // console.log('the fives is ' + fives);
+    // console.log('the sixes is ' + sixes);
+    // console.log('>>> end >>>')
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
