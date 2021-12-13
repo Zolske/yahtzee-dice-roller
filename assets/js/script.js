@@ -13,28 +13,27 @@ let turnScore = []; //the dice score after ever turn
 
 
 /**
- * dice animation and random number generator,
+ * dice animation and random number generator (needs to be called for each dice individual),
  * parameter needs to be the html dice id (e.g. 'dice1')
  * @param {*} diceId 
  */
 function diceRoller(diceId) {
     let dice = document.getElementById(diceId);
-    let currentClass = '';
     let randomDiceNumber = Math.floor((Math.random() * 6) + 1);
     let showClass = 'show-' + randomDiceNumber;
 
-    // if there is a class already selected remove it
+    // if there is a class already selected remove it (6 possible classes)
     for (i = 1; i <= 6; i++) {
         dice.classList.remove('show-' + i);
     }
 
     // add the new showclass with the generated number
+    // (will be displayed in the browser as the diced number)
     dice.classList.add(showClass);
-    //set the current class to the randomly generated number
-    currentClass = showClass;
     return randomDiceNumber;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * rolls only the dices with the attribute data-lock-open === 'true'
  * 
@@ -47,19 +46,19 @@ function buttonDiceRoller(playerId) {
     let dice5 = document.getElementById('dice5').getAttribute('data-lock-open');
 
     if (dice1 === 'true') {
-        let result_dice1 = diceRoller('dice1');
+        diceRoller('dice1');
     }
     if (dice2 === 'true') {
-        let result_dice2 = diceRoller('dice2');
+        diceRoller('dice2');
     }
     if (dice3 === 'true') {
-        let result_dice3 = diceRoller('dice3');
+        diceRoller('dice3');
     }
     if (dice4 === 'true') {
-        let result_dice4 = diceRoller('dice4');
+        diceRoller('dice4');
     }
     if (dice5 === 'true') {
-        let result_dice5 = diceRoller('dice5');
+        diceRoller('dice5');
     }
 
     writeScoreTable(playerId);
@@ -131,26 +130,6 @@ function changeLock() {
         }
     }
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * adds an click event listener with the function changeLock() to all lock-container children
- */
-for (i = 0; i < 5; i++) {
-    let tempImg = document.getElementsByClassName('lock-container')[0].children[i];
-    tempImg.addEventListener('click', changeLock);
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * creates an array fom the score values
- */
-// function diceScore() {
-//     let scoreDice1 = document.getElementById('dice1');
-//     return scoreDice1
-// }
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -158,25 +137,27 @@ for (i = 0; i < 5; i++) {
  * creates array from dice numbers
  */
 function playTurn(playerId) {
+    // disable dice button after 3 turns
     turnCount++;
     if (turnCount === 3) {
-        document.getElementById('bt-roll-all').setAttribute('disabled', '')
+        document.getElementById('button-' + playerId).setAttribute('disabled', '')
     }
+
     buttonDiceRoller(playerId);
 
+    // gets the dice result from the dice id (e.g. dice1) and checks which 'show-'+? class it has,
+    // the number of the show class (show-1 == dice shows 1) is the dice number which is saved into the 'turnScore' array
     for (i = 1; i <= 5; i++) {
         let dicePosition = document.getElementById('dice' + i).classList;
-        // console.log(dicePosition);
         for (z = 1; z <= 6; z++) {
             if (dicePosition.contains('show-' + z)) {
-                // console.log('show-' + z)
                 turnScore[i - 1] = z;
             }
         }
     }
     writeScoreTable(playerId);
-    // console.log(turnScore);
-    return turnScore;
+
+    // return turnScore;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -471,6 +452,16 @@ function writeScoreTable(playerId) {
     console.log('the sixes is ' + sixes);
     console.log('>>> end >>>')
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * adds an click event listener with the function changeLock() to all lock-container children
+ */
+for (i = 0; i < 5; i++) {
+    let tempImg = document.getElementsByClassName('lock-container')[0].children[i];
+    tempImg.addEventListener('click', changeLock);
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * adds an click event to the button with the class 'bt-roll-all', which triggers the buttonDiceRoller() function
