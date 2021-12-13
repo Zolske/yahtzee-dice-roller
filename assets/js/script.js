@@ -228,7 +228,7 @@ function newPlayer() {
  */
 function writeScoreTable(playerId) {
 
-    // checks which show class is aplied to the dice id and sves its value into the turnScore array (=== dice result)
+    // checks which show class is applied to the dice id and saves its value into the turnScore array (=== dice result)
     for (i = 1; i <= 5; i++) {
         let dicePosition = document.getElementById('dice' + i).classList;
         for (z = 1; z <= 6; z++) {
@@ -553,9 +553,27 @@ function writeScoreTable(playerId) {
     // console.log('the fives is ' + fives);
     // console.log('the sixes is ' + sixes);
     // console.log('>>> end >>>')
+
+    // adds the savePointsTable() to all buttons which have the class of 'table-button--flash'
+    let tempTableButtonFlash = document.getElementsByClassName('table-button--flash');
+    // console.log(tempTableButtonFlash);
+    for (i = 0; i < tempTableButtonFlash.length; i++) {
+        tempTableButtonFlash[i].addEventListener('click', function () {
+            savePointsTable(this, playerId);
+        });
+    }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function savePointsTable(thisButton, playerId) {
+    let tempButton = thisButton;
+    console.log(tempButton);
+    thisButton.setAttribute('disabled', '');
+    thisButton.classList.remove('table-button--flash');
+    document.getElementById('button-' + playerId).setAttribute('disabled', '')
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * adds an click event listener with the function changeLock() to all lock-container children
  */
@@ -568,6 +586,7 @@ for (i = 0; i < 5; i++) {
 /**
  * adds an click event to the button with the class 'bt-roll-all', which triggers the buttonDiceRoller() function
  */
+
 document.getElementById('bt-roll-all').addEventListener('click', playTurn);
 document.getElementById('create-player').addEventListener('click', newPlayer);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
