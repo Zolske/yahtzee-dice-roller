@@ -173,10 +173,8 @@ function newPlayer() {
     for (i = 1; i < 10; i++) {
         playerName = prompt(`${promptMessage}`, `Player ${i}`);
         playerId = playerName.replace(/\s/g, ''); //remove space from player string to be used as id
-        // let include = playerArray.includes(playerId);
         if (!playerArray.includes(playerId)) {
             playerArray.push(playerId);
-            console.log('break me');
             break;
         }
         promptMessage = 'The name ';
@@ -242,6 +240,13 @@ function newPlayer() {
     document.getElementById('button-' + playerId).addEventListener('click', function () {
         playTurn(playerId);
     });
+
+
+    // do not include the first player (i===0), disables all new buttons
+    for (i = 1; i < playerArray.length; i++) {
+        let otherPlayer = playerArray[i];
+        document.getElementById('button-' + otherPlayer).setAttribute('disabled', '');
+    }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
