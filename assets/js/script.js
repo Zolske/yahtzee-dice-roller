@@ -592,6 +592,25 @@ function writeScoreTable(playerId) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
+ * changes to the next player (playerArray)
+ * @param {*} playerId 
+ * @returns 
+ */
+function nextPlayer(playerId) {
+    const currentPlayer = (element) => element === playerId;
+    let playerPosition = playerArray.findIndex(currentPlayer);
+    let arrayLength = playerArray.length - 1;
+
+    if (playerPosition < arrayLength) {
+        ++playerPosition;
+    } else {
+        playerPosition = 0;
+    }
+
+    return playerArray[playerPosition];
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
  * is applied to the button in the list which flashes and resives a click event,
  * saves the score,
  * removes table-button--flash === flashing button,
@@ -610,11 +629,12 @@ function savePointsTable(thisButton, playerId) {
         tableButtonFlash[0].classList.remove('table-button--flash');
     }
 
-    // disables the player buttonDiceRoller, no more turns
     document.getElementById('button-' + playerId).setAttribute('disabled', '')
 
-}
+    let nextPlayerTurn = nextPlayer(playerId);
+    document.getElementById('button-' + nextPlayerTurn).removeAttribute('disabled');
 
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * adds an click event listener with the function changeLock() to all lock-container children
