@@ -62,7 +62,7 @@ function buttonDiceRoller(playerId) {
         diceRoller('dice5');
     }
 
-    writeScoreTable(playerId);
+    // writeScoreTable(playerId); // why did I original called the function here?
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -591,13 +591,28 @@ function writeScoreTable(playerId) {
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/**
+ * is applied to the button in the list which flashes and resives a click event,
+ * saves the score,
+ * removes table-button--flash === flashing button,
+ * end the players turn
+ * @param {*} thisButton 
+ * @param {*} playerId 
+ */
 function savePointsTable(thisButton, playerId) {
-    let tempButton = thisButton;
-    console.log(tempButton);
+    // must be FileSystemDirectoryEntry, disables the clicked button and therefore saves the sore because it is not part of the loop below
     thisButton.setAttribute('disabled', '');
     thisButton.classList.remove('table-button--flash');
+    let tableButtonFlash = document.getElementsByClassName('table-button--flash');
+    const flashLength = tableButtonFlash.length;
+    for (i = 0; i < flashLength; i++) {
+        tableButtonFlash[0].textContent = '---';
+        tableButtonFlash[0].classList.remove('table-button--flash');
+    }
+
+    // disables the player buttonDiceRoller, no more turns
     document.getElementById('button-' + playerId).setAttribute('disabled', '')
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
