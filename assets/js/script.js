@@ -137,11 +137,11 @@ function changeLock() {
  * 4. => calls the function writeScoreTable() 
  */
 function playTurn(playerId) {
-    turnCount++;
+    turnCount = turnCount >= 3 ? 1 : ++turnCount;
     if (turnCount === 3) { // disable the button which rolls the dice after 3 turns
         document.getElementById('button-' + playerId).setAttribute('disabled', '')
     }
-
+    console.log('turn counter ' + turnCount)
     buttonDiceRoller();
 
     for (i = 1; i <= 5; i++) {
