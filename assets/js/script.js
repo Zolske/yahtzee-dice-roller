@@ -307,7 +307,7 @@ function writeScoreTable() {
     let twos;
     let aces;
 
-    turnScore = [3, 6, 4, 2, 5]; // test dice numbers, overwrites random generated numbers
+    // turnScore = [3, 6, 4, 2, 5]; // test dice numbers, overwrites random generated numbers
     console.log(turnScore);
 
     // >>> find out if there is a chance /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,12 +444,10 @@ function writeScoreTable() {
     tempSmallSortAscendant.sort((a, b) => a - b);
     tempSmallSortAscendant = tempSmallSortAscendant.slice(0, 4);
     tempSmallSortAscendant = tempSmallSortAscendant.toString();
-    console.log(tempSmallSortAscendant);
 
     tempSmallSortDescendant.sort((a, b) => b - a);
     tempSmallSortDescendant = tempSmallSortDescendant.slice(0, 4);
     tempSmallSortDescendant = tempSmallSortDescendant.toString();
-    console.log(tempSmallSortDescendant);
 
     if (tempSmallSortAscendant === '1,2,3,4') {
         smallStraight = true;
