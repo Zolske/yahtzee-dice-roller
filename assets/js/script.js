@@ -13,6 +13,7 @@ Update: the code is based now on CHRIS GODBER  https://icodemag.com/3d-rolling-d
 let turnCount = null; // counts how many turns the player has played, max 3, see playTurn()
 let turnScore = []; //the dice score after ever turn
 let playerArray = []; // contains the players of the game
+let playerId;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -157,7 +158,7 @@ function openLocks() {
  * 3. reads the value of all 5 dices (from the html dice[1-5] id) and assigns it to the 'turnScore[]' array 
  * 4. => calls the function writeScoreTable() 
  */
-function playTurn(playerId) {
+function playTurn() {
     turnCount = turnCount >= 3 ? 1 : ++turnCount;
     if (turnCount === 3) { // disable the button which rolls the dice after 3 turns
         document.getElementById('button-' + playerId).setAttribute('disabled', '')
@@ -173,7 +174,7 @@ function playTurn(playerId) {
             }
         }
     }
-    writeScoreTable(playerId);
+    writeScoreTable();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,7 +184,7 @@ function playTurn(playerId) {
  * @param {string} playerId id of the player (formatted player name)
  * @param {string} playerName name of the player (unformatted player name)
  */
-function createTableRow(playerId, playerName) {
+function createTableRow(playerName) {
     let tableDataUpper = ['aces', 'twos', 'threes', 'fours', 'fives', 'sixes', 'totalTop', 'bonusTop', 'totalUpper'];
     let tableUpper = document.getElementById('table-upper');
     let tableDataLower = ['threeOfKind', 'fourOfKind', 'fullHouse', 'smallStraight', 'largeStraight', 'yahtzee', 'chance', 'totalLower', 'copyTotalUpper', 'total'];
@@ -233,7 +234,7 @@ function createTableRow(playerId, playerName) {
     document.getElementById('button-play-place').appendChild(playerPlayButton);
 
     document.getElementById('button-' + playerId).addEventListener('click', function () {
-        playTurn(playerId);
+        playTurn();
     });
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -248,7 +249,7 @@ function newPlayer() {
 
     let promptMessage = 'Please enter your name ';
     let playerName;
-    let playerId;
+    // let playerId;
 
     for (i = 1; i < 10; i++) {
         playerName = prompt(`${promptMessage}`, `Player ${i}`);
@@ -264,12 +265,15 @@ function newPlayer() {
         promptMessage += 'is already taken! Please choose a different name';
     }
 
-    createTableRow(playerId, playerName);
+    createTableRow(playerName);
 
     for (i = 1; i < playerArray.length; i++) { // !do not include the first player (i===1), disables all other new player buttons
         let otherPlayer = playerArray[i];
+        playerId = playerArray[0];
         document.getElementById('button-' + otherPlayer).setAttribute('disabled', '');
     }
+    console.log('playerId ' + playerId);
+    console.log('playerArray ' + playerArray);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -279,8 +283,7 @@ function newPlayer() {
  * 3. => addEventListener('click', function () {savePointsTable(this, playerId);}); to all buttons the class of 'table-button--flash'
  * @param {string} playerId id of the player (formatted player name)
  */
-function writeScoreTable(playerId) {
-
+function writeScoreTable() {
     for (i = 1; i <= 5; i++) { // checks which show class is applied to the dice id and saves its value into the turnScore array (=== dice result)
         let dicePosition = document.getElementById('dice' + i).classList;
         for (z = 1; z <= 6; z++) {
@@ -289,7 +292,7 @@ function writeScoreTable(playerId) {
             }
         }
     }
-
+    let allButtonPlayer = [];
     let chance;
     let yahtzee;
     let fourOfKind;
@@ -304,12 +307,13 @@ function writeScoreTable(playerId) {
     let twos;
     let aces;
 
-    // turnScore = [1, 3, 4, 2, 5]; // test dice numbers, overwrites random generated numbers
+    turnScore = [3, 3, 4, 2, 5]; // test dice numbers, overwrites random generated numbers
     console.log(turnScore);
 
     // >>> find out if there is a chance /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const addTogether = (previousValue, currentValue) => previousValue + currentValue; // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
     let chanceElement = document.getElementById('chance' + playerId);
+    allButtonPlayer.push(chanceElement);
     if (!(chanceElement.hasAttribute('disabled'))) { // if no 'disabled', points are writer into table and button flashes
         chanceElement.textContent = turnScore.reduce(addTogether);
         chanceElement.classList.add("table-button--flash");
@@ -317,6 +321,7 @@ function writeScoreTable(playerId) {
 
     // >>> find out if there is a yahtzee /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let yahtzeeElement = document.getElementById('yahtzee' + playerId);
+    allButtonPlayer.push(yahtzeeElement);
     for (i = 1; i <= 6; i++) {
         let tempNumber = turnScore.filter(point => point === i);
         if (tempNumber.length === 5) {
@@ -337,6 +342,7 @@ function writeScoreTable(playerId) {
 
     // >>> find out if there is a fourOfKind /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let fourOfKindElement = document.getElementById('fourOfKind' + playerId);
+    allButtonPlayer.push(fourOfKindElement);
     for (i = 1; i <= 6; i++) {
         let tempNumber = turnScore.filter(point => point === i);
         if (tempNumber.length === 4 || tempNumber.length === 5) {
@@ -357,6 +363,7 @@ function writeScoreTable(playerId) {
 
     // >>> find out if there is a threeOfKind /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let threeOfKindElement = document.getElementById('threeOfKind' + playerId);
+    allButtonPlayer.push(threeOfKindElement);
     for (i = 1; i <= 6; i++) {
         let tempNumber = turnScore.filter(point => point === i);
         if (tempNumber.length === 3 || tempNumber.length === 4 || tempNumber.length === 5) {
@@ -377,6 +384,7 @@ function writeScoreTable(playerId) {
 
     // >>> find out if there is a fullHouse /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let fullHouseElement = document.getElementById('fullHouse' + playerId);
+    allButtonPlayer.push(fullHouseElement);
     let bigArray = [
         [],
         [],
@@ -421,16 +429,19 @@ function writeScoreTable(playerId) {
 
     // >>> find out if there is a smallStraight /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let smallStraightElement = document.getElementById('smallStraight' + playerId);
+    allButtonPlayer.push(smallStraightElement);
     let tempSmallSortAscendant = turnScore;
     let tempSmallSortDescendant = turnScore;
 
     tempSmallSortAscendant.sort((a, b) => a - b);
     tempSmallSortAscendant = tempSmallSortAscendant.slice(0, 4);
     tempSmallSortAscendant = tempSmallSortAscendant.toString();
+    console.log(tempSmallSortAscendant);
 
     tempSmallSortDescendant.sort((a, b) => b - a);
     tempSmallSortDescendant = tempSmallSortDescendant.slice(0, 4);
     tempSmallSortDescendant = tempSmallSortDescendant.toString();
+    console.log(tempSmallSortDescendant);
 
     if (tempSmallSortAscendant === '1,2,3,4') {
         smallStraight = true;
@@ -455,6 +466,7 @@ function writeScoreTable(playerId) {
 
     // >>> find out if there is a largeStraight /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let largeStraightElement = document.getElementById('largeStraight' + playerId);
+    allButtonPlayer.push(largeStraightElement);
     let templargeSortAscendant = turnScore;
 
     templargeSortAscendant.sort((a, b) => a - b);
@@ -481,11 +493,17 @@ function writeScoreTable(playerId) {
 
     // >>> find out if upper section is true /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let acesElement = document.getElementById('aces' + playerId);
+    allButtonPlayer.push(acesElement);
     let twosElement = document.getElementById('twos' + playerId);
+    allButtonPlayer.push(twosElement);
     let threesElement = document.getElementById('threes' + playerId);
+    allButtonPlayer.push(threesElement);
     let foursElement = document.getElementById('fours' + playerId);
+    allButtonPlayer.push(foursElement);
     let fivesElement = document.getElementById('fives' + playerId);
+    allButtonPlayer.push(fivesElement);
     let sixesElement = document.getElementById('sixes' + playerId);
+    allButtonPlayer.push(sixesElement);
     let tempUpperArray = [
         [],
         [],
@@ -587,8 +605,8 @@ function writeScoreTable(playerId) {
     // console.log('the fourOfKind is ' + fourOfKind);
     // console.log('the threeOfKind is ' + threeOfKind);
     // console.log('the fullHouse is ' + fullHouse);
-    // console.log('the smallStraight is ' + smallStraight);
-    // console.log('the largeStraight is ' + largeStraight);
+    console.log('the smallStraight is ' + smallStraight);
+    console.log('the largeStraight is ' + largeStraight);
     // console.log('the aces is ' + aces);
     // console.log('the twos is ' + twos);
     // console.log('the threes is ' + threes);
@@ -597,12 +615,33 @@ function writeScoreTable(playerId) {
     // console.log('the sixes is ' + sixes);
     // console.log('>>> end >>>')
 
-    let tempTableButtonFlash = document.getElementsByClassName('table-button--flash');
-    for (i = 0; i < tempTableButtonFlash.length; i++) {
-        tempTableButtonFlash[i].addEventListener('click', function () { // adds the savePointsTable() to all buttons which have the class of 'table-button--flash'
-            savePointsTable(this, playerId);
-        });
+
+    for (i = 0; i < allButtonPlayer.length; i++) {
+        if (!(allButtonPlayer[i].hasAttribute('disabled'))) {
+            console.log('allButtonPlayer[i] ' + i + ' ' + allButtonPlayer[i]);
+            allButtonPlayer[i].addEventListener('click', savePointsTable);
+        }
     }
+
+    // let tempTableButtonFlash = document.getElementsByClassName('table-button--flash');
+    // // for (i = 0; i < tempTableButtonFlash.length; i++) {
+    // //     tempTableButtonFlash[i].addEventListener('click', function () { // adds the savePointsTable() to all buttons which have the class of 'table-button--flash'
+    // //         savePointsTable(this, playerId);
+    // //     });
+    // for (i = 0; i < tempTableButtonFlash.length; i++) {
+    //     tempTableButtonFlash[i].addEventListener('click', savePointsTable);
+    //     // console.log('tempTableButtonFlash[i] ' + tempTableButtonFlash[i]);
+    // }
+    // console.log('allButtonPlayer ' + allButtonPlayer.length);
+    // for (i = 0; i < allButtonPlayer.length; i++) {
+    //     if (!(allButtonPlayer[i].hasAttribute('disabled'))) {
+    //         console.log('is not disabled ' + allButtonPlayer[i]);
+    //         allButtonPlayer[i].addEventListener('click', function () { // adds the savePointsTable() to all buttons which have the class of 'table-button--flash'
+    //             savePointsTable(this, playerId);
+    //         });
+    //         console.log('allButtonPlayer[i] ' + allButtonPlayer[i]);
+    //     }
+    // }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -610,7 +649,7 @@ function writeScoreTable(playerId) {
  * @param {string} playerId  id of the player (formatted player name)
  * @returns returns the id of the player who's next turn it is going to be
  */
-function nextPlayer(playerId) {
+function nextPlayer() {
     const currentPlayer = (element) => element === playerId;
     let playerPosition = playerArray.findIndex(currentPlayer);
     let arrayLength = playerArray.length - 1;
@@ -621,6 +660,7 @@ function nextPlayer(playerId) {
         playerPosition = 0;
     }
 
+    playerId = playerArray[playerPosition];
     return playerArray[playerPosition];
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -634,22 +674,45 @@ function nextPlayer(playerId) {
  * @param {*} thisButton the button on which the click event happened
  * @param {string} playerId id of the player
  */
-function savePointsTable(thisButton, playerId) { // disables the clicked button and therefore saves the score because it is not part of the loop below
-    thisButton.setAttribute('disabled', '');
-    thisButton.classList.remove('table-button--flash');
+function savePointsTable() { // disables the clicked button and therefore saves the score because it is not part of the loop below
+    this.setAttribute('disabled', '');
+    this.classList.remove('table-button--flash');
+
     let tableButtonFlash = document.getElementsByClassName('table-button--flash');
     const flashLength = tableButtonFlash.length;
+    console.log('flashLength ' + flashLength)
     for (i = 0; i < flashLength; i++) {
         tableButtonFlash[0].textContent = '---';
+        console.log('tableButtonFlash ' + i + ' ' + tableButtonFlash[0]);
         tableButtonFlash[0].classList.remove('table-button--flash');
+        // tableButtonFlash[0].removeEventListener('click', savePointsTable(this, playerId));
     }
 
+    let allTableButtons = document.getElementsByClassName('table-button');
+    for (i = 0; i < allTableButtons.length; i++) {
+        allTableButtons[i].removeEventListener('click', savePointsTable);
+    }
+    // let allTableButtons = document.getElementsByClassName('table-button');
+    // // console.log('allTable Buttons length ' + allTableButtons.length);
+    // // console.log(allTableButtons);
+    // console.log(allTableButtons.length);
+    // // allTableButtons[0]
+    // for (i = 0; i < 13; i++) {
+    //     console.log('allTableButtons ' + allTableButtons);
+    //     console.log('i ' + [i]);
+    //     allTableButtons[i].removeEventListener('click', function () {
+    //         savePointsTable(this, playerId);
+    //     });
+    // }
+
+
     document.getElementById('button-' + playerId).setAttribute('disabled', '') // disables all remaining table-buttons so the player can not save (change) there value
-    countTableScore(playerId);
+    countTableScore();
     openLocks();
 
     let nextPlayerTurn = nextPlayer(playerId);
     document.getElementById('button-' + nextPlayerTurn).removeAttribute('disabled');
+    turnCount = 0;
 
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -657,7 +720,7 @@ function savePointsTable(thisButton, playerId) { // disables the clicked button 
 /**
  * 1. count table score and update totals
  */
-function countTableScore(playerId) {
+function countTableScore() {
     let totalTop = 0;
     let acesElement = parseInt(document.getElementById('aces' + playerId).textContent);
     let twosElement = parseInt(document.getElementById('twos' + playerId).textContent);
