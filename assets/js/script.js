@@ -307,7 +307,7 @@ function writeScoreTable() {
     let twos;
     let aces;
 
-    turnScore = [3, 3, 4, 2, 5]; // test dice numbers, overwrites random generated numbers
+    turnScore = [3, 6, 4, 2, 5]; // test dice numbers, overwrites random generated numbers
     console.log(turnScore);
 
     // >>> find out if there is a chance /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -432,6 +432,14 @@ function writeScoreTable() {
     allButtonPlayer.push(smallStraightElement);
     let tempSmallSortAscendant = turnScore;
     let tempSmallSortDescendant = turnScore;
+
+    for (i = 1; i <= 6; i++) { // remove double numbers
+        let tempNumber = tempSmallSortAscendant.filter(point => point === i);
+        if (tempNumber.length === 2) {
+            tempSmallSortAscendant.splice(tempSmallSortAscendant.indexOf(i), 1);
+            tempSmallSortDescendant = tempSmallSortAscendant;
+        }
+    }
 
     tempSmallSortAscendant.sort((a, b) => a - b);
     tempSmallSortAscendant = tempSmallSortAscendant.slice(0, 4);
