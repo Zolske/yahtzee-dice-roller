@@ -622,11 +622,54 @@ function savePointsTable(thisButton, playerId) { // disables the clicked button 
     }
 
     document.getElementById('button-' + playerId).setAttribute('disabled', '') // disables all remaining table-buttons so the player can not save (change) there value
+    countTableScore(playerId);
 
     let nextPlayerTurn = nextPlayer(playerId);
     document.getElementById('button-' + nextPlayerTurn).removeAttribute('disabled');
 
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * 1. count table score and update totals
+ */
+function countTableScore(playerId) {
+    let totalTop = 0;
+
+    let acesElement = parseInt(document.getElementById('aces' + playerId).textContent);
+    let twosElement = parseInt(document.getElementById('twos' + playerId).textContent);
+    let threesElement = parseInt(document.getElementById('threes' + playerId).textContent);
+    let foursElement = parseInt(document.getElementById('fours' + playerId).textContent);
+    let fivesElement = parseInt(document.getElementById('fives' + playerId).textContent);
+    let sixesElement = parseInt(document.getElementById('sixes' + playerId).textContent);
+
+    if (!isNaN(acesElement)) {
+        totalTop += acesElement;
+    }
+    if (!isNaN(twosElement)) {
+        totalTop += twosElement;
+    }
+    if (!isNaN(threesElement)) {
+        totalTop += threesElement;
+    }
+    if (!isNaN(foursElement)) {
+        totalTop += foursElement;
+    }
+    if (!isNaN(fivesElement)) {
+        totalTop += fivesElement;
+    }
+    if (!isNaN(sixesElement)) {
+        totalTop += sixesElement;
+    }
+
+    document.getElementById('totalTop' + playerId).textContent = totalTop;
+    console.log('totalTop score ' + totalTop);
+
+    let bonusTop = document.getElementById('bonusTop' + playerId).textContent = totalTop > 62 ? 35 : '---';
+    let totalUpper = document.getElementById('totalUpper' + playerId).textContent = !isNaN(bonusTop) ? bonusTop + totalTop : totalTop;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
