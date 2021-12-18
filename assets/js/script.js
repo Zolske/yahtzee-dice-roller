@@ -129,6 +129,27 @@ function changeLock() {
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * 1. opens all locks, changes icon to unlocked and attribute to 'data-lock-open'
+ */
+function openLocks() {
+    let unlocked64 = 'assets/images/icons/unlocked-64.png';
+    let locked64 = 'assets/images/icons/locked-64.png';
+    let unlocked128 = 'assets/images/icons/unlocked-128.png';
+    let locked128 = 'assets/images/icons/locked-128.png';
+    let lockImageSize = document.getElementById('lock-1').getAttribute("src");
+
+    for (i = 1; i <= 5; i++) {
+        document.getElementById('dice' + i).setAttribute('data-lock-open', 'true');
+        if (lockImageSize === locked64 || lockImageSize === unlocked64) {
+            tempImag = document.getElementById('lock-' + i).setAttribute('src', unlocked64);
+        }
+        if (lockImageSize === locked128 || lockImageSize === unlocked128) {
+            document.getElementById('lock-' + i).setAttribute('src', unlocked128);
+        }
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * 1. increments the turn counter (max 3) 
@@ -608,6 +629,8 @@ function nextPlayer(playerId) {
  * 2. saves the score, in the score table
  * 3. removes table-button--flash === flashing button,
  * 4. end the players turn
+ * 5. => calls countTableScore(playerId), counts points in the table together
+ * 6. => calls openLocks(), opens all locks
  * @param {*} thisButton the button on which the click event happened
  * @param {string} playerId id of the player
  */
@@ -623,6 +646,7 @@ function savePointsTable(thisButton, playerId) { // disables the clicked button 
 
     document.getElementById('button-' + playerId).setAttribute('disabled', '') // disables all remaining table-buttons so the player can not save (change) there value
     countTableScore(playerId);
+    openLocks();
 
     let nextPlayerTurn = nextPlayer(playerId);
     document.getElementById('button-' + nextPlayerTurn).removeAttribute('disabled');
