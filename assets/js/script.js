@@ -430,8 +430,8 @@ function writeScoreTable() {
     // >>> find out if there is a smallStraight /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     let smallStraightElement = document.getElementById('smallStraight' + playerId);
     allButtonPlayer.push(smallStraightElement);
-    let tempSmallSortAscendant = turnScore;
-    let tempSmallSortDescendant = turnScore;
+    let tempSmallSortAscendant = [...turnScore];
+    let tempSmallSortDescendant = [...turnScore];
 
     for (i = 1; i <= 6; i++) { // remove double numbers
         let tempNumber = tempSmallSortAscendant.filter(point => point === i);
