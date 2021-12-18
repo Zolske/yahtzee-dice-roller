@@ -659,14 +659,12 @@ function savePointsTable(thisButton, playerId) { // disables the clicked button 
  */
 function countTableScore(playerId) {
     let totalTop = 0;
-
     let acesElement = parseInt(document.getElementById('aces' + playerId).textContent);
     let twosElement = parseInt(document.getElementById('twos' + playerId).textContent);
     let threesElement = parseInt(document.getElementById('threes' + playerId).textContent);
     let foursElement = parseInt(document.getElementById('fours' + playerId).textContent);
     let fivesElement = parseInt(document.getElementById('fives' + playerId).textContent);
     let sixesElement = parseInt(document.getElementById('sixes' + playerId).textContent);
-
     if (!isNaN(acesElement)) {
         totalTop += acesElement;
     }
@@ -685,12 +683,42 @@ function countTableScore(playerId) {
     if (!isNaN(sixesElement)) {
         totalTop += sixesElement;
     }
-
     document.getElementById('totalTop' + playerId).textContent = totalTop;
-    console.log('totalTop score ' + totalTop);
-
     let bonusTop = document.getElementById('bonusTop' + playerId).textContent = totalTop > 62 ? 35 : '---';
     let totalUpper = document.getElementById('totalUpper' + playerId).textContent = !isNaN(bonusTop) ? bonusTop + totalTop : totalTop;
+
+    let totalLower = 0;
+    let chanceElement = parseInt(document.getElementById('chance' + playerId).textContent);
+    let yahtzeeElement = parseInt(document.getElementById('yahtzee' + playerId).textContent);
+    let fourOfKindElement = parseInt(document.getElementById('fourOfKind' + playerId).textContent);
+    let threeOfKindElement = parseInt(document.getElementById('threeOfKind' + playerId).textContent);
+    let fullHouseElement = parseInt(document.getElementById('fullHouse' + playerId).textContent);
+    let smallStraightElement = parseInt(document.getElementById('smallStraight' + playerId).textContent);
+    let largeStraightElement = parseInt(document.getElementById('largeStraight' + playerId).textContent);
+    if (!isNaN(chanceElement)) {
+        totalLower += chanceElement;
+    }
+    if (!isNaN(yahtzeeElement)) {
+        totalLower += yahtzeeElement;
+    }
+    if (!isNaN(fourOfKindElement)) {
+        totalLower += fourOfKindElement;
+    }
+    if (!isNaN(threeOfKindElement)) {
+        totalLower += threeOfKindElement;
+    }
+    if (!isNaN(fullHouseElement)) {
+        totalLower += fullHouseElement;
+    }
+    if (!isNaN(smallStraightElement)) {
+        totalLower += smallStraightElement;
+    }
+    if (!isNaN(largeStraightElement)) {
+        totalLower += largeStraightElement;
+    }
+    document.getElementById('totalLower' + playerId).textContent = totalLower;
+    document.getElementById('copyTotalUpper' + playerId).textContent = totalTop;
+    document.getElementById('total' + playerId).textContent = totalLower + totalTop;
 }
 
 
