@@ -134,6 +134,7 @@ function changeLock() {
  * 1. increments the turn counter (max 3) 
  * 2. => calls the function (buttonDiceRoller()) to roll dices (which are unlocked)
  * 3. reads the value of all 5 dices (from the html dice[1-5] id) and assigns it to the 'turnScore[]' array 
+ * 4. => calls the function writeScoreTable() 
  */
 function playTurn(playerId) {
     turnCount++;
@@ -253,13 +254,13 @@ function newPlayer() {
 
 /**
  * 1. analyse dice numbers (taken from 'show-[1-6]' class) and saves in 'turnScore'
- * 2. sets table buttons to 'flash' (glow), if they can take points (not disabled and full fill criteria)
+ * 2. sets table buttons to 'flash' (glow), if they can take points (not disabled and full fill criteria (yahtzee, full house, ...))
  * 3. => addEventListener('click', function () {savePointsTable(this, playerId);}); to all buttons the class of 'table-button--flash'
+ * @param {string} playerId id of the player (formatted player name)
  */
 function writeScoreTable(playerId) {
 
-    // checks which show class is applied to the dice id and saves its value into the turnScore array (=== dice result)
-    for (i = 1; i <= 5; i++) {
+    for (i = 1; i <= 5; i++) { // checks which show class is applied to the dice id and saves its value into the turnScore array (=== dice result)
         let dicePosition = document.getElementById('dice' + i).classList;
         for (z = 1; z <= 6; z++) {
             if (dicePosition.contains('show-' + z)) {
@@ -559,7 +560,7 @@ function writeScoreTable(playerId) {
         }
     }
 
-    // console.log('<<< start <<<')
+    // console.log('<<< start test dice roll category <<<')
     // console.log('the dice show ' + turnScore);
     // console.log('the yahtzee is ' + yahtzee);
     // console.log('the fourOfKind is ' + fourOfKind);
@@ -584,9 +585,9 @@ function writeScoreTable(playerId) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * changes to the next player (playerArray)
- * @param {*} playerId 
- * @returns 
+ * 1. changes to the next player (playerArray)
+ * @param {string} playerId  id of the player (formatted player name)
+ * @returns returns the id of the player who's next turn it is going to be
  */
 function nextPlayer(playerId) {
     const currentPlayer = (element) => element === playerId;
@@ -603,15 +604,14 @@ function nextPlayer(playerId) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * is applied to the button in the list which flashes and resives a click event,
- * saves the score,
- * removes table-button--flash === flashing button,
- * end the players turn
- * @param {*} thisButton 
- * @param {*} playerId 
+ * 1. is applied to the button in the list which flashes and receives a click event,
+ * 2. saves the score, in the score table
+ * 3. removes table-button--flash === flashing button,
+ * 4. end the players turn
+ * @param {*} thisButton the button on which the click event happened
+ * @param {string} playerId id of the player
  */
-function savePointsTable(thisButton, playerId) {
-    // must be FileSystemDirectoryEntry, disables the clicked button and therefore saves the sore because it is not part of the loop below
+function savePointsTable(thisButton, playerId) { // disables the clicked button and therefore saves the score because it is not part of the loop below
     thisButton.setAttribute('disabled', '');
     thisButton.classList.remove('table-button--flash');
     let tableButtonFlash = document.getElementsByClassName('table-button--flash');
@@ -621,15 +621,16 @@ function savePointsTable(thisButton, playerId) {
         tableButtonFlash[0].classList.remove('table-button--flash');
     }
 
-    document.getElementById('button-' + playerId).setAttribute('disabled', '')
+    document.getElementById('button-' + playerId).setAttribute('disabled', '') // disables all remaining table-buttons so the player can not save (change) there value
 
     let nextPlayerTurn = nextPlayer(playerId);
     document.getElementById('button-' + nextPlayerTurn).removeAttribute('disabled');
 
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
- * adds an click event listener with the function changeLock() to all lock-container children
+ * 1. adds an click event listener with the function changeLock() to all lock-container children
  */
 for (i = 0; i < 5; i++) {
     let tempImg = document.getElementsByClassName('lock-container')[0].children[i];
@@ -638,9 +639,7 @@ for (i = 0; i < 5; i++) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * adds an click event to the button with the class 'bt-roll-all', which triggers the buttonDiceRoller() function
+ * adds an click event to the button with the id 'create-player', which triggers the buttonDiceRoller() function
  */
-
-// document.getElementById('bt-roll-all').addEventListener('click', playTurn);
 document.getElementById('create-player').addEventListener('click', newPlayer);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
