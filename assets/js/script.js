@@ -839,6 +839,25 @@ for (i = 0; i < 5; i++) {
  */
 document.getElementById("create-player").addEventListener("click", newPlayer);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function testCPUplayer() {
+  let playerName = "CPU";
+  playerId = "CPU";
+
+  createTableRow(playerName);
+  console.log("playerArray " + playerArray);
+  playerName = "Player 1";
+  playerId = "Player1";
+  playerArray[0] = "CPU";
+  playerArray[1] = "Player1";
+  console.log("playerArray 2 " + playerArray);
+  createTableRow(playerName);
+  document.getElementById("button-Player1").setAttribute("disabled", "");
+}
+
+document
+  .getElementById("test-cpu-player")
+  .addEventListener("click", testCPUplayer);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * CPU player
@@ -931,18 +950,24 @@ function cpuPlayer() {
   turnScore = [1, 1, 1, 1, 1];
   console.log("test turn score is " + turnScore);
 
-  // functions //////////////////////////////////////////
+  // check yahtzee categories ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. checks if the dices qualify for yahtzee
+   * @returns 'true' if it is yahtzee otherwise 'false'
+   */
   function isYahtzee() {
     for (i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
       if (tempNumber.length === 5) {
-        console.log("yahtzee is true ");
         return true;
       }
     }
     return false;
   }
-
+  /**
+   * 1. checks if the dices qualify small-straight
+   * @returns 'true' if it is small-straight otherwise 'false'
+   */
   function isSmallStraight() {
     if (sortArray("ascendant", 4) === "1,2,3,4") {
       return true;
@@ -954,7 +979,10 @@ function cpuPlayer() {
       return false;
     }
   }
-
+  /**
+   * 1. checks if the dices qualify for large-straight
+   * @returns 'true' if it is large-straight otherwise 'false'
+   */
   function isLargeStraight() {
     if (sortArray("ascendant", false) === "1,2,3,4,5") {
       return true;
@@ -964,20 +992,24 @@ function cpuPlayer() {
       return false;
     }
   }
-
+  /**
+   * 1. checks if the dices qualify for four-of-kind
+   * @returns 'true' if it is four-of-kind otherwise 'false'
+   */
   function isFourOfKind() {
-    // add yahtzee ? || tempNumber.length === 6
     for (i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
-      if (tempNumber.length === 4 || tempNumber.length === 5) {
+      if (tempNumber.length === 4) {
         return true;
       }
     }
     return false;
   }
-
-  function istTreeOfKind() {
-    // add yahtzee ? || tempNumber.length === 6
+  /**
+   * 1. checks if the dices qualify for three-of-kind
+   * @returns 'true' if it is three-of-kind otherwise 'false'
+   */
+  function isThreeOfKind() {
     for (i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
       if (
@@ -990,7 +1022,10 @@ function cpuPlayer() {
     }
     return false;
   }
-
+  /**
+   * 1. 1. checks if the dices qualify for full-house
+   * @returns 'true' if it is full-house otherwise 'false'
+   */
   function isFullHouse() {
     for (i = 0; i <= 5; i++) {
       let arrayLength = diceArrayCpu[i].length;
@@ -1005,8 +1040,79 @@ function cpuPlayer() {
     }
     return false;
   }
+  /**
+   * 1. checks how many times the number 'X' is at minimum diced
+   * @param {number} X the 'dice-number' which should be checked (1-6)
+   * @param {number} times at least that many times (1-5)
+   * @returns 'true' if the 'dice-number' is at lest 'times' diced otherwise 'false'
+   */
+  function isXes(X, times) {
+    if (diceArrayCpu[X].length >= times) {
+      return true;
+    }
+    return false;
+  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // checks dice patterns /////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * checks if dice pattern is 'A' * factor (e.g. factor = 3 === A*3 === true)
+   * @param {number} factor how many times 'A'
+   * @returns 'true' if 'A' * factor otherwise 'false
+   */
+  function isAxFactor(factor) {
+    for (i = 1; i <= 6; i++) {
+      let tempNumber = turnScore.filter((point) => point === i);
+      if (tempNumber.length === factor) {
+        return true;
+      }
+    }
+    return false;
+  }
+  /**
+   * checks if dice pattern if if A*3 and B*2 (same as isFullHouse())
+   * @returns 'true' if A*3 and B*2 otherwise 'false
+   */
+  function isAxFactorBxFactor() {
+    for (i = 0; i <= 5; i++) {
+      let arrayLength = diceArrayCpu[i].length;
+      if (arrayLength === 3) {
+        for (b = 0; b <= 5; b++) {
+          arrayLength = diceArrayCpu[b].length;
+          if (arrayLength === 2) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+  /**
+   * 1. checks the turnScore if it has a sequence of 3
+   * @returns 'true' if dice have a sequence of 3 numbers, otherwise false
+   */
+  function isABC() {
+    let tempSortArray = [...turnScore];
+    tempSortArray = removeDoublesTriples(tempSortArray);
+    tempSortArray.sort((a, b) => a - b);
+    if (tempSortArray.length > 3) {
+      tempSortArray.slice(0, 3);
+    }
+    tempSortArray = tempSortArray.toString();
 
+    if (tempSortArray === "1,2,3") {
+      return true;
+    } else if (tempSortArray === "2,3,4") {
+      return true;
+    } else if (tempSortArray === "3,4,5") {
+      return true;
+    } else if (tempSortArray === "4,5,6") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
    * 1. writes points into the table
    * 2. disables button in which points are written
@@ -1077,6 +1183,27 @@ function cpuPlayer() {
         endCpuTurnNext();
         break;
     }
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. cuts double and triple numbers from array
+   * @param {array} array array of dice numbers
+   * @returns shortened array if it had double or triple numbers
+   */
+  function removeDoublesTriples(array) {
+    for (i = 1; i <= 6; i++) {
+      let tempNumber = array.filter((point) => point === i);
+      if (tempNumber.length === 2) {
+        array.splice(array.indexOf(i), 1);
+        for (b = 1; i <= 6; b++) {
+          let tempNumber2 = array.filter((point) => point === b);
+          if (tempNumber2.length === 2) {
+            array.splice(array.indexOf(b), 1);
+          }
+        }
+      }
+    }
+    return array;
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
@@ -1185,38 +1312,82 @@ function cpuPlayer() {
       .removeAttribute("disabled");
     turnCount = 0;
   }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  function cpuDecisionThree(diceArray) {}
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////
   // CPU decision three //
   ////////////////////////
-  // has yahtzee open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  if (ableYahtzee) {
-    if (isYahtzee()) {
-      writeScoreEndTurn("yahtzee");
+
+  function yahtzeeCategoryCheck() {
+    // has yahtzee open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    if (ableYahtzee) {
+      if (isYahtzee()) {
+        writeScoreEndTurn("yahtzee");
+      }
+      // has largeStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableLargeStraight) {
+      if (isLargeStraight()) {
+        writeScoreEndTurn("largeStraight");
+      }
+      // has smallStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableSmallStraight) {
+      if (isSmallStraight()) {
+        writeScoreEndTurn("smallStraight");
+      }
+      // has fullHouse open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableFullHouse) {
+      if (isFullHouse()) {
+        writeScoreEndTurn("fullHouse");
+      }
+      // has sixes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableSixes) {
+      if (isSixes()) {
+        writeScoreEndTurn("sixes");
+      }
+      // has fives open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableFives) {
+      if (isFives()) {
+        writeScoreEndTurn("fives");
+      }
+      // has fours open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableFours) {
+      if (isFours()) {
+        writeScoreEndTurn("fours");
+      }
+      // has fourOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableFourOfKind) {
+      if (isFourOfKind()) {
+        writeScoreEndTurn("fourOfKind");
+      }
+      // has threeOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableThreeOfKind) {
+      if (isThreeOfKind()) {
+        writeScoreEndTurn("threeOfKind");
+      }
+      // has threes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableThrees) {
+      if (isThrees()) {
+        writeScoreEndTurn("threes");
+      }
+      // has twos open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableTwos) {
+      if (isTwos()) {
+        writeScoreEndTurn("twos");
+      }
+      // has aces open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+    } else if (ableAces) {
+      if (isAces()) {
+        writeScoreEndTurn("aces");
+      }
+      // has chance open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+      // } else if (ableChance) {
+      //   if (isChance()) {
+      //     writeScoreEndTurn("chance");
+      //   }
     }
-    // has largeStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableLargeStraight) {
-    // has smallStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableSmallStraight) {
-    // has fullHouse open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableFullHouse) {
-    // has sixes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableSixes) {
-    // has fives open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableFives) {
-    // has fours open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableFours) {
-    // has fourOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableFourOfKind) {
-    // has threeOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableThreeOfKind) {
-    // has threes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableThrees) {
-    // has twos open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableTwos) {
-    // has aces open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableAces) {
-    // has chance open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  } else if (ableChance) {
   }
+
+  function whatDiceRoll() {}
 }
