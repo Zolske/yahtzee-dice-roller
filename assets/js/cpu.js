@@ -1,27 +1,7 @@
-function testCPUplayer() {
-  let playerName = "CPU";
-  playerId = "CPU";
-
-  createTableRow(playerName);
-  // console.log("playerArray " + playerArray);
-  // playerName = "Player 1";
-  // playerId = "Player1";
-  playerArray[0] = "CPU";
-  // playerArray[1] = "Player1";
-  // console.log("playerArray 2 " + playerArray);
-  // createTableRow(playerName);
-  // document.getElementById("button-Player1").setAttribute("disabled", "");
-}
-
-// document
-//   .getElementById("test-cpu-player")
-//   .addEventListener("click", testCPUplayer);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
  * CPU player
  */
-function cpuPlayer() {
+export function cpuPlayer() {
   console.log("hello I am the cpu");
   // determents if points have already been written into table
   let ableYahtzee = document
@@ -96,10 +76,10 @@ function cpuPlayer() {
 
   // original dice order
   let originalTurnScore = [];
-  for (i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 5; i++) {
     // checks which show class is applied to the dice id and saves its value into the turnScore array (=== dice result)
     let dicePosition = document.getElementById("dice" + i).classList;
-    for (z = 1; z <= 6; z++) {
+    for (let z = 1; z <= 6; z++) {
       if (dicePosition.contains("show-" + z)) {
         originalTurnScore[i - 1] = z;
       }
@@ -112,7 +92,7 @@ function cpuPlayer() {
    * @returns 'true' if it is yahtzee otherwise 'false'
    */
   function isYahtzee() {
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
       if (tempNumber.length === 5) {
         return true;
@@ -153,7 +133,7 @@ function cpuPlayer() {
    * @returns 'true' if it is four-of-kind otherwise 'false'
    */
   function isFourOfKind() {
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
       if (tempNumber.length === 4) {
         return true;
@@ -166,7 +146,7 @@ function cpuPlayer() {
    * @returns 'true' if it is three-of-kind otherwise 'false'
    */
   function isThreeOfKind() {
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
       if (
         tempNumber.length === 3 ||
@@ -183,10 +163,10 @@ function cpuPlayer() {
    * @returns 'true' if it is full-house otherwise 'false'
    */
   function isFullHouse() {
-    for (i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 5; i++) {
       let arrayLength = diceArrayCpu[i].length;
       if (arrayLength === 3) {
-        for (b = 0; b <= 5; b++) {
+        for (let b = 0; b <= 5; b++) {
           arrayLength = diceArrayCpu[b].length;
           if (arrayLength === 2) {
             return true;
@@ -217,7 +197,7 @@ function cpuPlayer() {
    * @returns 'true' if 'A' * factor otherwise 'false
    */
   function isAxFactor(factor) {
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
       if (tempNumber.length === factor) {
         return true;
@@ -230,10 +210,10 @@ function cpuPlayer() {
    * @returns 'true' if A*3 and B*2 otherwise 'false
    */
   function isAxFactorBxFactor() {
-    for (i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 5; i++) {
       let arrayLength = diceArrayCpu[i].length;
       if (arrayLength === 3) {
-        for (b = 0; b <= 5; b++) {
+        for (let b = 0; b <= 5; b++) {
           arrayLength = diceArrayCpu[b].length;
           if (arrayLength === 2) {
             return true;
@@ -362,11 +342,11 @@ function cpuPlayer() {
    * @returns shortened array if it had double or triple numbers
    */
   function removeDoublesTriples(array) {
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       let tempNumber = array.filter((point) => point === i);
       if (tempNumber.length === 2) {
         array.splice(array.indexOf(i), 1);
-        for (b = 1; i <= 6; b++) {
+        for (let b = 1; i <= 6; b++) {
           let tempNumber2 = array.filter((point) => point === b);
           if (tempNumber2.length === 2) {
             array.splice(array.indexOf(b), 1);
@@ -388,7 +368,7 @@ function cpuPlayer() {
    */
   function sortArray(direction, cut) {
     let tempSortArray = [...turnScore];
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       // remove double numbers
       let tempNumber = tempSortArray.filter((point) => point === i);
       if (tempNumber.length === 2) {
@@ -428,7 +408,7 @@ function cpuPlayer() {
       [], // how many 5's
       [], // how many 6's
     ];
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       let tempNumber = turnScore.filter((point) => point === i);
       diceArrayCpu[i - 1] = tempNumber;
     }
@@ -442,7 +422,7 @@ function cpuPlayer() {
    */
   function repeatNumbers(repeat) {
     let tempArray = diceArrayCount();
-    for (i = 0; i <= 6; i++) {
+    for (let i = 0; i <= 6; i++) {
       if (tempArray[i] === repeat) {
         return true;
       } else {
@@ -458,7 +438,7 @@ function cpuPlayer() {
    */
   function repeatNumbersSum(repeat) {
     let tempArray = diceArrayCount();
-    for (i = 0; i <= 6; i++) {
+    for (let i = 0; i <= 6; i++) {
       if (tempArray[i] === repeat) {
         return (i + 1) * repeat;
       }

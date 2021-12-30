@@ -14,7 +14,58 @@ let turnScore = []; //the dice score after ever turn
 let playerArray = []; // contains the players of the game
 let playerId;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import { cpuPlayer } from "./cpu.js";
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export function Player(playerName, playerId) {
+  this.playerName = playerName;
+  this.playerId = playerId;
+  this.human = true;
+  this.turn = 1;
+  this.diceScore = null;
+  this.aces = null;
+  this.twos = null;
+  this.threes = null;
+  this.fours = null;
+  this.fives = null;
+  this.sixes = null;
+  this.totalTop =
+    this.aces + this.twos + this.threes + this.fours + this.fives + this.sixes;
+  this.bonusTop = this.totalTop >= 63 ? 35 : null;
+  this.totalUpper = this.totalTop + this.bonusTop;
+  this.threeOfKind = null;
+  this.fourOfKind = null;
+  this.fullHouse = null;
+  this.smallStraight = null;
+  this.largeStraight = null;
+  this.yahtzee = null;
+  this.chance = null;
+  this.totalLower =
+    this.threeOfKind +
+    this.fourOfKind +
+    this.fullHouse +
+    this.smallStraight +
+    this.largeStraight +
+    this.yahtzee +
+    this.chance;
+  this.copyTotalUpper = this.totalUpper;
+  this.total = this.totalLower + this.totalUpper;
+  this.updateDiceScore = function () {
+    let tempDiceScore = [];
+    for (let i = 1; i <= 5; i++) {
+      let dicePosition = document.getElementById("dice" + i).classList;
+      for (let z = 1; z <= 6; z++) {
+        if (dicePosition.contains("show-" + z)) {
+          // gets the dice result from the dice id (e.g. dice1) and checks which 'show-'+? class it has
+          tempDiceScore.push(z);
+        }
+      }
+    }
+    this.diceScore = tempDiceScore;
+    return tempDiceScore;
+  };
+}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. generates a random number (randomDiceNumber = 1-6)
  * 2. to the dice who's id was passed as argument (diceId):
@@ -150,41 +201,60 @@ export function openLocks() {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
- * 1. increments the turn counter (max 3)
- * 2. => calls the function (buttonDiceRoller()) to roll dices (which are unlocked)
- * 3. reads the value of all 5 dices (from the html dice[1-5] id) and assigns it to the 'turnScore[]' array
- * 4. => calls the function writeScoreTable()
+ * 1. creates the 'playerId' by prompting the user to enter there name
+ * 2. adds the 'playerId' to the 'playerArray' array
+ * 3. => calls the 'createTableRow()' function to create a new column based on the player id and player name
+ * 4. disables all other (not the first player) player buttons
  */
-export function playTurn() {
-  turnCount = turnCount >= 3 ? 1 : ++turnCount;
-  if (turnCount === 3) {
-    // disable the button which rolls the dice after 3 turns
-    document.getElementById("button-" + playerId).setAttribute("disabled", "");
-  }
-  buttonDiceRoller();
+export function newPlayer() {
+  let promptMessage = "Please enter your name ";
+  let playerName;
+  let playerId;
 
-  for (let i = 1; i <= 5; i++) {
-    let dicePosition = document.getElementById("dice" + i).classList;
-    for (let z = 1; z <= 6; z++) {
-      if (dicePosition.contains("show-" + z)) {
-        // gets the dice result from the dice id (e.g. dice1) and checks which 'show-'+? class it has,
-        turnScore[i - 1] = z; // the number of the show class (show-1 == dice shows 1) is the dice number which is saved into the 'turnScore[]' array
+  for (let i = 1; i < 10; i++) {
+    let uniqueName = true;
+    playerName = prompt(`${promptMessage}`, `Player ${i}`);
+    playerId = playerName.replace(/\s/g, ""); // remove space from player string to be used as id
+    // if (!playerArray.includes(playerId)) {
+    for (let b = 0; b < playerArray.length; b++) {
+      if (playerArray[b].playerId !== playerId) {
+        uniqueName = true;
+      } else {
+        uniqueName = false;
+        break;
       }
     }
+    if (uniqueName) {
+      playerArray.push(new Player(playerName, playerId));
+      createTableRow(playerName, playerId);
+      break;
+    }
+    promptMessage = "The name "; // changes prompt message to inform user which names have been taken
+    for (let c = 0; c < playerArray.length; c++) {
+      promptMessage += `"${playerArray[c].playerName}" `;
+    }
+    promptMessage += "is already taken! Please choose a different name";
   }
-  writeScoreTable();
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  for (let i = 1; i < playerArray.length; i++) {
+    // !do not include the first player (i===1), disables all other new player buttons
+    let otherPlayer = playerArray[i].playerId;
+    playerId = playerArray[0].playerId;
+    document
+      .getElementById("button-" + otherPlayer)
+      .setAttribute("disabled", "");
+  }
+  console.log(playerArray);
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. creates a column in the score table based on player id and player name
  * 2. => addEventListener('click', function () {playTurn(playerId);}); to id('button-' + playerId)
  * @param {string} playerId id of the player (formatted player name)
  * @param {string} playerName name of the player (unformatted player name)
  */
-export function createTableRow(playerName) {
+export function createTableRow(playerName, playerId) {
   let tableDataUpper = [
     "aces",
     "twos",
@@ -226,12 +296,12 @@ export function createTableRow(playerName) {
       tableDataUpper[i] === "bonusTop" ||
       tableDataUpper[i] === "totalUpper"
     ) {
-      tempTableElement.textContent = "---";
+      tempTableElement.textContent = 0;
       tempTableElement.setAttribute("id", tableDataUpper[i] + playerId);
     } else {
       let tempButton = document.createElement("button");
       tempButton.classList.add("table-button");
-      tempButton.textContent = "---";
+      tempButton.textContent = 0;
       tempButton.setAttribute("id", tableDataUpper[i] + playerId);
       tempTableElement.appendChild(tempButton);
     }
@@ -269,46 +339,32 @@ export function createTableRow(playerName) {
     });
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
- * 1. creates the 'playerId' by prompting the user to enter there name
- * 2. adds the 'playerId' to the 'playerArray' array
- * 3. => calls the 'createTableRow()' function to create a new column based on the player id and player name
- * 4. disables all other (not the first player) player buttons
+ * 1. increments the turn counter (max 3)
+ * 2. => calls the function (buttonDiceRoller()) to roll dices (which are unlocked)
+ * 3. reads the value of all 5 dices (from the html dice[1-5] id) and assigns it to the 'turnScore[]' array
+ * 4. => calls the function writeScoreTable()
  */
-export function newPlayer() {
-  let promptMessage = "Please enter your name ";
-  let playerName;
-  // let playerId;
-
-  for (let i = 1; i < 10; i++) {
-    playerName = prompt(`${promptMessage}`, `Player ${i}`);
-    playerId = playerName.replace(/\s/g, ""); // remove space from player string to be used as id
-    if (!playerArray.includes(playerId)) {
-      // check if name is already taken
-      playerArray.push(playerId); // adds name / 'playerId' to 'playerArray'
-      break;
-    }
-    promptMessage = "The name "; // changes prompt message to inform user which names have been taken
-    for (let b = 0; b < playerArray.length; b++) {
-      promptMessage += `"${playerArray[b]}" `;
-    }
-    promptMessage += "is already taken! Please choose a different name";
+export function playTurn() {
+  turnCount = turnCount >= 3 ? 1 : ++turnCount;
+  if (turnCount === 3) {
+    // disable the button which rolls the dice after 3 turns
+    document.getElementById("button-" + playerId).setAttribute("disabled", "");
   }
+  buttonDiceRoller();
 
-  createTableRow(playerName);
-
-  for (let i = 1; i < playerArray.length; i++) {
-    // !do not include the first player (i===1), disables all other new player buttons
-    let otherPlayer = playerArray[i];
-    playerId = playerArray[0];
-    document
-      .getElementById("button-" + otherPlayer)
-      .setAttribute("disabled", "");
+  for (let i = 1; i <= 5; i++) {
+    let dicePosition = document.getElementById("dice" + i).classList;
+    for (let z = 1; z <= 6; z++) {
+      if (dicePosition.contains("show-" + z)) {
+        // gets the dice result from the dice id (e.g. dice1) and checks which 'show-'+? class it has,
+        turnScore[i - 1] = z; // the number of the show class (show-1 == dice shows 1) is the dice number which is saved into the 'turnScore[]' array
+      }
+    }
   }
+  writeScoreTable();
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. analyse dice numbers (taken from 'show-[1-6]' class) and saves in 'turnScore'
  * 2. sets table buttons to 'flash' (glow), if they can take points (not disabled and full fill criteria (yahtzee, full house, ...))
@@ -657,30 +713,6 @@ export function writeScoreTable() {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * 1. changes to the next player (playerArray)
- * @param {string} playerId  id of the player (formatted player name)
- * @returns returns the id of the player who's next turn it is going to be
- */
-export function nextPlayer() {
-  const currentPlayer = (element) => element === playerId;
-  let playerPosition = playerArray.findIndex(currentPlayer);
-  let arrayLength = playerArray.length - 1;
-
-  if (playerPosition < arrayLength) {
-    ++playerPosition;
-  } else {
-    playerPosition = 0;
-  }
-  playerId = playerArray[playerPosition];
-  if (playerId === "CPU") {
-    // console.log("fuck it is the CPU");
-    cpuPlayer();
-  }
-  return playerArray[playerPosition];
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
  * 1. is applied to the button in the list which flashes and receives a click event,
  * 2. saves the score, in the score table
  * 3. removes table-button--flash === flashing button,
@@ -719,7 +751,30 @@ export function savePointsTable() {
   turnCount = 0;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * 1. changes to the next player (playerArray)
+ * @param {string} playerId  id of the player (formatted player name)
+ * @returns returns the id of the player who's next turn it is going to be
+ */
+export function nextPlayer() {
+  const currentPlayer = (element) => element === playerId;
+  let playerPosition = playerArray.findIndex(currentPlayer);
+  let arrayLength = playerArray.length - 1;
 
+  if (playerPosition < arrayLength) {
+    ++playerPosition;
+  } else {
+    playerPosition = 0;
+  }
+  playerId = playerArray[playerPosition];
+  if (playerId === "CPU") {
+    // console.log("fuck it is the CPU");
+    cpuPlayer();
+  }
+  return playerArray[playerPosition];
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. count table score and update totals
  */
