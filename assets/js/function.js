@@ -13,6 +13,7 @@ let turnCount = null; // counts how many turns the player has played, max 3, see
 let turnScore = []; //the dice score after ever turn
 let playerArray = []; // contains the players of the game
 let playerId;
+let playerOrder = 0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 import { cpuPlayer } from "./cpu.js";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -245,7 +246,6 @@ export function newPlayer() {
       .getElementById("button-" + otherPlayer)
       .setAttribute("disabled", "");
   }
-  console.log(playerArray);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -327,15 +327,24 @@ export function createTableRow(playerName, playerId) {
     tableLower.children[i].appendChild(tempTableElement);
   }
 
+  // creates a button
   let playerPlayButton = document.createElement("button");
+  // adds the player name to the button
   playerPlayButton.textContent = playerName;
+  // adds the playerId to the button (e.g. "button-playerId")
   playerPlayButton.setAttribute("id", "button-" + playerId);
+  //checks the playerArray and saves the player-turn-order to the button
+  for (let i = 0; i < playerArray.length; i++) {
+    if ((playerId = playerArray[i].playerId)) {
+      playerPlayButton.setAttribute("data-player-order", [i]);
+    }
+  }
   document.getElementById("button-play-place").appendChild(playerPlayButton);
 
   document
     .getElementById("button-" + playerId)
     .addEventListener("click", function () {
-      playTurn();
+      playTurn(this);
     });
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -345,11 +354,14 @@ export function createTableRow(playerName, playerId) {
  * 3. reads the value of all 5 dices (from the html dice[1-5] id) and assigns it to the 'turnScore[]' array
  * 4. => calls the function writeScoreTable()
  */
-export function playTurn() {
+export function playTurn(thisButton) {
+  playerOrder = thisButton.getAttribute("data-player-order");
   turnCount = turnCount >= 3 ? 1 : ++turnCount;
   if (turnCount === 3) {
     // disable the button which rolls the dice after 3 turns
-    document.getElementById("button-" + playerId).setAttribute("disabled", "");
+    document
+      .getElementById("button-" + playerArray[playerOrder].playerId)
+      .setAttribute("disabled", "");
   }
   buttonDiceRoller();
 
@@ -372,6 +384,7 @@ export function playTurn() {
  * @param {string} playerId id of the player (formatted player name)
  */
 export function writeScoreTable() {
+  let playerId = playerArray[playerOrder].playerId;
   for (let i = 1; i <= 5; i++) {
     // checks which show class is applied to the dice id and saves its value into the turnScore array (=== dice result)
     let dicePosition = document.getElementById("dice" + i).classList;
@@ -723,6 +736,7 @@ export function writeScoreTable() {
  * @param {string} playerId id of the player
  */
 export function savePointsTable() {
+  let playerId = playerArray[playerOrder].playerId;
   // disables the clicked button and therefore saves the score because it is not part of the loop below
   this.setAttribute("disabled", "");
   this.classList.remove("table-button--flash");
@@ -744,7 +758,7 @@ export function savePointsTable() {
   countTableScore();
   openLocks();
 
-  let nextPlayerTurn = nextPlayer(playerId);
+  let nextPlayerTurn = nextPlayer();
   document
     .getElementById("button-" + nextPlayerTurn)
     .removeAttribute("disabled");
@@ -753,25 +767,31 @@ export function savePointsTable() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. changes to the next player (playerArray)
- * @param {string} playerId  id of the player (formatted player name)
  * @returns returns the id of the player who's next turn it is going to be
  */
 export function nextPlayer() {
-  const currentPlayer = (element) => element === playerId;
-  let playerPosition = playerArray.findIndex(currentPlayer);
-  let arrayLength = playerArray.length - 1;
+  ++playerOrder;
+  if (playerArray.length <= playerOrder) {
+    playerOrder = 0;
+  }
+  return playerArray[playerOrder].playerId;
 
-  if (playerPosition < arrayLength) {
-    ++playerPosition;
-  } else {
-    playerPosition = 0;
-  }
-  playerId = playerArray[playerPosition];
-  if (playerId === "CPU") {
-    // console.log("fuck it is the CPU");
-    cpuPlayer();
-  }
-  return playerArray[playerPosition];
+  // let playerId = playerArray[playerOrder].playerId;
+  // const currentPlayer = (element) => element === playerId;
+  // let playerPosition = playerArray.findIndex(currentPlayer);
+  // let arrayLength = playerArray.length - 1;
+
+  // if (playerPosition < arrayLength) {
+  //   ++playerPosition;
+  // } else {
+  //   playerPosition = 0;
+  // }
+  // playerId = playerArray[playerPosition];
+  // if (playerId === "CPU") {
+  //   // console.log("fuck it is the CPU");
+  //   cpuPlayer();
+  // }
+  // return playerArray[playerPosition];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -779,6 +799,7 @@ export function nextPlayer() {
  * 1. count table score and update totals
  */
 export function countTableScore() {
+  let playerId = playerArray[playerOrder].playerId;
   let totalTop = 0;
   let acesElement = parseInt(
     document.getElementById("aces" + playerId).textContent
