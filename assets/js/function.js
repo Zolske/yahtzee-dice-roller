@@ -14,6 +14,7 @@ let turnScore = []; //the dice score after ever turn
 let playerArray = []; // contains the players of the game
 let playerId;
 let playerOrder = 0;
+export { playerOrder, playerArray };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 import { cpuPlayer } from "./cpu.js";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,10 +30,9 @@ export function Player(playerName, playerId) {
   this.fours = null;
   this.fives = null;
   this.sixes = null;
-  this.totalTop =
-    this.aces + this.twos + this.threes + this.fours + this.fives + this.sixes;
-  this.bonusTop = this.totalTop >= 63 ? 35 : null;
-  this.totalUpper = this.totalTop + this.bonusTop;
+  this.totalTop = null;
+  this.bonusTop = null;
+  this.totalUpper = null;
   this.threeOfKind = null;
   this.fourOfKind = null;
   this.fullHouse = null;
@@ -48,8 +48,27 @@ export function Player(playerName, playerId) {
     this.largeStraight +
     this.yahtzee +
     this.chance;
-  this.copyTotalUpper = this.totalUpper;
-  this.total = this.totalLower + this.totalUpper;
+  this.total = null;
+  this.updateScore = function () {
+    this.totalTop =
+      this.aces +
+      this.twos +
+      this.threes +
+      this.fours +
+      this.fives +
+      this.sixes;
+    this.bonusTop = this.totalTop >= 63 ? 35 : null;
+    this.totalUpper = this.totalTop + this.bonusTop;
+    this.totalLower =
+      this.threeOfKind +
+      this.fourOfKind +
+      this.fullHouse +
+      this.smallStraight +
+      this.largeStraight +
+      this.yahtzee +
+      this.chance;
+    this.total = this.totalUpper + this.totalLower;
+  };
   this.updateDiceScore = function () {
     let tempDiceScore = [];
     for (let i = 1; i <= 5; i++) {
@@ -208,7 +227,7 @@ export function openLocks() {
  * 3. => calls the 'createTableRow()' function to create a new column based on the player id and player name
  * 4. disables all other (not the first player) player buttons
  */
-export function newPlayer() {
+export function newPlayer(what) {
   let promptMessage = "Please enter your name ";
   let playerName;
   let playerId;
@@ -228,6 +247,9 @@ export function newPlayer() {
     }
     if (uniqueName) {
       playerArray.push(new Player(playerName, playerId));
+      if (what === "cpu") {
+        playerArray[playerArray.length - 1].human = false;
+      }
       createTableRow(playerName, playerId);
       break;
     }
@@ -356,6 +378,10 @@ export function createTableRow(playerName, playerId) {
  */
 export function playTurn(thisButton) {
   playerOrder = thisButton.getAttribute("data-player-order");
+
+  if (playerArray[playerOrder].human === false) {
+    cpuPlayer(); //uses the function from the cpu.js
+  }
   turnCount = turnCount >= 3 ? 1 : ++turnCount;
   if (turnCount === 3) {
     // disable the button which rolls the dice after 3 turns
@@ -363,7 +389,11 @@ export function playTurn(thisButton) {
       .getElementById("button-" + playerArray[playerOrder].playerId)
       .setAttribute("disabled", "");
   }
-  buttonDiceRoller();
+
+  // only roll when player is human
+  if (playerArray[playerOrder].human === true) {
+    buttonDiceRoller();
+  }
 
   for (let i = 1; i <= 5; i++) {
     let dicePosition = document.getElementById("dice" + i).classList;
@@ -725,6 +755,34 @@ export function writeScoreTable() {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export function updatePlayerScoreObject() {
+  let playerId = playerArray[playerOrder].playerId;
+  let pointArray = [
+    "aces",
+    "twos",
+    "threes",
+    "fours",
+    "fives",
+    "sixes",
+    "threeOfKind",
+    "fourOfKind",
+    "fullHouse",
+    "smallStraight",
+    "largeStraight",
+    "yahtzee",
+    "chance",
+  ];
+  for (let i = 0; i < pointArray.length; i++) {
+    let tempScore = parseInt(
+      document.getElementById(pointArray[i] + playerId).textContent
+    );
+    if (!isNaN(tempScore)) {
+      playerArray[playerOrder][pointArray[i]] = tempScore;
+    }
+  }
+  playerArray[playerOrder].updateScore();
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. is applied to the button in the list which flashes and receives a click event,
  * 2. saves the score, in the score table
@@ -753,7 +811,7 @@ export function savePointsTable() {
   for (let i = 0; i < allTableButtons.length; i++) {
     allTableButtons[i].removeEventListener("click", savePointsTable);
   }
-
+  updatePlayerScoreObject();
   document.getElementById("button-" + playerId).setAttribute("disabled", ""); // disables all remaining table-buttons so the player can not save (change) there value
   countTableScore();
   openLocks();

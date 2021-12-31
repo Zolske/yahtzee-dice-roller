@@ -1,92 +1,378 @@
+import {
+  playerArray,
+  playerOrder,
+  countTableScore,
+  openLocks,
+  nextPlayer,
+  diceRoller,
+  buttonDiceRoller,
+} from "./function.js";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * CPU player
  */
 export function cpuPlayer() {
-  console.log("hello I am the cpu");
-  // determents if points have already been written into table
-  let ableYahtzee = document
-    .getElementById("yahtzee" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableLargeStraight = document
-    .getElementById("largeStraight" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableSmallStraight = document
-    .getElementById("smallStraight" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableFullHouse = document
-    .getElementById("fullHouse" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableSixes = document
-    .getElementById("sixes" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableFives = document
-    .getElementById("fives" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableFours = document
-    .getElementById("fours" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableFourOfKind = document
-    .getElementById("fourOfKind" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableThreeOfKind = document
-    .getElementById("threeOfKind" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableThrees = document
-    .getElementById("threes" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableTwos = document
-    .getElementById("twos" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableAces = document
-    .getElementById("aces" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-  let ableChance = document
-    .getElementById("chance" + playerId)
-    .hasAttribute("disabled")
-    ? false
-    : true;
-
+  let playerId = playerArray[playerOrder].playerId;
+  let turnScore = [];
+  let originalTurnScore = [];
+  let turnCount = 0;
   // to count dice score together
   const addTogether = (previousValue, currentValue) =>
     previousValue + currentValue;
 
-  // original dice order
-  let originalTurnScore = [];
-  for (let i = 1; i <= 5; i++) {
-    // checks which show class is applied to the dice id and saves its value into the turnScore array (=== dice result)
-    let dicePosition = document.getElementById("dice" + i).classList;
-    for (let z = 1; z <= 6; z++) {
-      if (dicePosition.contains("show-" + z)) {
-        originalTurnScore[i - 1] = z;
+  // roll dice
+  buttonDiceRoller();
+  // update dice-score in playerArray
+  turnScore = playerArray[playerOrder].updateDiceScore();
+
+  /////////////////////////////////////////////////////////////////
+  // >>> start for testing
+  let testScore = [1, 1, 1, 1, 1];
+  turnScore = testScore;
+  playerArray[playerOrder].diceScore = testScore;
+  console.log("cpu test score is ... " + testScore);
+  // <<< end for testing
+  // >>> start test, playerArray write score
+  // playerArray[playerOrder].aces = 3;
+  // playerArray[playerOrder].twos = 6;
+  // playerArray[playerOrder].threes = 9;
+  // playerArray[playerOrder].fours = 12;
+  // playerArray[playerOrder].fives = 15;
+  // playerArray[playerOrder].sixes = 18;
+  // playerArray[playerOrder].threeOfKind = 20;
+  // playerArray[playerOrder].fourOfKind = 22;
+  // playerArray[playerOrder].fullHouse = 25;
+  // playerArray[playerOrder].smallStraight = 30;
+  // playerArray[playerOrder].largeStraight = 40;
+  // playerArray[playerOrder].yahtzee = 50;
+  // playerArray[playerOrder].chance = 26;
+  // playerArray[playerOrder].updateScore();
+  // console.log(playerArray[playerOrder]);
+  // <<< end test, playerArray write score
+  /////////////////////////////////////////////////////////////////
+
+  // console.log(playerArray[playerOrder]);
+  cpuDecisionThree();
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////
+  // CPU decision three //
+  ////////////////////////
+  function cpuDecisionThree() {
+    if (isAxFactor(5)) {
+      // Ax5
+      console.log("5x is true");
+      switch (true) {
+        case canWrite("yahtzee"):
+          writeScoreEndTurn("yahtzee");
+          break;
+        case canWrite("sixes"):
+          if (isNumTimes(6, 5)) {
+            writeScoreEndTurn("sixes");
+          }
+          break;
+        case canWrite("fives"):
+          if (isNumTimes(5, 5)) {
+            writeScoreEndTurn("fives");
+          }
+          break;
+        case canWrite("fours"):
+          if (isNumTimes(4, 5)) {
+            writeScoreEndTurn("fours");
+          }
+          break;
+        case canWrite("threes"):
+          if (isNumTimes(3, 5)) {
+            writeScoreEndTurn("threes");
+          }
+          break;
+        case canWrite("twos"):
+          if (isNumTimes(2, 5)) {
+            writeScoreEndTurn("twos");
+          }
+          break;
+        case canWrite("aces"):
+          if (isNumTimes(1, 5)) {
+            writeScoreEndTurn("aces");
+          }
+          break;
       }
+    } else if (true) {
+      console.log(0);
+    }
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. writes points into the table
+   * 2. disables button in which points are written
+   * 3. => calls the endCpuTurnNext(), which ends turn and starts next player
+   * @param {string} type point category (e.g. yahtzee)
+   */
+  function writeScoreEndTurn(type) {
+    let tableId = document.getElementById(type + playerId);
+    switch (type) {
+      case "yahtzee":
+        tableId.textContent = 50;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "largeStraight":
+        tableId.textContent = 40;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "smallStraight":
+        tableId.textContent = 30;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "fullHouse":
+        tableId.textContent = 25;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "sixes":
+        tableId.textContent = diceArrayCount()[5].length * 6;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "fives":
+        tableId.textContent = diceArrayCount()[4].length * 5;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "fours":
+        tableId.textContent = diceArrayCount()[3].length * 4;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "fourOfKind":
+        tableId.textContent = turnScore.reduce(addTogether);
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "threeOfKind":
+        tableId.textContent = turnScore.reduce(addTogether);
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "threes":
+        tableId.textContent = diceArrayCount()[2].length * 3;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "twos":
+        tableId.textContent = diceArrayCount()[1].length * 2;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case "aces":
+        tableId.textContent = diceArrayCount()[0].length * 1;
+        tableId.setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+    }
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. disables current player button
+   * 2. updates the total score in the table
+   * 3. opens lock icons on dice
+   * 4. changes playerId to the next player in the playerArray
+   * 5. enables the button for the next player
+   * 6. resets the turnCounter to 0
+   */
+  function endCpuTurnNext() {
+    document.getElementById("button-" + playerId).setAttribute("disabled", ""); // disables all remaining table-buttons so the player can not save (change) there value
+    countTableScore();
+    openLocks();
+    let nextPlayerTurn = nextPlayer(playerId);
+    document
+      .getElementById("button-" + nextPlayerTurn)
+      .removeAttribute("disabled");
+    turnCount = 0;
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * on last turn when there are no other options available than cross off
+   */
+  function crossOff() {
+    switch (true) {
+      case ableChance:
+        document.getElementById("chance" + playerId).textContent =
+          turnScore.reduce(addTogether);
+        document
+          .getElementById("chance" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableFourOfKind:
+        document.getElementById("fourOfKind" + playerId).textContent = "---";
+        document
+          .getElementById("fourOfKind" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableAces:
+        document.getElementById("aces" + playerId).textContent = "---";
+        document.getElementById("aces" + playerId).setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableTwos:
+        document.getElementById("twos" + playerId).textContent = "---";
+        document.getElementById("twos" + playerId).setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableLargeStraight:
+        document.getElementById("largeStraight" + playerId).textContent = "---";
+        document
+          .getElementById("largeStraight" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableYahtzee:
+        document.getElementById("yahtzee" + playerId).textContent = "---";
+        document
+          .getElementById("yahtzee" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableThrees:
+        document.getElementById("threes" + playerId).textContent = "---";
+        document
+          .getElementById("threes" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableThreeOfKind:
+        document.getElementById("threeOfKind" + playerId).textContent = "---";
+        document
+          .getElementById("threeOfKind" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableFullHouse:
+        document.getElementById("fullHouse" + playerId).textContent = "---";
+        document
+          .getElementById("fullHouse" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableFours:
+        document.getElementById("fours" + playerId).textContent = "---";
+        document
+          .getElementById("fours" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableFives:
+        document.getElementById("fives" + playerId).textContent = "---";
+        document
+          .getElementById("fives" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableSixes:
+        document.getElementById("sixes" + playerId).textContent = "---";
+        document
+          .getElementById("sixes" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
+      case ableSmallStraight:
+        document.getElementById("smallStraight" + playerId).textContent = "---";
+        document
+          .getElementById("smallStraight" + playerId)
+          .setAttribute("disabled", "");
+        endCpuTurnNext();
+        break;
     }
   }
 
+  // cpuDecisionThree();
+  // function yahtzeeCategoryCheck() {
+  //   // has yahtzee open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   if (ableYahtzee) {
+  //     if (isYahtzee()) {
+  //       writeScoreEndTurn("yahtzee");
+  //     }
+  //     // has largeStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableLargeStraight) {
+  //     if (isLargeStraight()) {
+  //       writeScoreEndTurn("largeStraight");
+  //     }
+  //     // has smallStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableSmallStraight) {
+  //     if (isSmallStraight()) {
+  //       writeScoreEndTurn("smallStraight");
+  //     }
+  //     // has fullHouse open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableFullHouse) {
+  //     if (isFullHouse()) {
+  //       writeScoreEndTurn("fullHouse");
+  //     }
+  //     // has sixes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableSixes) {
+  //     if (isSixes()) {
+  //       writeScoreEndTurn("sixes");
+  //     }
+  //     // has fives open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableFives) {
+  //     if (isFives()) {
+  //       writeScoreEndTurn("fives");
+  //     }
+  //     // has fours open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableFours) {
+  //     if (isFours()) {
+  //       writeScoreEndTurn("fours");
+  //     }
+  //     // has fourOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableFourOfKind) {
+  //     if (isFourOfKind()) {
+  //       writeScoreEndTurn("fourOfKind");
+  //     }
+  //     // has threeOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableThreeOfKind) {
+  //     if (isThreeOfKind()) {
+  //       writeScoreEndTurn("threeOfKind");
+  //     }
+  //     // has threes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableThrees) {
+  //     if (isThrees()) {
+  //       writeScoreEndTurn("threes");
+  //     }
+  //     // has twos open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableTwos) {
+  //     if (isTwos()) {
+  //       writeScoreEndTurn("twos");
+  //     }
+  //     // has aces open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //   } else if (ableAces) {
+  //     if (isAces()) {
+  //       writeScoreEndTurn("aces");
+  //     }
+  //     // has chance open ? //////////////////////////////////////////////////////////////////////////////////////////////////
+  //     // } else if (ableChance) {
+  //     //   if (isChance()) {
+  //     //     writeScoreEndTurn("chance");
+  //     //   }
+  //   }
+  // }
+
+  // function whatDiceRoll() {}
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. checks if playerArray can take points
+   * @param {string} points 'aces' twos' 'threes' 'fours' 'fives' 'sixes' 'threeOfKind' 'fourOfKind' 'fullHouse' 'smallStraight' 'largeStraight' 'yahtzee' 'chance'
+   * @returns true if points have not been written into playerArray, otherwise false
+   */
+  function canWrite(points) {
+    return playerArray[playerOrder][points] === null;
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // check yahtzee categories ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
    * 1. checks if the dices qualify for yahtzee
    * @returns 'true' if it is yahtzee otherwise 'false'
@@ -205,8 +491,9 @@ export function cpuPlayer() {
     }
     return false;
   }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
-   * checks if dice pattern if if A*3 and B*2 (same as isFullHouse())
+   * checks if dice pattern is A*3 and B*2 (same as isFullHouse())
    * @returns 'true' if A*3 and B*2 otherwise 'false
    */
   function isAxFactorBxFactor() {
@@ -223,8 +510,9 @@ export function cpuPlayer() {
     }
     return false;
   }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
-   * 1. checks the turnScore if it has a sequence of 3
+   * 1. checks the turnScore has a sequence of 3
    * @returns 'true' if dice have a sequence of 3 numbers, otherwise false
    */
   function isABC() {
@@ -248,8 +536,9 @@ export function cpuPlayer() {
       return false;
     }
   }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
-   * 1. checks if a number is x times divorced
+   * 1. checks if a number is x times
    * 2. => diceArrayCount() creates new array tempArray from dice
    * @param {number} num which number
    * @param {number} times how many times
@@ -263,79 +552,59 @@ export function cpuPlayer() {
       return false;
     }
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // useful functions
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
-   * 1. writes points into the table
-   * 2. disables button in which points are written
-   * 3. => calls the endCpuTurnNext(), which ends turn and starts next player
-   * @param {string} type point category (e.g. yahtzee)
+   * 1. counts how many 1's , 2's ,... are in the turnScore
+   * @returns multi diceArrayCpu containing info how many 1's, 2's, ...
    */
-  function writeScoreEndTurn(type) {
-    let tableId = document.getElementById(type + playerId);
-    switch (type) {
-      case "yahtzee":
-        tableId.textContent = 50;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "largeStraight":
-        tableId.textContent = 40;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "smallStraight":
-        tableId.textContent = 30;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "fullHouse":
-        tableId.textContent = 25;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "sixes":
-        tableId.textContent = diceArrayCount()[5].length * 6;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "fives":
-        tableId.textContent = diceArrayCount()[4].length * 5;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "fours":
-        tableId.textContent = diceArrayCount()[3].length * 4;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "fourOfKind":
-        tableId.textContent = turnScore.reduce(addTogether);
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "threeOfKind":
-        tableId.textContent = turnScore.reduce(addTogether);
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "threes":
-        tableId.textContent = diceArrayCount()[2].length * 3;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "twos":
-        tableId.textContent = diceArrayCount()[1].length * 2;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case "aces":
-        tableId.textContent = diceArrayCount()[0].length * 1;
-        tableId.setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
+  function diceArrayCount() {
+    let diceArrayCpu = [
+      [], // how many 1's
+      [], // how many 2's
+      [], // how many 3's
+      [], // how many 4's
+      [], // how many 5's
+      [], // how many 6's
+    ];
+    for (let i = 1; i <= 6; i++) {
+      let tempNumber = turnScore.filter((point) => point === i);
+      diceArrayCpu[i - 1] = tempNumber;
+    }
+    return diceArrayCpu;
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. checks how big the number is when added together
+   * @param {number} repeat how many times repeated
+   * @returns returns the sum of the repeated number
+   */
+  function repeatNumbersSum(repeat) {
+    let tempArray = diceArrayCount();
+    for (let i = 0; i <= 6; i++) {
+      if (tempArray[i] === repeat) {
+        return (i + 1) * repeat;
+      }
     }
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. checks if an number is repeated
+   * @param {number} repeat how many times repeated
+   * @returns true or false
+   */
+  function repeatNumbers(repeat) {
+    let tempArray = diceArrayCount();
+    for (let i = 0; i <= 6; i++) {
+      if (tempArray[i] === repeat) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
    * 1. cuts double and triple numbers from array
    * @param {array} array array of dice numbers
@@ -356,9 +625,8 @@ export function cpuPlayer() {
     }
     return array;
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /**
-   * 1. makes a copy of turnScore
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /** 1. makes a copy of turnScore
    * 2. removes double numbers
    * 3. sorts numbers 'ascendant' / 'descendant'
    * @param {string} direction 'ascendant' numbers small to big,
@@ -394,294 +662,4 @@ export function cpuPlayer() {
 
     return tempSortArray;
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /**
-   * 1. counts how many 1's , 2's ,... are in the turnScore
-   * @returns multi diceArrayCpu containing info how many 1's, 2's, ...
-   */
-  function diceArrayCount() {
-    let diceArrayCpu = [
-      [], // how many 1's
-      [], // how many 2's
-      [], // how many 3's
-      [], // how many 4's
-      [], // how many 5's
-      [], // how many 6's
-    ];
-    for (let i = 1; i <= 6; i++) {
-      let tempNumber = turnScore.filter((point) => point === i);
-      diceArrayCpu[i - 1] = tempNumber;
-    }
-    return diceArrayCpu;
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /**
-   * 1. checks if an number is repeated
-   * @param {number} repeat how many times repeated
-   * @returns true or false
-   */
-  function repeatNumbers(repeat) {
-    let tempArray = diceArrayCount();
-    for (let i = 0; i <= 6; i++) {
-      if (tempArray[i] === repeat) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /**
-   * 1. checks how big the number is when added together
-   * @param {number} repeat how many times repeated
-   * @returns returns the sum of the repeated number
-   */
-  function repeatNumbersSum(repeat) {
-    let tempArray = diceArrayCount();
-    for (let i = 0; i <= 6; i++) {
-      if (tempArray[i] === repeat) {
-        return (i + 1) * repeat;
-      }
-    }
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /**
-   * 1. disables current player button
-   * 2. updates the total score in the table
-   * 3. opens lock icons on dice
-   * 4. changes playerId to the next player in the playerArray
-   * 5. enables the button for the next player
-   * 6. resets the turnCounter to 0
-   */
-  function endCpuTurnNext() {
-    document.getElementById("button-" + playerId).setAttribute("disabled", ""); // disables all remaining table-buttons so the player can not save (change) there value
-    countTableScore();
-    openLocks();
-    let nextPlayerTurn = nextPlayer(playerId);
-    document
-      .getElementById("button-" + nextPlayerTurn)
-      .removeAttribute("disabled");
-    turnCount = 0;
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /**
-   * on last turn when there are no other options available than cross off
-   */
-  function crossOff() {
-    switch (true) {
-      case ableChance:
-        document.getElementById("chance" + playerId).textContent =
-          turnScore.reduce(addTogether);
-        document
-          .getElementById("chance" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableFourOfKind:
-        document.getElementById("fourOfKind" + playerId).textContent = "---";
-        document
-          .getElementById("fourOfKind" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableAces:
-        document.getElementById("aces" + playerId).textContent = "---";
-        document.getElementById("aces" + playerId).setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableTwos:
-        document.getElementById("twos" + playerId).textContent = "---";
-        document.getElementById("twos" + playerId).setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableLargeStraight:
-        document.getElementById("largeStraight" + playerId).textContent = "---";
-        document
-          .getElementById("largeStraight" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableYahtzee:
-        document.getElementById("yahtzee" + playerId).textContent = "---";
-        document
-          .getElementById("yahtzee" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableThrees:
-        document.getElementById("threes" + playerId).textContent = "---";
-        document
-          .getElementById("threes" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableThreeOfKind:
-        document.getElementById("threeOfKind" + playerId).textContent = "---";
-        document
-          .getElementById("threeOfKind" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableFullHouse:
-        document.getElementById("fullHouse" + playerId).textContent = "---";
-        document
-          .getElementById("fullHouse" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableFours:
-        document.getElementById("fours" + playerId).textContent = "---";
-        document
-          .getElementById("fours" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableFives:
-        document.getElementById("fives" + playerId).textContent = "---";
-        document
-          .getElementById("fives" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableSixes:
-        document.getElementById("sixes" + playerId).textContent = "---";
-        document
-          .getElementById("sixes" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-      case ableSmallStraight:
-        document.getElementById("smallStraight" + playerId).textContent = "---";
-        document
-          .getElementById("smallStraight" + playerId)
-          .setAttribute("disabled", "");
-        endCpuTurnNext();
-        break;
-    }
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////
-  // CPU decision three //
-  ////////////////////////
-  // console.log("originalTurnScore " + originalTurnScore);
-  turnScore = [6, 6, 6, 6, 6];
-  console.log("test turn score is " + turnScore);
-  let tempArray = diceArrayCount();
-  console.log("test number is " + tempArray[6 - 1].length);
-
-  function cpuDecisionThree() {
-    if (isAxFactor(5)) {
-      // Ax5
-      console.log("5x is true");
-      switch (true) {
-        case ableYahtzee:
-          writeScoreEndTurn("yahtzee");
-          break;
-        case ableSixes:
-          if (isNumTimes(6, 5)) {
-            writeScoreEndTurn("sixes");
-          }
-          break;
-        case ableFives:
-          if (isNumTimes(5, 5)) {
-            writeScoreEndTurn("fives");
-          }
-          break;
-        case ableFours:
-          if (isNumTimes(4, 5)) {
-            writeScoreEndTurn("fours");
-          }
-          break;
-        case ableThrees:
-          if (isNumTimes(3, 5)) {
-            writeScoreEndTurn("threes");
-          }
-          break;
-        case ableTwos:
-          if (isNumTimes(2, 5)) {
-            writeScoreEndTurn("twos");
-          }
-          break;
-        case ableAces:
-          if (isNumTimes(1, 5)) {
-            writeScoreEndTurn("aces");
-          }
-          break;
-      }
-    } else if (true) {
-      console.log(0);
-    }
-  }
-
-  cpuDecisionThree();
-  // function yahtzeeCategoryCheck() {
-  //   // has yahtzee open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   if (ableYahtzee) {
-  //     if (isYahtzee()) {
-  //       writeScoreEndTurn("yahtzee");
-  //     }
-  //     // has largeStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableLargeStraight) {
-  //     if (isLargeStraight()) {
-  //       writeScoreEndTurn("largeStraight");
-  //     }
-  //     // has smallStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableSmallStraight) {
-  //     if (isSmallStraight()) {
-  //       writeScoreEndTurn("smallStraight");
-  //     }
-  //     // has fullHouse open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFullHouse) {
-  //     if (isFullHouse()) {
-  //       writeScoreEndTurn("fullHouse");
-  //     }
-  //     // has sixes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableSixes) {
-  //     if (isSixes()) {
-  //       writeScoreEndTurn("sixes");
-  //     }
-  //     // has fives open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFives) {
-  //     if (isFives()) {
-  //       writeScoreEndTurn("fives");
-  //     }
-  //     // has fours open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFours) {
-  //     if (isFours()) {
-  //       writeScoreEndTurn("fours");
-  //     }
-  //     // has fourOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFourOfKind) {
-  //     if (isFourOfKind()) {
-  //       writeScoreEndTurn("fourOfKind");
-  //     }
-  //     // has threeOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableThreeOfKind) {
-  //     if (isThreeOfKind()) {
-  //       writeScoreEndTurn("threeOfKind");
-  //     }
-  //     // has threes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableThrees) {
-  //     if (isThrees()) {
-  //       writeScoreEndTurn("threes");
-  //     }
-  //     // has twos open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableTwos) {
-  //     if (isTwos()) {
-  //       writeScoreEndTurn("twos");
-  //     }
-  //     // has aces open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableAces) {
-  //     if (isAces()) {
-  //       writeScoreEndTurn("aces");
-  //     }
-  //     // has chance open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //     // } else if (ableChance) {
-  //     //   if (isChance()) {
-  //     //     writeScoreEndTurn("chance");
-  //     //   }
-  //   }
-  // }
-
-  // function whatDiceRoll() {}
 }
