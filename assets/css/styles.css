@@ -76,15 +76,43 @@ th {
     text-align: center;
 }
 
+table,
+.noBorder {
+    border: none;
+}
+
+#table-player-name {
+    vertical-align: bottom;
+}
+
+.textOriantation {
+    writing-mode: vertical-rl;
+    text-orientation: sideways-right;
+    font-size: 1.1rem;
+    width: .6rem;
+}
+
 .table-button {
     width: 4rem;
+    height: 1.3rem;
+}
+
+#cpuText {
+    border: none;
+    background-color: #fff;
+    border-radius: 1rem;
+    display: none;
+    color: #000;
+    max-width: 94%;
+    text-align: center;
+    padding: 0.5rem;
 }
 
 .table-button--flash {
     /* https://codepen.io/arximughal/pen/LEpoOJ */
     background-color: #004A7F;
     width: 4rem;
-    height: 2rem;
+    height: 1.3rem;
     -webkit-border-radius: 10px;
     border-radius: 10px;
     border: none;
@@ -92,8 +120,8 @@ th {
     cursor: pointer;
     display: inline-block;
     font-family: Arial;
-    font-size: 20px;
-    padding: 5px 10px;
+    font-size: 1rem;
+    /* padding: 5px 10px; */
     text-align: center;
     text-decoration: none;
     -webkit-animation: glowing 1500ms infinite;
@@ -170,16 +198,9 @@ th {
     }
 }
 
-.textOriantation {
-    writing-mode: vertical-rl;
-    text-orientation: sideways-right;
-    font-size: 1.1rem;
-    width: .6rem;
-}
-
 .robot {
-    height: 100px;
-    width: 100px;
+    height: 60px;
+    width: 60px;
 }
 
 /* <<< end <table> ///////////////////////////////////////////////////////////////////////////////////////////////////// */

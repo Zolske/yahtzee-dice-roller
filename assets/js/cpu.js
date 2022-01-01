@@ -27,13 +27,18 @@ export function cpuPlayer() {
   // turnScore = playerArray[playerOrder].updateDiceScore();
 
   // console.log(playerArray[playerOrder]);
+  document
+    .getElementById("button-" + playerId)
+    .setAttribute("src", "assets/images/robot-pointing.gif");
   cpuDecisionThree();
+
+  cpuText("hello you what is up?", "I know :)");
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////
   // CPU decision three //
   ////////////////////////
   function cpuDecisionThree() {
-    ++playerArray[playerOrder].turn;
+    // ++playerArray[playerOrder].turn;
     if (playerArray[playerOrder].turn <= 3) {
       console.log("this is turn number " + playerArray[playerOrder].turn);
       buttonDiceRoller();
@@ -235,6 +240,9 @@ export function cpuPlayer() {
       .removeAttribute("disabled");
     turnCount = 0;
     playerArray[playerOrder].turn = 0;
+    document
+      .getElementById("button-" + playerId)
+      .setAttribute("src", "assets/images/robot-pointing.webp");
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
@@ -742,6 +750,43 @@ export function cpuPlayer() {
             }
           }
         }
+      }
+    }
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * 1. writes text into id="cpuText"
+   * 2. runs a 'timer' to pass time
+   * 3. optional end text can be set
+   * 4. clears text (display id="cpuText" none)
+   * @param {string} text text to be displayed first
+   * @param {string} text2 optional (must be set '' if other arguments are used), last text after '... '
+   * @param {number} counterStop how many '... ' should be displayed (default 4)
+   * @param {number} interval how many seconds till new '... ' appears (default 2000 === 2 seconds)
+   */
+  function cpuText(text, text2 = "", counterStop = 4, interval = 2000) {
+    let cpuText = document.getElementById("cpuText");
+    cpuText.setAttribute("style", "display:block");
+    cpuText.innerHTML = `${text}<br>`;
+    const intervalStop = setInterval(timer, interval);
+
+    let counter = 0;
+    let counter2 = 0;
+    function timer() {
+      cpuText.innerHTML += "... ";
+      ++counter;
+      if (counter === counterStop) {
+        clearInterval(intervalStop);
+        cpuText.innerHTML += `${text2}`;
+        function timer2() {
+          ++counter2;
+          if (counter2 === 1) {
+            clearInterval(intervalStop2);
+            cpuText.setAttribute("style", "display:none");
+          }
+        }
+        const intervalStop2 = setTimeout(timer2, 2000);
       }
     }
   }

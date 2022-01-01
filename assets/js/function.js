@@ -247,7 +247,6 @@ export function newPlayer(what) {
     }
     if (uniqueName) {
       playerArray.push(new Player(playerName, playerId));
-      createTableRow(playerName, playerId);
       if (what === "cpu") {
         playerArray[playerArray.length - 1].human = false;
         // let robotImage = document.getElementsByClassName('robot')
@@ -257,6 +256,7 @@ export function newPlayer(what) {
         // document.getElementById("button-" + playerId).innerHTML = `
         // <img width="60" height="60" src="assets/images/robot-pointing.gif" alt="">`;
       }
+      createTableRow(playerName, playerId);
       break;
     }
     promptMessage = "The name "; // changes prompt message to inform user which names have been taken
@@ -292,7 +292,7 @@ export function createTableRow(playerName, playerId) {
     "sixes",
     "totalTop",
     "bonusTop",
-    "totalUpper",
+    // "totalUpper",
   ];
   let tableUpper = document.getElementById("table-upper");
   let tableDataLower = [
@@ -303,27 +303,24 @@ export function createTableRow(playerName, playerId) {
     "largeStraight",
     "yahtzee",
     "chance",
-    "totalLower",
-    "copyTotalUpper",
+    // "totalLower",
+    // "copyTotalUpper",
     "total",
   ];
   let tableLower = document.getElementById("table-lower");
 
-  let tableHead = document.createElement("th");
-  tableHead.textContent = "Player";
-  document.getElementById("table-head").appendChild(tableHead);
+  // let tableHead = document.createElement("th");
+  // tableHead.textContent = "Player";
+  // document.getElementById("table-head").appendChild(tableHead);
 
-  let tablePlayerName = document.createElement("th");
-  tablePlayerName.textContent = playerName;
-  document.getElementById("table-player-name").appendChild(tablePlayerName);
+  // let tablePlayerName = document.createElement("th");
+  // tablePlayerName.textContent = playerName;
+  // document.getElementById("table-player-name").appendChild(tablePlayerName);
 
   for (let i = 0; i < tableDataUpper.length; i++) {
     let tempTableElement = document.createElement("th");
-    if (
-      tableDataUpper[i] === "totalTop" ||
-      tableDataUpper[i] === "bonusTop" ||
-      tableDataUpper[i] === "totalUpper"
-    ) {
+    // || tableDataUpper[i] === "totalUpper"
+    if (tableDataUpper[i] === "totalTop" || tableDataUpper[i] === "bonusTop") {
       tempTableElement.textContent = 0;
       tempTableElement.setAttribute("id", tableDataUpper[i] + playerId);
     } else {
@@ -338,12 +335,9 @@ export function createTableRow(playerName, playerId) {
 
   for (let i = 0; i < tableDataLower.length; i++) {
     let tempTableElement = document.createElement("th");
-    if (
-      tableDataLower[i] === "totalLower" ||
-      tableDataLower[i] === "copyTotalUpper" ||
-      tableDataLower[i] === "total"
-    ) {
-      tempTableElement.textContent = "---";
+    // tableDataLower[i] === "totalLower" || tableDataLower[i] === "copyTotalUpper" ||
+    if (tableDataLower[i] === "total") {
+      tempTableElement.textContent = 0;
       tempTableElement.setAttribute("id", tableDataLower[i] + playerId);
     } else {
       let tempButton = document.createElement("button");
@@ -356,9 +350,20 @@ export function createTableRow(playerName, playerId) {
   }
 
   // creates a button
-  let playerPlayButton = document.createElement("button");
-  // adds the player name to the button
-  playerPlayButton.textContent = playerName;
+  let td = document.createElement("td");
+  td.setAttribute("id", "td-" + playerId);
+  td.setAttribute("class", "noBorder");
+  let playerPlayButton;
+
+  if (playerArray[playerArray.length - 1].human) {
+    playerPlayButton = document.createElement("button");
+    // adds the player name to the button
+    playerPlayButton.textContent = playerName;
+  } else {
+    playerPlayButton = document.createElement("img");
+    playerPlayButton.setAttribute("src", "assets/images/robot-pointing.webp");
+    playerPlayButton.setAttribute("class", "robot");
+  }
   // adds the playerId to the button (e.g. "button-playerId")
   playerPlayButton.setAttribute("id", "button-" + playerId);
   //checks the playerArray and saves the player-turn-order to the button
@@ -367,7 +372,9 @@ export function createTableRow(playerName, playerId) {
       playerPlayButton.setAttribute("data-player-order", [i]);
     }
   }
-  document.getElementById("button-play-place").appendChild(playerPlayButton);
+  // document.getElementById("button-play-place").appendChild(playerPlayButton);
+  document.getElementById("table-player-name").appendChild(td);
+  document.getElementById("td-" + playerId).appendChild(playerPlayButton);
 
   document
     .getElementById("button-" + playerId)
@@ -387,30 +394,34 @@ export function playTurn(thisButton) {
 
   if (playerArray[playerOrder].human === false) {
     cpuPlayer(); //uses the function from the cpu.js
-  }
-  turnCount = turnCount >= 3 ? 1 : ++turnCount;
-  if (turnCount === 3) {
-    // disable the button which rolls the dice after 3 turns
-    document
-      .getElementById("button-" + playerArray[playerOrder].playerId)
-      .setAttribute("disabled", "");
-  }
+  } else {
+    ++playerArray[playerOrder].turn;
+    document.getElementById("showTurn").textContent =
+      "turn " + playerArray[playerOrder].turn + " of 3";
+    if (playerArray[playerOrder].turn === 3) {
+      // disable the button which rolls the dice after 3 turns
+      document
+        .getElementById("button-" + playerArray[playerOrder].playerId)
+        .setAttribute("disabled", "");
+      playerArray[playerOrder].turn = 0;
+    }
 
-  // only roll when player is human
-  if (playerArray[playerOrder].human === true) {
-    buttonDiceRoller();
-  }
+    // only roll when player is human
+    if (playerArray[playerOrder].human === true) {
+      buttonDiceRoller();
+    }
 
-  for (let i = 1; i <= 5; i++) {
-    let dicePosition = document.getElementById("dice" + i).classList;
-    for (let z = 1; z <= 6; z++) {
-      if (dicePosition.contains("show-" + z)) {
-        // gets the dice result from the dice id (e.g. dice1) and checks which 'show-'+? class it has,
-        turnScore[i - 1] = z; // the number of the show class (show-1 == dice shows 1) is the dice number which is saved into the 'turnScore[]' array
+    for (let i = 1; i <= 5; i++) {
+      let dicePosition = document.getElementById("dice" + i).classList;
+      for (let z = 1; z <= 6; z++) {
+        if (dicePosition.contains("show-" + z)) {
+          // gets the dice result from the dice id (e.g. dice1) and checks which 'show-'+? class it has,
+          turnScore[i - 1] = z; // the number of the show class (show-1 == dice shows 1) is the dice number which is saved into the 'turnScore[]' array
+        }
       }
     }
+    writeScoreTable();
   }
-  writeScoreTable();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -822,7 +833,9 @@ export function savePointsTable() {
   countTableScore();
   openLocks();
 
+  document.getElementById("showTurn").textContent = "turn 1 of 3";
   let nextPlayerTurn = nextPlayer();
+
   document
     .getElementById("button-" + nextPlayerTurn)
     .removeAttribute("disabled");
@@ -903,10 +916,10 @@ export function countTableScore() {
   }
   document.getElementById("totalTop" + playerId).textContent = totalTop;
   let bonusTop = (document.getElementById("bonusTop" + playerId).textContent =
-    totalTop > 62 ? 35 : "---");
-  let totalUpper = (document.getElementById(
-    "totalUpper" + playerId
-  ).textContent = !isNaN(bonusTop) ? bonusTop + totalTop : totalTop);
+    totalTop >= 63 ? 35 : 0);
+  // let totalUpper = (document.getElementById(
+  //   "totalUpper" + playerId
+  // ).textContent = !isNaN(bonusTop) ? bonusTop + totalTop : totalTop);
 
   let totalLower = 0;
   let chanceElement = parseInt(
@@ -951,10 +964,10 @@ export function countTableScore() {
   if (!isNaN(largeStraightElement)) {
     totalLower += largeStraightElement;
   }
-  document.getElementById("totalLower" + playerId).textContent = totalLower;
-  document.getElementById("copyTotalUpper" + playerId).textContent = totalTop;
+  // document.getElementById("totalLower" + playerId).textContent = totalLower;
+  // document.getElementById("copyTotalUpper" + playerId).textContent = totalTop;
   document.getElementById("total" + playerId).textContent =
-    totalLower + totalTop;
+    totalLower + totalTop + bonusTop;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

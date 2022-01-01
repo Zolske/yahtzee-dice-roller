@@ -228,19 +228,17 @@
         <br>
         <!-- <img width="60" height="60" src="assets/images/robot-pointing.gif"alt=""> -->
         <!-- <button id="bt-roll-all">Roll all dice!</button> -->
-        <img class="robot" src="assets/images/robot-pointing.gif">
+        <!-- <img class="robot" src="assets/images/robot-pointing.gif"> -->
         <button id="create-player">add human player</button>
         <button id="create-cpu-player">add cpu player </button>
         <button id="test-cpu-player">test cpu player</button>
         <br><br>
         <!-- table for yahtzee points -->
+        <div id="cpuText"></div>
         <table>
             <thead>
-                <tr id="table-head">
-                    <th></th>
-                </tr>
-                <tr id="table-player-name">
-                    <!-- <th>upper section</th> -->
+                <tr id="table-player-name" class="noBorder">
+                    <td colspan="2" class="noBorder" id="showTurn"></td>
                 </tr>
             </thead>
             <tbody id="table-upper">
@@ -267,19 +265,11 @@
                     <td>total top</td>
                 </tr>
                 <tr>
-                    <td colspan="2">+ bonus (top &gt; 62)</td>
+                    <td colspan="2">bonus (top &gt; 62)</td>
                 </tr>
-                <!-- <tr>
-                    <td>total upper section</td>
-                </tr> -->
             </tbody>
         </table>
         <table>
-            <thead>
-                <!-- <tr>
-                    <th>lower section</th>
-                </tr> -->
-            </thead>
             <tbody id="table-lower">
                 <tr>
                     <th rowspan="7" class="textOriantation">lower section</th>
@@ -303,15 +293,6 @@
                 <tr>
                     <td title="score total of all dice">chance</td>
                 </tr>
-                <!-- <tr>
-                    <td title="X for each bonus, score 100 per X">yahtzee bonus</td>
-                </tr> -->
-                <!-- <tr>
-                    <td>total of lower section</td>
-                </tr> -->
-                <!-- <tr>
-                    <td>total of upper section</td>
-                </tr> -->
                 <tr>
                     <td colspan="2">grand total</td>
                 </tr>
