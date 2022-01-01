@@ -110,6 +110,7 @@ export function diceRoller(diceId) {
  * 2. => calls diceRoller() function which rolls the individual dice
  */
 export function buttonDiceRoller() {
+  document.getElementById("dice_audio").play();
   let dice1 = document.getElementById("dice1").getAttribute("data-lock-open");
   let dice2 = document.getElementById("dice2").getAttribute("data-lock-open");
   let dice3 = document.getElementById("dice3").getAttribute("data-lock-open");

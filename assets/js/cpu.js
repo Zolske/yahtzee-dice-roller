@@ -766,6 +766,7 @@ export function cpuPlayer() {
    * @param {number} interval how many seconds till new '... ' appears (default 2000 === 2 seconds)
    */
   function cpuText(text, text2 = "", counterStop = 4, interval = 2000) {
+    document.getElementById("robot_audio").play();
     let cpuText = document.getElementById("cpuText");
     cpuText.setAttribute("style", "display:block");
     cpuText.innerHTML = `${text}<br>`;
