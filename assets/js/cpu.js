@@ -22,35 +22,9 @@ export function cpuPlayer() {
     previousValue + currentValue;
 
   // roll dice
-  buttonDiceRoller();
+  // buttonDiceRoller();
   // update dice-score in playerArray
-  turnScore = playerArray[playerOrder].updateDiceScore();
-
-  /////////////////////////////////////////////////////////////////
-  // >>> start for testing
-  let testScore = [1, 1, 1, 1, 1];
-  turnScore = testScore;
-  playerArray[playerOrder].diceScore = testScore;
-  console.log("cpu test score is ... " + testScore);
-  // <<< end for testing
-  // >>> start test, playerArray write score
-  // playerArray[playerOrder].aces = 3;
-  // playerArray[playerOrder].twos = 6;
-  // playerArray[playerOrder].threes = 9;
-  // playerArray[playerOrder].fours = 12;
-  // playerArray[playerOrder].fives = 15;
-  // playerArray[playerOrder].sixes = 18;
-  // playerArray[playerOrder].threeOfKind = 20;
-  // playerArray[playerOrder].fourOfKind = 22;
-  // playerArray[playerOrder].fullHouse = 25;
-  // playerArray[playerOrder].smallStraight = 30;
-  // playerArray[playerOrder].largeStraight = 40;
-  // playerArray[playerOrder].yahtzee = 50;
-  // playerArray[playerOrder].chance = 26;
-  // playerArray[playerOrder].updateScore();
-  // console.log(playerArray[playerOrder]);
-  // <<< end test, playerArray write score
-  /////////////////////////////////////////////////////////////////
+  // turnScore = playerArray[playerOrder].updateDiceScore();
 
   // console.log(playerArray[playerOrder]);
   cpuDecisionThree();
@@ -59,45 +33,102 @@ export function cpuPlayer() {
   // CPU decision three //
   ////////////////////////
   function cpuDecisionThree() {
+    ++playerArray[playerOrder].turn;
+    if (playerArray[playerOrder].turn <= 3) {
+      console.log("this is turn number " + playerArray[playerOrder].turn);
+      buttonDiceRoller();
+      turnScore = playerArray[playerOrder].updateDiceScore();
+
+      /////////////////////////////////////////////////////////////////
+      // >>> start for testing
+      let testScore = [4, 1, 4, 4, 4];
+      turnScore = testScore;
+      playerArray[playerOrder].diceScore = testScore;
+      console.log("cpu test score is ... " + testScore);
+      // <<< end for testing
+      // >>> start test, playerArray write score
+      // playerArray[playerOrder].aces = 3;
+      // playerArray[playerOrder].twos = 6;
+      // playerArray[playerOrder].threes = 9;
+      // playerArray[playerOrder].fours = 12;
+      // playerArray[playerOrder].fives = 15;
+      // playerArray[playerOrder].sixes = 18;
+      // playerArray[playerOrder].threeOfKind = 20;
+      // playerArray[playerOrder].fourOfKind = 22;
+      // playerArray[playerOrder].fullHouse = 25;
+      // playerArray[playerOrder].smallStraight = 30;
+      // playerArray[playerOrder].largeStraight = 40;
+      // playerArray[playerOrder].yahtzee = 50;
+      // playerArray[playerOrder].chance = 26;
+      // playerArray[playerOrder].updateScore();
+      // console.log(playerArray[playerOrder]);
+      // <<< end test, playerArray write score
+      /////////////////////////////////////////////////////////////////
+    }
     if (isAxFactor(5)) {
       // Ax5
-      console.log("5x is true");
       switch (true) {
         case canWrite("yahtzee"):
           writeScoreEndTurn("yahtzee");
           break;
-        case canWrite("sixes"):
-          if (isNumTimes(6, 5)) {
-            writeScoreEndTurn("sixes");
-          }
+        case canWrite("sixes") && isNumTimes(6, 5):
+          writeScoreEndTurn("sixes");
           break;
-        case canWrite("fives"):
-          if (isNumTimes(5, 5)) {
-            writeScoreEndTurn("fives");
-          }
+        case canWrite("fives") && isNumTimes(5, 5):
+          writeScoreEndTurn("fives");
           break;
-        case canWrite("fours"):
-          if (isNumTimes(4, 5)) {
-            writeScoreEndTurn("fours");
-          }
+        case canWrite("fours") && isNumTimes(4, 5):
+          writeScoreEndTurn("fours");
           break;
-        case canWrite("threes"):
-          if (isNumTimes(3, 5)) {
-            writeScoreEndTurn("threes");
-          }
+        case canWrite("fourOfKind") && isFourOfKind():
+          writeScoreEndTurn("fourOfKind");
           break;
-        case canWrite("twos"):
-          if (isNumTimes(2, 5)) {
-            writeScoreEndTurn("twos");
-          }
+        case canWrite("threeOfKind") && isThreeOfKind():
+          writeScoreEndTurn("threeOfKind");
           break;
-        case canWrite("aces"):
-          if (isNumTimes(1, 5)) {
-            writeScoreEndTurn("aces");
-          }
+        case canWrite("threes") && isNumTimes(3, 5):
+          writeScoreEndTurn("threes");
+          break;
+        case canWrite("twos") && isNumTimes(2, 5):
+          writeScoreEndTurn("twos");
+          break;
+        case canWrite("aces") && isNumTimes(1, 5):
+          writeScoreEndTurn("aces");
           break;
       }
-    } else if (true) {
+    } else if (isAxFactor(4)) {
+      // Ax4
+      switch (true) {
+        case canWrite("yahtzee") && playerArray[playerOrder].turn < 3:
+          lockXofKind(4);
+          console.log(playerArray[playerOrder]);
+          // cpuDecisionThree();
+          break;
+        case canWrite("sixes") && isNumTimes(6, 5):
+          writeScoreEndTurn("sixes");
+          break;
+        case canWrite("fives") && isNumTimes(5, 5):
+          writeScoreEndTurn("fives");
+          break;
+        case canWrite("fours") && isNumTimes(4, 5):
+          writeScoreEndTurn("fours");
+          break;
+        case canWrite("fourOfKind") && isFourOfKind():
+          writeScoreEndTurn("fourOfKind");
+          break;
+        case canWrite("threeOfKind") && isThreeOfKind():
+          writeScoreEndTurn("threeOfKind");
+          break;
+        case canWrite("threes") && isNumTimes(3, 5):
+          writeScoreEndTurn("threes");
+          break;
+        case canWrite("twos") && isNumTimes(2, 5):
+          writeScoreEndTurn("twos");
+          break;
+        case canWrite("aces") && isNumTimes(1, 5):
+          writeScoreEndTurn("aces");
+          break;
+      }
       console.log(0);
     }
   }
@@ -113,61 +144,73 @@ export function cpuPlayer() {
     switch (type) {
       case "yahtzee":
         tableId.textContent = 50;
+        playerArray[playerOrder].yahtzee = 50;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "largeStraight":
         tableId.textContent = 40;
+        playerArray[playerOrder].largeStraight = 40;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "smallStraight":
         tableId.textContent = 30;
+        playerArray[playerOrder].smallStraight = 30;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "fullHouse":
         tableId.textContent = 25;
+        playerArray[playerOrder].fullHouse = 25;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "sixes":
         tableId.textContent = diceArrayCount()[5].length * 6;
+        playerArray[playerOrder].sixes = diceArrayCount()[5].length * 6;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "fives":
         tableId.textContent = diceArrayCount()[4].length * 5;
+        playerArray[playerOrder].fives = diceArrayCount()[4].length * 5;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "fours":
         tableId.textContent = diceArrayCount()[3].length * 4;
+        playerArray[playerOrder].fours = diceArrayCount()[3].length * 4;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "fourOfKind":
         tableId.textContent = turnScore.reduce(addTogether);
+        playerArray[playerOrder].fourOfKind = turnScore.reduce(addTogether);
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "threeOfKind":
         tableId.textContent = turnScore.reduce(addTogether);
+        playerArray[playerOrder].threeOfKind = turnScore.reduce(addTogether);
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "threes":
         tableId.textContent = diceArrayCount()[2].length * 3;
+        playerArray[playerOrder].threes = diceArrayCount()[2].length * 3;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "twos":
         tableId.textContent = diceArrayCount()[1].length * 2;
+        playerArray[playerOrder].twos = diceArrayCount()[1].length * 2;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
       case "aces":
         tableId.textContent = diceArrayCount()[0].length * 1;
+        playerArray[playerOrder].aces = diceArrayCount()[0].length * 1;
         tableId.setAttribute("disabled", "");
         endCpuTurnNext();
         break;
@@ -191,6 +234,7 @@ export function cpuPlayer() {
       .getElementById("button-" + nextPlayerTurn)
       .removeAttribute("disabled");
     turnCount = 0;
+    playerArray[playerOrder].turn = 0;
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
@@ -661,5 +705,44 @@ export function cpuPlayer() {
     }
 
     return tempSortArray;
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // lock dice
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * 1. locks the dices which appear x times (3 or 4), can not be rolled
+   * 2. locks the icon of the dices
+   * @param {number} number 3 or 4 of kind
+   */
+  function lockXofKind(X) {
+    let unlocked64 = "assets/images/icons/unlocked-64.png";
+    let locked64 = "assets/images/icons/locked-64.png";
+    let unlocked128 = "assets/images/icons/unlocked-128.png";
+    let locked128 = "assets/images/icons/locked-128.png";
+    for (let i = 1; i <= 6; i++) {
+      let tempNumber = turnScore.filter((point) => point === i);
+      if (tempNumber.length === X) {
+        for (let b = 0; b < 5; b++) {
+          if (turnScore[b] === X) {
+            document
+              .getElementById("dice" + (1 + b))
+              .setAttribute("data-lock-open", "false");
+            let tempLockPosition = document
+              .getElementById("lock-" + (1 + b))
+              .getAttribute("src");
+            if (tempLockPosition === unlocked64) {
+              document
+                .getElementById("lock-" + (1 + b))
+                .setAttribute("src", locked64);
+            }
+            if (tempLockPosition === unlocked128) {
+              document
+                .getElementById("lock-" + (1 + b))
+                .setAttribute("src", locked128);
+            }
+          }
+        }
+      }
+    }
   }
 }

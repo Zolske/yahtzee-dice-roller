@@ -226,9 +226,11 @@
         <!-- new player button will appear here when "new player" button is pressed -->
         <div id="button-play-place"></div>
         <br>
+        <!-- <img width="60" height="60" src="assets/images/robot-pointing.gif"alt=""> -->
         <!-- <button id="bt-roll-all">Roll all dice!</button> -->
+        <img class="robot" src="assets/images/robot-pointing.gif">
         <button id="create-player">add human player</button>
-        <button id="create-cpu-player">add cpu player</button>
+        <button id="create-cpu-player">add cpu player </button>
         <button id="test-cpu-player">test cpu player</button>
         <br><br>
         <!-- table for yahtzee points -->
@@ -238,11 +240,12 @@
                     <th></th>
                 </tr>
                 <tr id="table-player-name">
-                    <th>upper section</th>
+                    <!-- <th>upper section</th> -->
                 </tr>
             </thead>
             <tbody id="table-upper">
                 <tr>
+                    <th rowspan="7" class="textOriantation">upper section</th>
                     <td title="count and add only aces">aces</td>
                 </tr>
                 <tr>
@@ -264,21 +267,22 @@
                     <td>total top</td>
                 </tr>
                 <tr>
-                    <td>bonus, top &gt; 62</td>
+                    <td colspan="2">+ bonus (top &gt; 62)</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td>total upper section</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <table>
             <thead>
-                <tr>
+                <!-- <tr>
                     <th>lower section</th>
-                </tr>
+                </tr> -->
             </thead>
             <tbody id="table-lower">
                 <tr>
+                    <th rowspan="7" class="textOriantation">lower section</th>
                     <td title="add total of all dice">3 of a kind</td>
                 </tr>
                 <tr>
@@ -302,14 +306,14 @@
                 <!-- <tr>
                     <td title="X for each bonus, score 100 per X">yahtzee bonus</td>
                 </tr> -->
-                <tr>
+                <!-- <tr>
                     <td>total of lower section</td>
-                </tr>
-                <tr>
+                </tr> -->
+                <!-- <tr>
                     <td>total of upper section</td>
-                </tr>
+                </tr> -->
                 <tr>
-                    <td>grand total</td>
+                    <td colspan="2">grand total</td>
                 </tr>
             </tbody>
         </table>

@@ -22,7 +22,7 @@ export function Player(playerName, playerId) {
   this.playerName = playerName;
   this.playerId = playerId;
   this.human = true;
-  this.turn = 1;
+  this.turn = 0;
   this.diceScore = null;
   this.aces = null;
   this.twos = null;
@@ -247,10 +247,16 @@ export function newPlayer(what) {
     }
     if (uniqueName) {
       playerArray.push(new Player(playerName, playerId));
+      createTableRow(playerName, playerId);
       if (what === "cpu") {
         playerArray[playerArray.length - 1].human = false;
+        // let robotImage = document.getElementsByClassName('robot')
+        // for(let i = 0; i< robotImage.length; i++){
+        //   robotImage
+        // }
+        // document.getElementById("button-" + playerId).innerHTML = `
+        // <img width="60" height="60" src="assets/images/robot-pointing.gif" alt="">`;
       }
-      createTableRow(playerName, playerId);
       break;
     }
     promptMessage = "The name "; // changes prompt message to inform user which names have been taken
