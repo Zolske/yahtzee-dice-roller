@@ -14,6 +14,7 @@ import {
   updatePlayerScoreObject,
   playerArray,
   playerOrder,
+  theWinnerIs,
 } from "./function.js";
 
 import { cpuPlayer } from "./cpu.js";
@@ -44,6 +45,7 @@ document
 // test button /////////////////////////////////////////////////////////////////////////////////////////////
 function test() {
   console.log(playerArray[playerOrder]);
+  // theWinnerIs();
 }
 
 document.getElementById("test-cpu-player").addEventListener("click", test);

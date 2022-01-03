@@ -49,6 +49,7 @@ export function Player(playerName, playerId) {
     this.yahtzee +
     this.chance;
   this.total = null;
+  this.totalTurn = 1;
   this.updateScore = function () {
     this.totalTop =
       this.aces +
@@ -490,7 +491,7 @@ export function writeScoreTable() {
     } else {
       yahtzee = false;
       if (!yahtzeeElement.hasAttribute("disabled")) {
-        yahtzeeElement.textContent = "---";
+        yahtzeeElement.textContent = 0;
         yahtzeeElement.classList.remove("table-button--flash");
       }
     }
@@ -511,7 +512,7 @@ export function writeScoreTable() {
     } else {
       fourOfKind = false;
       if (!fourOfKindElement.hasAttribute("disabled")) {
-        fourOfKindElement.textContent = "---";
+        fourOfKindElement.textContent = 0;
         fourOfKindElement.classList.remove("table-button--flash");
       }
     }
@@ -536,7 +537,7 @@ export function writeScoreTable() {
     } else {
       threeOfKind = false;
       if (!threeOfKindElement.hasAttribute("disabled")) {
-        threeOfKindElement.textContent = "---";
+        threeOfKindElement.textContent = 0;
         threeOfKindElement.classList.remove("table-button--flash");
       }
     }
@@ -565,7 +566,7 @@ export function writeScoreTable() {
         } else {
           fullHouse = false;
           if (!fullHouseElement.hasAttribute("disabled")) {
-            fullHouseElement.textContent = "---";
+            fullHouseElement.textContent = 0;
             fullHouseElement.classList.remove("table-button--flash");
           }
         }
@@ -573,7 +574,7 @@ export function writeScoreTable() {
     } else {
       fullHouse = false;
       if (!fullHouseElement.hasAttribute("disabled")) {
-        fullHouseElement.textContent = "---";
+        fullHouseElement.textContent = 0;
         fullHouseElement.classList.remove("table-button--flash");
       }
     }
@@ -620,7 +621,7 @@ export function writeScoreTable() {
       smallStraightElement.textContent = 30;
       smallStraightElement.classList.add("table-button--flash");
     } else {
-      smallStraightElement.textContent = "---";
+      smallStraightElement.textContent = 0;
       smallStraightElement.classList.remove("table-button--flash");
     }
   }
@@ -649,7 +650,7 @@ export function writeScoreTable() {
       largeStraightElement.textContent = 40;
       largeStraightElement.classList.add("table-button--flash");
     } else {
-      largeStraightElement.textContent = "---";
+      largeStraightElement.textContent = 0;
       largeStraightElement.classList.remove("table-button--flash");
     }
   }
@@ -679,7 +680,7 @@ export function writeScoreTable() {
     } else {
       aces = false;
       if (!acesElement.hasAttribute("disabled")) {
-        acesElement.textContent = "---";
+        acesElement.textContent = 0;
         acesElement.classList.remove("table-button--flash");
       }
     }
@@ -693,7 +694,7 @@ export function writeScoreTable() {
     } else {
       twos = false;
       if (!twosElement.hasAttribute("disabled")) {
-        twosElement.textContent = "---";
+        twosElement.textContent = 0;
         twosElement.classList.remove("table-button--flash");
       }
     }
@@ -707,7 +708,7 @@ export function writeScoreTable() {
     } else {
       threes = false;
       if (!threesElement.hasAttribute("disabled")) {
-        threesElement.textContent = "---";
+        threesElement.textContent = 0;
         threesElement.classList.remove("table-button--flash");
       }
     }
@@ -721,7 +722,7 @@ export function writeScoreTable() {
     } else {
       fours = false;
       if (!foursElement.hasAttribute("disabled")) {
-        foursElement.textContent = "---";
+        foursElement.textContent = 0;
         foursElement.classList.remove("table-button--flash");
       }
     }
@@ -735,7 +736,7 @@ export function writeScoreTable() {
     } else {
       fives = false;
       if (!fivesElement.hasAttribute("disabled")) {
-        fivesElement.textContent = "---";
+        fivesElement.textContent = 0;
         fivesElement.classList.remove("table-button--flash");
       }
     }
@@ -749,7 +750,7 @@ export function writeScoreTable() {
     } else {
       sixes = false;
       if (!sixesElement.hasAttribute("disabled")) {
-        sixesElement.textContent = "---";
+        sixesElement.textContent = 0;
         sixesElement.classList.remove("table-button--flash");
       }
     }
@@ -825,7 +826,7 @@ export function savePointsTable() {
   let tableButtonFlash = document.getElementsByClassName("table-button--flash");
   const flashLength = tableButtonFlash.length;
   for (let i = 0; i < flashLength; i++) {
-    tableButtonFlash[0].textContent = "---";
+    tableButtonFlash[0].textContent = "0";
     tableButtonFlash[0].classList.remove("table-button--flash");
     // tableButtonFlash[0].removeEventListener('click', savePointsTable(this, playerId));
   }
@@ -834,9 +835,8 @@ export function savePointsTable() {
     .classList.remove("player-flash");
   // let hasPlayerFlash = playerFlash.classList.contains("player-flash");
 
-  // if (hasPlayerFlash) {
-  //   playerFlash.classList.remove("player-flash");
-  // }
+  // max 14, all turns
+  ++playerArray[playerOrder].totalTurn;
 
   let allTableButtons = document.getElementsByClassName("table-button");
   for (let i = 0; i < allTableButtons.length; i++) {
@@ -868,6 +868,17 @@ export function nextPlayer() {
   if (playerArray.length <= playerOrder) {
     playerOrder = 0;
   }
+
+  // >>> start checks if all players reached the end of the game
+  let totalTurnPlayed = 0;
+  for (let i = 0; i < playerArray.length; i++) {
+    totalTurnPlayed = totalTurnPlayed + playerArray[i].totalTurn;
+  }
+  if (totalTurnPlayed / playerArray.length === 14) {
+    theWinnerIs();
+  }
+  // <<< end checks if all players reached the end of the game
+
   return playerArray[playerOrder].playerId;
 
   // let playerId = playerArray[playerOrder].playerId;
@@ -988,6 +999,23 @@ export function countTableScore() {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+export function theWinnerIs() {
+  let scoreArray = [];
+  for (let i = 0; i < playerArray.length; i++) {
+    scoreArray.push(playerArray[i].total);
+  }
+  scoreArray.sort((a, b) => b - a);
+  let highestScore = scoreArray.slice(0, 1);
+  highestScore = highestScore.toString();
+
+  for (let i = 0; i < playerArray.length; i++) {
+    if (playerArray[i].total == highestScore) {
+      alert(`Congratulations ${playerArray[i].playerName} , you have won the game. 😀
+      Your total score is ${highestScore} 😃 !`);
+    }
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. adds an click event listener with the function changeLock() to all lock-container children
  */
