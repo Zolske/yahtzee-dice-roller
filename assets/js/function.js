@@ -343,7 +343,7 @@ export function createTableRow(playerName, playerId) {
     } else {
       let tempButton = document.createElement("button");
       tempButton.classList.add("table-button");
-      tempButton.textContent = "---";
+      tempButton.textContent = 0;
       tempButton.setAttribute("id", tableDataLower[i] + playerId);
       tempTableElement.appendChild(tempButton);
     }
@@ -829,6 +829,14 @@ export function savePointsTable() {
     tableButtonFlash[0].classList.remove("table-button--flash");
     // tableButtonFlash[0].removeEventListener('click', savePointsTable(this, playerId));
   }
+  document
+    .getElementById("button-" + playerId)
+    .classList.remove("player-flash");
+  // let hasPlayerFlash = playerFlash.classList.contains("player-flash");
+
+  // if (hasPlayerFlash) {
+  //   playerFlash.classList.remove("player-flash");
+  // }
 
   let allTableButtons = document.getElementsByClassName("table-button");
   for (let i = 0; i < allTableButtons.length; i++) {

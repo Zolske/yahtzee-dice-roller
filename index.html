@@ -27,6 +27,12 @@
                 class="header-dice" src="assets/images/logo/logo-dice.svg" alt="two red dices"><br>roller</h1>
     </header>
     <main>
+        <div class="game-buttons">
+            <button id="create-player">add human player</button>
+            <button id="create-cpu-player">add cpu player </button>
+            <button onclick="location.reload()">restart game</button>
+            <!-- <button id="test-cpu-player">test cpu player</button> -->
+        </div>
         <div class="lock-container">
             <img id="lock-1" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
             <img id="lock-2" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
@@ -216,18 +222,6 @@
                 </div>
             </div>
         </div>
-        <!-- button to roll the dice -->
-        <br>
-        <!-- new player button will appear here when "new player" button is pressed -->
-        <div id="button-play-place"></div>
-        <br>
-        <!-- <img width="60" height="60" src="assets/images/robot-pointing.gif"alt=""> -->
-        <!-- <button id="bt-roll-all">Roll all dice!</button> -->
-        <!-- <img class="robot" src="assets/images/robot-pointing.gif"> -->
-        <button id="create-player">add human player</button>
-        <button id="create-cpu-player">add cpu player </button>
-        <button id="test-cpu-player">test cpu player</button>
-        <br><br>
         <!-- table for yahtzee points -->
         <div id="cpuText" class="noDisplay"></div>
         <table>
@@ -263,8 +257,6 @@
                     <td colspan="2">bonus (top &gt; 62)</td>
                 </tr>
             </tbody>
-        </table>
-        <table>
             <tbody id="table-lower">
                 <tr>
                     <th rowspan="7" class="textOriantation">lower section</th>

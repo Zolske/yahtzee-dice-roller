@@ -18,13 +18,14 @@ html {
 body {
     background: rgb(162, 123, 94);
     background: linear-gradient(171deg, rgba(162, 123, 94, 0.9948354341736695) 30%, rgba(231, 226, 220, 1) 100%);
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 main {
-    width: 90%;
+    width: 95%;
     margin: auto;
     background-color: yellow;
+    padding: .5rem 0rem;
 }
 
 h1 {
@@ -52,10 +53,15 @@ header {
 
 /* <<< end <header> //////////////////////////////////////////////////////////////////////////////////////////////////// */
 .lock-container,
-.dice-container {
+.dice-container,
+.game-buttons {
     display: flex;
     justify-content: space-evenly;
     padding-top: .5rem;
+}
+
+.game-buttons button {
+    margin: .5rem;
 }
 
 #lock-1:hover,
@@ -68,6 +74,10 @@ header {
 }
 
 /* >>> start <table> ///////////////////////////////////////////////////////////////////////////////////////////////////// */
+table {
+    margin: 1rem auto .3rem auto;
+}
+
 table,
 td,
 th {
