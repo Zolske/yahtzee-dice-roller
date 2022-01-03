@@ -98,14 +98,15 @@ table,
 }
 
 #cpuText {
-    border: none;
     background-color: #fff;
     border-radius: 1rem;
-    display: none;
-    color: #000;
     max-width: 94%;
     text-align: center;
-    padding: 0.5rem;
+    padding: .5rem;
+}
+
+.noDisplay {
+    display: none;
 }
 
 .table-button--flash {
@@ -201,6 +202,25 @@ table,
 .robot {
     height: 60px;
     width: 60px;
+}
+
+.player-flash {
+    background-color: #004A7F;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    font-size: 1rem;
+    /* padding: 5px 10px; */
+    text-align: center;
+    text-decoration: none;
+    -webkit-animation: glowing 1500ms infinite;
+    -moz-animation: glowing 1500ms infinite;
+    -o-animation: glowing 1500ms infinite;
+    animation: glowing 1500ms infinite;
 }
 
 /* <<< end <table> ///////////////////////////////////////////////////////////////////////////////////////////////////// */

@@ -404,6 +404,11 @@ export function playTurn(thisButton) {
       document
         .getElementById("button-" + playerArray[playerOrder].playerId)
         .setAttribute("disabled", "");
+      let hasPlayerFlash = thisButton.classList.contains("player-flash");
+
+      if (hasPlayerFlash) {
+        thisButton.classList.remove("player-flash");
+      }
       playerArray[playerOrder].turn = 0;
     }
 
@@ -840,6 +845,9 @@ export function savePointsTable() {
   document
     .getElementById("button-" + nextPlayerTurn)
     .removeAttribute("disabled");
+  document
+    .getElementById("button-" + nextPlayerTurn)
+    .classList.add("player-flash");
   turnCount = 0;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
