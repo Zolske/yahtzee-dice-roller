@@ -463,6 +463,9 @@ export function cpuPlayer() {
     document
       .getElementById("button-" + nextPlayerTurn)
       .removeAttribute("disabled");
+    document
+      .getElementById("button-" + nextPlayerTurn)
+      .classList.add("player-flash");
     turnCount = 0;
     playerArray[playerOrder].turn = 0;
     document.getElementById("showTurn").textContent =
@@ -581,79 +584,6 @@ export function cpuPlayer() {
         break;
     }
   }
-
-  // cpuDecisionThree();
-  // function yahtzeeCategoryCheck() {
-  //   // has yahtzee open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   if (ableYahtzee) {
-  //     if (isYahtzee()) {
-  //       writeScoreEndTurn("yahtzee");
-  //     }
-  //     // has largeStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableLargeStraight) {
-  //     if (isLargeStraight()) {
-  //       writeScoreEndTurn("largeStraight");
-  //     }
-  //     // has smallStraight open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableSmallStraight) {
-  //     if (isSmallStraight()) {
-  //       writeScoreEndTurn("smallStraight");
-  //     }
-  //     // has fullHouse open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFullHouse) {
-  //     if (isFullHouse()) {
-  //       writeScoreEndTurn("fullHouse");
-  //     }
-  //     // has sixes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableSixes) {
-  //     if (isSixes()) {
-  //       writeScoreEndTurn("sixes");
-  //     }
-  //     // has fives open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFives) {
-  //     if (isFives()) {
-  //       writeScoreEndTurn("fives");
-  //     }
-  //     // has fours open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFours) {
-  //     if (isFours()) {
-  //       writeScoreEndTurn("fours");
-  //     }
-  //     // has fourOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableFourOfKind) {
-  //     if (isFourOfKind()) {
-  //       writeScoreEndTurn("fourOfKind");
-  //     }
-  //     // has threeOfKind open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableThreeOfKind) {
-  //     if (isThreeOfKind()) {
-  //       writeScoreEndTurn("threeOfKind");
-  //     }
-  //     // has threes open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableThrees) {
-  //     if (isThrees()) {
-  //       writeScoreEndTurn("threes");
-  //     }
-  //     // has twos open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableTwos) {
-  //     if (isTwos()) {
-  //       writeScoreEndTurn("twos");
-  //     }
-  //     // has aces open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //   } else if (ableAces) {
-  //     if (isAces()) {
-  //       writeScoreEndTurn("aces");
-  //     }
-  //     // has chance open ? //////////////////////////////////////////////////////////////////////////////////////////////////
-  //     // } else if (ableChance) {
-  //     //   if (isChance()) {
-  //     //     writeScoreEndTurn("chance");
-  //     //   }
-  //   }
-  // }
-
-  // function whatDiceRoll() {}
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
    * 1. checks if playerArray can take points
