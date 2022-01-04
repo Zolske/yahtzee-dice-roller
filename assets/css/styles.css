@@ -296,7 +296,7 @@ table,
 
 @media only screen and (min-width: 37.5rem) {
     main {
-        height: 99.5rem;
+        height: 116rem;
     }
 
     .game-buttons button {
@@ -325,7 +325,7 @@ table,
     .table-button {
         width: 4rem;
         height: 2.5rem;
-        margin: 0.3rem
+        margin: 1rem;
     }
 
     .table-button--flash,
