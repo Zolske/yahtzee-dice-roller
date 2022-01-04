@@ -48,4 +48,4 @@ function test() {
   // theWinnerIs();
 }
 
-document.getElementById("test-cpu-player").addEventListener("click", test);
+// document.getElementById("test-cpu-player").addEventListener("click", test);

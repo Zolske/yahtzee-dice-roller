@@ -320,7 +320,7 @@ export function createTableRow(playerName, playerId) {
   // document.getElementById("table-player-name").appendChild(tablePlayerName);
 
   for (let i = 0; i < tableDataUpper.length; i++) {
-    let tempTableElement = document.createElement("th");
+    let tempTableElement = document.createElement("td");
     // || tableDataUpper[i] === "totalUpper"
     if (tableDataUpper[i] === "totalTop" || tableDataUpper[i] === "bonusTop") {
       tempTableElement.textContent = 0;
@@ -336,7 +336,7 @@ export function createTableRow(playerName, playerId) {
   }
 
   for (let i = 0; i < tableDataLower.length; i++) {
-    let tempTableElement = document.createElement("th");
+    let tempTableElement = document.createElement("td");
     // tableDataLower[i] === "totalLower" || tableDataLower[i] === "copyTotalUpper" ||
     if (tableDataLower[i] === "total") {
       tempTableElement.textContent = 0;
