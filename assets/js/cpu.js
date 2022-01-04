@@ -52,7 +52,12 @@ export function cpuPlayer() {
     // let testScore = [6, 4, 5, 1, 6];
     // turnScore = testScore;
     // playerArray[playerOrder].diceScore = testScore;
-    console.log("cpu test score is ... " + turnScore);
+    console.log(
+      "total turn : " +
+        playerArray[playerOrder].totalTurn +
+        "|, cpu turn score is : " +
+        turnScore
+    );
     // <<< end for testing
     // >>> start test, playerArray write score
     // playerArray[playerOrder].aces = 3;
@@ -470,6 +475,7 @@ export function cpuPlayer() {
     playerArray[playerOrder].turn = 0;
     document.getElementById("showTurn").textContent =
       "turn " + playerArray[playerOrder].turn + " of 3";
+    ++playerArray[playerOrder].totalTurn;
     document
       .getElementById("button-" + playerId)
       .setAttribute("src", "assets/images/robot-pointing.webp");
