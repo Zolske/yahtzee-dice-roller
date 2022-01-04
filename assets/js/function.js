@@ -275,6 +275,9 @@ export function newPlayer(what) {
     document
       .getElementById("button-" + otherPlayer)
       .setAttribute("disabled", "");
+    document
+      .getElementById("button-" + otherPlayer)
+      .classList.remove("player-flash");
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -351,14 +354,15 @@ export function createTableRow(playerName, playerId) {
     tableLower.children[i].appendChild(tempTableElement);
   }
 
-  // creates a button
   let td = document.createElement("td");
   td.setAttribute("id", "td-" + playerId);
   td.setAttribute("class", "noBorder");
   let playerPlayButton;
 
+  // creates a button
   if (playerArray[playerArray.length - 1].human) {
     playerPlayButton = document.createElement("button");
+    playerPlayButton.setAttribute("class", "player-flash");
     // adds the player name to the button
     playerPlayButton.textContent = playerName;
   } else {
