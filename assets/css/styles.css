@@ -23,7 +23,7 @@ body {
 
 main {
     width: 95%;
-    height: 69rem;
+    height: 94.5rem;
     margin: 2rem auto 1rem auto;
     background-color: #ffffff4D;
     /* background-color: yellow; */
@@ -130,13 +130,17 @@ th {
     font-size: 1.5rem;
 }
 
+.table-button {
+    margin: 1rem 0;
+}
+
 table,
 .noBorder {
     border: none;
 }
 
 #table-player-name {
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 .textOriantation {
