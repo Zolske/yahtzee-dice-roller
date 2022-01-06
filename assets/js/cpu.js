@@ -49,8 +49,8 @@ function cpuDecisionThree() {
 
   /////////////////////////////////////////////////////////////////
   // >>> start for testing
-  // let testScore = [6, 4, 5, 1, 6];
-  // turnScore = testScore;
+  let testScore = [1, 1, 1, 1, 1];
+  turnScore = testScore;
   // playerArray[playerOrder].diceScore = testScore;
   console.log(
     "total turn : " +
@@ -85,58 +85,52 @@ function cpuDecisionThree() {
     // Ax5
     switch (true) {
       case canWrite("yahtzee"):
-        cpuText("Looks like I have 😁...", "Cool, 😎 it is a 🤩'yahtzee'!");
-        setTimeout(() => {
+        cpuText(
+          "Looks like I have 😁...",
+          "Cool, 😎 it is a 🤩'yahtzee'!"
+        ).then(() => {
           writeScoreEndTurn("yahtzee");
-        }, 9000);
+        });
         break;
       case canWrite("sixes") && isNumTimes(6, 5):
-        cpuText("Looks like ...", "Bingo, 😜 it is 'sixes'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "Bingo, 😜 it is 'sixes'!").then(() => {
           writeScoreEndTurn("sixes");
-        }, 9000);
+        });
         break;
       case canWrite("fives") && isNumTimes(5, 5):
-        cpuText("Looks like ...", "Cool, 🤠 it is a 'fives'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "Cool, 🤠 it is a 'fives'!").then(() => {
           writeScoreEndTurn("fives");
-        }, 9000);
+        });
         break;
       case canWrite("fours") && isNumTimes(4, 5):
-        cpuText("Looks like ...", "🧐 it is 'fours'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "🧐 it is 'fours'!").then(() => {
           writeScoreEndTurn("fours");
-        }, 9000);
+        });
         break;
       case canWrite("fourOfKind") && isFourOfKind():
-        cpuText("Looks like ...", "🤪 it is 'fourOfKind'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "🤪 it is 'fourOfKind'!").then(() => {
           writeScoreEndTurn("fourOfKind");
-        }, 9000);
+        });
         break;
       case canWrite("threeOfKind") && isThreeOfKind():
-        cpuText("Looks like ...", "👽 it is 'threeOfKind'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "👽 it is 'threeOfKind'!").then(() => {
           writeScoreEndTurn("threeOfKind");
-        }, 9000);
+        });
         break;
       case canWrite("threes") && isNumTimes(3, 5):
-        cpuText("Looks like ...", "🤓 it is 'threes'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "🤓 it is 'threes'!").then(() => {
           writeScoreEndTurn("threes");
-        }, 9000);
+        });
         break;
       case canWrite("twos") && isNumTimes(2, 5):
-        cpuText("Looks like ...", "🙂 it is 'twos'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "🙂 it is 'twos'!").then(() => {
           writeScoreEndTurn("twos");
-        }, 9000);
+        });
         break;
       case canWrite("aces") && isNumTimes(1, 5):
-        cpuText("Looks like ...", "😲 it is 'aces'!");
-        setTimeout(() => {
+        cpuText("Looks like ...", "😲 it is 'aces'!").then(() => {
           writeScoreEndTurn("aces");
-        }, 9000);
+        });
         break;
     }
   } else if (isAxFactor(4)) {
@@ -146,67 +140,65 @@ function cpuDecisionThree() {
     // Ax4
     switch (true) {
       case canWrite("yahtzee") && playerArray[playerOrder].turn < 3:
-        cpuText("What can I do?", "I have an idea 💡, I roll only one dice!");
-        setTimeout(() => {
+        cpuText(
+          "What can I do?",
+          "I have an idea 💡, I roll only one dice!"
+        ).then(() => {
           lockXofKind(4);
-        }, 9000);
+        });
         break;
       case canWrite("fourOfKind"):
-        cpuText("Looks like I have ...", "Yes, 😄 it is a 'four of kind'!");
-        setTimeout(() => {
+        cpuText(
+          "Looks like I have ...",
+          "Yes, 😄 it is a 'four of kind'!"
+        ).then(() => {
           writeScoreEndTurn("fourOfKind");
-        }, 9000);
+        });
         break;
       case canWrite("threeOfKind"):
-        cpuText("Huuuh I think 🤔, ...", "It is a 'three of kind'!");
-        setTimeout(() => {
-          writeScoreEndTurn("threeOfKind");
-        }, 9000);
+        cpuText("Huuuh I think 🤔, ...", "It is a 'three of kind'!").then(
+          () => {
+            writeScoreEndTurn("threeOfKind");
+          }
+        );
         break;
       case canWrite("sixes") && isNumTimes(6, 4):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'sixes'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'sixes'!").then(() => {
           writeScoreEndTurn("sixes");
-        }, 9000);
+        });
         break;
       case canWrite("fives") && isNumTimes(5, 4):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fives'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fives'!").then(() => {
           writeScoreEndTurn("fives");
-        }, 9000);
+        });
         break;
       case canWrite("fours") && isNumTimes(4, 4):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fours'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fours'!").then(() => {
           writeScoreEndTurn("fours");
-        }, 9000);
+        });
         break;
       case canWrite("threes") && isNumTimes(3, 4):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'threes'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'threes'!").then(() => {
           writeScoreEndTurn("threes");
-        }, 9000);
+        });
         break;
       case canWrite("twos") && isNumTimes(2, 4):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'twos'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'twos'!").then(() => {
           writeScoreEndTurn("twos");
-        }, 9000);
+        });
         break;
       case canWrite("aces") && isNumTimes(1, 4):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'aces'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'aces'!").then(() => {
           writeScoreEndTurn("aces");
-        }, 9000);
+        });
         break;
       case canWrite("fullHouse") && playerArray[playerOrder].turn < 3:
         cpuText(
           "What to do?? 🤯",
           "I roll two dices, may be I get a 'full house' 😇"
-        );
-        setTimeout(() => {
+        ).then(() => {
           lockXofKind(3);
-        }, 9000);
+        });
         break;
     }
   } else if (isFullHouse()) {
@@ -216,10 +208,9 @@ function cpuDecisionThree() {
     // full house
     switch (true) {
       case canWrite("fullHouse"):
-        cpuText("Yeah, 😆", "🤖 it is a 'full house'!");
-        setTimeout(() => {
+        cpuText("Yeah, 😆", "🤖 it is a 'full house'!").then(() => {
           writeScoreEndTurn("fullHouse");
-        }, 9000);
+        });
         break;
     }
   } else if (isAxFactor(3)) {
@@ -232,52 +223,46 @@ function cpuDecisionThree() {
         cpuText(
           "That is not easy 🤯 ...",
           "But I know what I can do 😵. I roll only two dice!"
-        );
-        setTimeout(() => {
+        ).then(() => {
           lockXofKind(3);
-        }, 9000);
+        });
         break;
       case canWrite("threeOfKind"):
-        cpuText("Huuuh I think 🤔, ...", "It is a 'three of kind'!");
-        setTimeout(() => {
-          writeScoreEndTurn("threeOfKind");
-        }, 9000);
+        cpuText("Huuuh I think 🤔, ...", "It is a 'three of kind'!").then(
+          () => {
+            writeScoreEndTurn("threeOfKind");
+          }
+        );
         break;
       case canWrite("sixes") && isNumTimes(6, 3):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'sixes'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'sixes'!").then(() => {
           writeScoreEndTurn("sixes");
-        }, 9000);
+        });
         break;
       case canWrite("fives") && isNumTimes(5, 3):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fives'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fives'!").then(() => {
           writeScoreEndTurn("fives");
-        }, 9000);
+        });
         break;
       case canWrite("fours") && isNumTimes(4, 3):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fours'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'fours'!").then(() => {
           writeScoreEndTurn("fours");
-        }, 9000);
+        });
         break;
       case canWrite("threes") && isNumTimes(3, 3):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'threes'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'threes'!").then(() => {
           writeScoreEndTurn("threes");
-        }, 9000);
+        });
         break;
       case canWrite("twos") && isNumTimes(2, 3):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'twos'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'twos'!").then(() => {
           writeScoreEndTurn("twos");
-        }, 9000);
+        });
         break;
       case canWrite("aces") && isNumTimes(1, 3):
-        cpuText("Mhhh 🙃, ...", "Ok, I write in 'aces'!");
-        setTimeout(() => {
+        cpuText("Mhhh 🙃, ...", "Ok, I write in 'aces'!").then(() => {
           writeScoreEndTurn("aces");
-        }, 9000);
+        });
         break;
     }
   } else if (isLargeStraight()) {
@@ -287,16 +272,17 @@ function cpuDecisionThree() {
     // ABCDE or large straight
     switch (true) {
       case canWrite("largeStraight"):
-        cpuText("Yeap 😊, ...", "That is what I call a 'large straight'! 🤩");
-        setTimeout(() => {
+        cpuText(
+          "Yeap 😊, ...",
+          "That is what I call a 'large straight'! 🤩"
+        ).then(() => {
           writeScoreEndTurn("largeStraight");
-        }, 9000);
+        });
         break;
       case canWrite("smallStraight"):
-        cpuText("Oh 🤗, ...", "'Small straight' 😝!");
-        setTimeout(() => {
+        cpuText("Oh 🤗, ...", "'Small straight' 😝!").then(() => {
           writeScoreEndTurn("smallStraight");
-        }, 9000);
+        });
         break;
     }
   } else if (isSmallStraight()) {
@@ -306,16 +292,17 @@ function cpuDecisionThree() {
     // ABCD or small straight
     switch (true) {
       case canWrite("largeStraight") && playerArray[playerOrder].turn < 3:
-        cpuText("Mhhh, ...", "😏 Let's try to make a 'large straight'! 😉");
-        setTimeout(() => {
+        cpuText(
+          "Mhhh, ...",
+          "😏 Let's try to make a 'large straight'! 😉"
+        ).then(() => {
           lockABCD();
-        }, 9000);
+        });
         break;
       case canWrite("smallStraight"):
-        cpuText("Mhhh, ...", "🤪 Ok it is a 'small straight'! 😄");
-        setTimeout(() => {
+        cpuText("Mhhh, ...", "🤪 Ok it is a 'small straight'! 😄").then(() => {
           writeScoreEndTurn("smallStraight");
-        }, 9000);
+        });
         break;
     }
   } else if (isABC()) {
@@ -328,19 +315,17 @@ function cpuDecisionThree() {
         cpuText(
           "Ohhho, 😲",
           "🤓 If I lock three dices and roll two? May be I can make a 'straight'🤨! 😉"
-        );
-        setTimeout(() => {
+        ).then(() => {
           lockABC();
-        }, 9000);
+        });
         break;
       case canWrite("smallStraight") && playerArray[playerOrder].turn < 3:
         cpuText(
           "Ohhho, 😲",
           "🤓 If I lock three dices and roll two? May be I can make a 'small straight'🤨! 😉"
-        );
-        setTimeout(() => {
+        ).then(() => {
           lockABC();
-        }, 9000);
+        });
         break;
     }
   }
@@ -1017,37 +1002,32 @@ function arrayLocker4(arrayString) {
  * 2. runs a 'timer' to pass time
  * 3. optional end text can be set
  * 4. clears text (display id="cpuText" none)
- * use setTimeout(() => { function1(X); function2(Y);}, 9000);
  * @param {string} text text to be displayed first
  * @param {string} text2 optional (must be set '' if other arguments are used), last text after '... '
- * @param {number} counterStop how many '... ' should be displayed (default 4)
- * @param {number} interval how many seconds till new '... ' appears (default 1000 === 1 seconds)
+ * @param {number} interval how many seconds times 7 (default 1000 === 1 seconds, total length 6 seconds)
  */
-function cpuText(text, text2 = "", counterStop = 4, interval = 1000) {
-  document.getElementById("robot_audio").play();
-  let cpuText = document.getElementById("cpuText");
-  let cpuTextClass = document.getElementById("cpuText").classList;
-  cpuTextClass.toggle("noDisplay");
-  cpuText.innerHTML = `${text}<br>`;
-  const intervalStop = setInterval(timer, interval);
+function cpuText(text, text2 = "", interval = 1000) {
+  const promise = new Promise((resolve) => {
+    document.getElementById("robot_audio").play();
+    let cpuText = document.getElementById("cpuText");
+    let cpuTextClass = document.getElementById("cpuText").classList;
+    cpuTextClass.toggle("noDisplay");
+    cpuText.innerHTML = `${text}<br>`;
+    const intervalStop = setInterval(timer, interval);
 
-  let counter = 0;
-  let counter2 = 0;
-  function timer() {
-    cpuText.innerHTML += "... ";
-    ++counter;
-    if (counter === counterStop) {
-      clearInterval(intervalStop);
-      cpuText.innerHTML += `<br>${text2}`;
-      function timer2() {
-        ++counter2;
-        if (counter2 === 1) {
-          clearInterval(intervalStop2);
-          cpuText.innerHTML = "";
-          cpuTextClass.toggle("noDisplay");
-        }
+    let counter = 0;
+    function timer() {
+      ++counter;
+      if (counter <= 2) {
+        cpuText.innerHTML += "... ";
+      } else if (counter === 3) {
+        cpuText.innerHTML += `<br>${text2}`;
+      } else if (counter > 6) {
+        clearInterval(intervalStop);
+        cpuTextClass.toggle("noDisplay");
+        resolve(true);
       }
-      const intervalStop2 = setTimeout(timer2, 4000);
     }
-  }
+  });
+  return promise;
 }
