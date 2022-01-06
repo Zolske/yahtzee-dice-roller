@@ -37,11 +37,11 @@ for (let i = 0; i < 5; i++) {
  * adds an click event to the button with the id 'create-player', which triggers the buttonDiceRoller() function
  */
 document.getElementById("create-player").addEventListener("click", newPlayer);
-// document
-//   .getElementById("create-cpu-player")
-//   .addEventListener("click", function () {
-//     newPlayer("cpu");
-//   });
+document
+  .getElementById("create-cpu-player")
+  .addEventListener("click", function () {
+    newPlayer("cpu");
+  });
 // test button /////////////////////////////////////////////////////////////////////////////////////////////
 function test() {
   console.log(playerArray[playerOrder]);
