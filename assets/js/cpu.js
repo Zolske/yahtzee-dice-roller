@@ -26,9 +26,9 @@ export function cpuPlayer() {
   document
     .getElementById("button-" + playerId)
     .setAttribute("src", "assets/images/robot-pointing.gif");
-  document
-    .getElementById("button-" + playerId)
-    .classList.remove("player-flash");
+  // document
+  //   .getElementById("button-" + playerId)
+  //   .classList.toggle("player-flash");
 
   cpuDecisionThree();
 
@@ -359,6 +359,14 @@ export function cpuPlayer() {
     }
     ++counter;
   }
+  if (playerArray[playerOrder].turn == 3) {
+    // document
+    //   .getElementById("button-" + playerId)
+    //   .classList.remove("player-flash");
+    crossOff();
+  }
+
+  // document.getElementById("button-" + playerId).classList.add("player-flash");
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
    * 1. writes points into the table
@@ -464,6 +472,11 @@ export function cpuPlayer() {
     document.getElementById("button-" + playerId).setAttribute("disabled", ""); // disables all remaining table-buttons so the player can not save (change) there value
     countTableScore();
     openLocks();
+    ++playerArray[playerOrder].totalTurn;
+    playerArray[playerOrder].turn = 0;
+    document
+      .getElementById("button-" + playerArray[playerOrder].playerId)
+      .classList.remove("player-flash");
     let nextPlayerTurn = nextPlayer(playerId);
     document
       .getElementById("button-" + nextPlayerTurn)
