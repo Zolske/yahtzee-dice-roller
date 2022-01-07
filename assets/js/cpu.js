@@ -68,7 +68,7 @@ function cpuDecisionThree() {
 
     /////////////////////////////////////////////////////////////////
     // >>> start for testing
-    // let testScore = [1, 2, 3, 3, 1];
+    // let testScore = [1, 3, 2, 4, 4];
     // turnScore = testScore;
     // playerArray[playerOrder].diceScore = testScore;
     if (consoleDecisionTree) {
@@ -81,7 +81,7 @@ function cpuDecisionThree() {
           turnScore +
           "|"
       );
-      // console.log(playerArray[playerOrder]);
+      console.log(playerArray[playerOrder]);
     }
     // <<< end for testing
     // >>> start test, playerArray write score
@@ -104,7 +104,7 @@ function cpuDecisionThree() {
     /////////////////////////////////////////////////////////////////
     if (isAxFactor(5)) {
       if (consoleDecisionTree) {
-        console.log("isAxFactor(5)");
+        console.log("isAxFactor(5) //Ax5");
       }
       // Ax5
       switch (true) {
@@ -172,7 +172,7 @@ function cpuDecisionThree() {
       }
     } else if (isAxFactor(4)) {
       if (consoleDecisionTree) {
-        console.log("isAxFactor(4)");
+        console.log("isAxFactor(4) //Ax4");
       }
       // Ax4
       switch (true) {
@@ -221,6 +221,16 @@ function cpuDecisionThree() {
             writeScoreEndTurn("threes");
           });
           break;
+        case canWrite("fullHouse") && playerArray[playerOrder].turn < 3:
+          lockZinPatternX(4, 3);
+          cpuText(
+            "What to do?? 🤯",
+            "I roll two dices, may be I get a 'full house' 😇"
+          ).then(() => {
+            let rollAgain = true;
+            resolve(rollAgain);
+          });
+          break;
         case canWrite("twos") && isNumTimes(2, 4):
           cpuText("Mhhh 🙃, ...", "Ok, I write in 'twos'!").then(() => {
             writeScoreEndTurn("twos");
@@ -229,16 +239,6 @@ function cpuDecisionThree() {
         case canWrite("aces") && isNumTimes(1, 4):
           cpuText("Mhhh 🙃, ...", "Ok, I write in 'aces'!").then(() => {
             writeScoreEndTurn("aces");
-          });
-          break;
-        case canWrite("fullHouse") && playerArray[playerOrder].turn < 3:
-          lockXofKind(3);
-          cpuText(
-            "What to do?? 🤯",
-            "I roll two dices, may be I get a 'full house' 😇"
-          ).then(() => {
-            let rollAgain = true;
-            resolve(rollAgain);
           });
           break;
         default:
@@ -257,7 +257,7 @@ function cpuDecisionThree() {
       }
     } else if (isFullHouse() && canWrite("fullHouse")) {
       if (consoleDecisionTree) {
-        console.log("isFullHouse()");
+        console.log("isFullHouse() //fullHouse");
       }
       // full house
       switch (true) {
@@ -269,7 +269,7 @@ function cpuDecisionThree() {
       }
     } else if (isAxFactor(3)) {
       if (consoleDecisionTree) {
-        console.log("isAxFactor(3)");
+        console.log("isAxFactor(3) //Ax3");
       }
       // Ax3
       switch (true) {
@@ -278,6 +278,16 @@ function cpuDecisionThree() {
           cpuText(
             "That is not easy 🤯 ...",
             "But I know what I can do 😵. I roll only two dice!"
+          ).then(() => {
+            let rollAgain = true;
+            resolve(rollAgain);
+          });
+          break;
+        case canWrite("fourOfKind") && playerArray[playerOrder].turn < 3:
+          lockXofKind(3);
+          cpuText(
+            "Huuuh I think 🤔, ...",
+            "let's try to roll 'four of kind'!"
           ).then(() => {
             let rollAgain = true;
             resolve(rollAgain);
@@ -336,7 +346,7 @@ function cpuDecisionThree() {
       }
     } else if (isLargeStraight() && canWrite("largeStraight")) {
       if (consoleDecisionTree) {
-        console.log("isLargeStraight()");
+        console.log("isLargeStraight() //ABCD");
       }
       // ABCDE or large straight
       switch (true) {
@@ -359,7 +369,7 @@ function cpuDecisionThree() {
       (isSmallStraight() && canWrite("largeStraight"))
     ) {
       if (consoleDecisionTree) {
-        console.log("isSmallStraight()");
+        console.log("isSmallStraight() //ABCD");
       }
       // ABCD or small straight
       switch (true) {
@@ -394,9 +404,12 @@ function cpuDecisionThree() {
             );
           }
       }
-    } else if (isABC()) {
+    } else if (
+      (isABC() && canWrite("smallStraight")) ||
+      (isABC() && canWrite("largeStraight"))
+    ) {
       if (consoleDecisionTree) {
-        console.log("isABC()");
+        console.log("isABC() //ABC");
       }
       //ABC
       switch (true) {
@@ -418,6 +431,84 @@ function cpuDecisionThree() {
           ).then(() => {
             let rollAgain = true;
             resolve(rollAgain);
+          });
+          break;
+        default:
+          if (playerArray[playerOrder].turn < 3) {
+            cpuText("What to do ...", "😆 let's roll again.").then(() => {
+              let rollAgain = true;
+              resolve(rollAgain);
+            });
+          } else {
+            cpuText("Oh no 😱...", "my last turn, I have to cross off.").then(
+              () => {
+                crossOff();
+              }
+            );
+          }
+      }
+    } else if (isAxFactor(2)) {
+      if (consoleDecisionTree) {
+        console.log("isAxFactor(2) //Ax2");
+      }
+      //Ax2
+      switch (true) {
+        case playerArray[playerOrder].turn < 3:
+          lockZinPatternX(2, 2);
+          cpuText(
+            "Not to good ...",
+            "I keep two dices and roll the rest again."
+          ).then(() => {
+            let rollAgain = true;
+            resolve(rollAgain);
+          });
+          break;
+        case canWrite("sixes") && isNumTimes(6, 2):
+          cpuText(
+            "Not to good 😩...",
+            "🙄 But better than nothing, I write 'sixes'."
+          ).then(() => {
+            writeScoreEndTurn("sixes");
+          });
+          break;
+        case canWrite("fives") && isNumTimes(5, 2):
+          cpuText(
+            "Not to good 😩...",
+            "🙄 But better than nothing, I write 'fives'."
+          ).then(() => {
+            writeScoreEndTurn("fives");
+          });
+          break;
+        case canWrite("fours") && isNumTimes(4, 2):
+          cpuText(
+            "Not to good 😩...",
+            "🙄 But better than nothing, I write 'fours'."
+          ).then(() => {
+            writeScoreEndTurn("fours");
+          });
+          break;
+        case canWrite("threes") && isNumTimes(3, 2):
+          cpuText(
+            "Not to good 😩...",
+            "🙄 But better than nothing, I write 'threes'."
+          ).then(() => {
+            writeScoreEndTurn("threes");
+          });
+          break;
+        case canWrite("twos") && isNumTimes(2, 2):
+          cpuText(
+            "Not to good 😩...",
+            "🙄 But better than nothing, I write 'twos'."
+          ).then(() => {
+            writeScoreEndTurn("twos");
+          });
+          break;
+        case canWrite("aces") && isNumTimes(1, 2):
+          cpuText(
+            "Not to good 😩...",
+            "🙄 But better than nothing, I write 'aces'."
+          ).then(() => {
+            writeScoreEndTurn("aces");
           });
           break;
         default:
@@ -1025,6 +1116,46 @@ function lockXofKind(X) {
     if (tempNumber.length === X) {
       for (let b = 0; b < 5; b++) {
         if (turnScore[b] === i) {
+          document
+            .getElementById("dice" + (1 + b))
+            .setAttribute("data-lock-open", "false");
+          let tempLockPosition = document
+            .getElementById("lock-" + (1 + b))
+            .getAttribute("src");
+          if (tempLockPosition === unlocked64) {
+            document
+              .getElementById("lock-" + (1 + b))
+              .setAttribute("src", locked64);
+          }
+          if (tempLockPosition === unlocked128) {
+            document
+              .getElementById("lock-" + (1 + b))
+              .setAttribute("src", locked128);
+          }
+        }
+      }
+    }
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * 1. locks an dices in an pattern (e.g. a pattern of 4 same dices lock 2)
+ * 2. locks the icon of the dices
+ * @param {number} X is the number of same dice (e.g. 4 of the same dice)
+ * @param {number} Z is the number of how many should be locked (e.g. lock 2)
+ */
+function lockZinPatternX(X, Z) {
+  let unlocked64 = "assets/images/icons/unlocked-64.png";
+  let locked64 = "assets/images/icons/locked-64.png";
+  let unlocked128 = "assets/images/icons/unlocked-128.png";
+  let locked128 = "assets/images/icons/locked-128.png";
+  let counter = 0;
+  for (let i = 1; i <= 6; i++) {
+    let tempNumber = turnScore.filter((point) => point === i);
+    if (tempNumber.length === X) {
+      for (let b = 0; b < 5; b++) {
+        if (turnScore[b] === i && counter < Z) {
+          ++counter;
           document
             .getElementById("dice" + (1 + b))
             .setAttribute("data-lock-open", "false");
