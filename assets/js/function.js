@@ -49,7 +49,7 @@ export function Player(playerName, playerId) {
     this.yahtzee +
     this.chance;
   this.total = null;
-  this.totalTurn = 1;
+  this.totalTurn = 0;
   this.updateScore = function () {
     this.totalTop =
       this.aces +
@@ -279,6 +279,9 @@ export function newPlayer(what) {
       .getElementById("button-" + otherPlayer)
       .classList.remove("player-flash");
   }
+  document
+    .getElementById("button-" + playerArray[0].playerId)
+    .classList.add("player-flash");
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -841,6 +844,7 @@ export function savePointsTable() {
 
   // max 14, all turns
   ++playerArray[playerOrder].totalTurn;
+  console.log(playerArray);
 
   let allTableButtons = document.getElementsByClassName("table-button");
   for (let i = 0; i < allTableButtons.length; i++) {
@@ -878,7 +882,7 @@ export function nextPlayer() {
   for (let i = 0; i < playerArray.length; i++) {
     totalTurnPlayed = totalTurnPlayed + playerArray[i].totalTurn;
   }
-  if (totalTurnPlayed / playerArray.length === 14) {
+  if (totalTurnPlayed / playerArray.length === 13) {
     theWinnerIs();
   }
   // <<< end checks if all players reached the end of the game

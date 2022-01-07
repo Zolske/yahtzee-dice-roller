@@ -23,7 +23,7 @@ body {
 
 main {
     width: 95%;
-    height: 95.5rem;
+    height: 97.5rem;
     margin: 2rem auto 1rem auto;
     background-color: #ffffff4D;
     /* background-color: yellow; */
@@ -173,7 +173,7 @@ table,
     margin: 1.5rem auto 0.5rem auto;
     font-size: 1.5rem;
     width: fit-content;
-    height: 5rem;
+    height: 7rem;
 }
 
 .noDisplay {
@@ -501,7 +501,7 @@ hr {
 
 @media only screen and (min-width: 37.5rem) {
     main {
-        height: 116rem;
+        height: 118rem;
     }
 
     .game-buttons button {
