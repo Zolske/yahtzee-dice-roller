@@ -32,8 +32,8 @@
 
 <body>
     <header>
-        <h1>yahtzee<br><img width="40" height="auto" class="header-dice" src="assets/images/logo/logo-dice.svg"
-                alt="two red dices"> dice <img width="40" height="auto" class="header-dice"
+        <h1>yahtzee<br><img width="40" height="40" class="header-dice" src="assets/images/logo/logo-dice.svg"
+                alt="two red dices"> dice <img width="40" height="40" class="header-dice"
                 src="assets/images/logo/logo-dice.svg" alt="two red dices"><br>roller</h1>
     </header>
     <main>
@@ -45,11 +45,11 @@
             <!-- <button id="test-cpu-player">test cpu player</button> -->
         </div>
         <div class="lock-container">
-            <img id="lock-1" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
-            <img id="lock-2" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
-            <img id="lock-3" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
-            <img id="lock-4" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
-            <img id="lock-5" height="64" width="64" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-1" height="48" width="48" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-2" height="48" width="48" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-3" height="48" width="48" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-4" height="48" width="48" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
+            <img id="lock-5" height="48" width="48" src="assets/images/icons/unlocked-64.png" alt="open lock icon">
         </div>
         <div class="dice-container">
             <!-- dice1 -->
@@ -235,67 +235,69 @@
         </div>
         <!-- table for yahtzee points -->
         <div id="cpuText" class="noDisplay"></div>
-        <table>
-            <thead>
-                <tr id="table-player-name" class="noBorder">
-                    <td colspan="2" class="noBorder" id="showTurn"></td>
-                </tr>
-            </thead>
-            <tbody id="table-upper">
-                <tr>
-                    <th rowspan="7" class="textOriantation">upper section</th>
-                    <td title="count and add only aces">aces</td>
-                </tr>
-                <tr>
-                    <td title="count and add only twos">twos</td>
-                </tr>
-                <tr>
-                    <td title="count and add only threes">threes</td>
-                </tr>
-                <tr>
-                    <td title="count and add only fours">fours</td>
-                </tr>
-                <tr>
-                    <td title="count and add only fives">fives</td>
-                </tr>
-                <tr>
-                    <td title="count and add only sixes">sixes</td>
-                </tr>
-                <tr>
-                    <td>total top</td>
-                </tr>
-                <tr>
-                    <td colspan="2">bonus (top &gt; 62)</td>
-                </tr>
-            </tbody>
-            <tbody id="table-lower">
-                <tr>
-                    <th rowspan="7" class="textOriantation">lower section</th>
-                    <td title="add total of all dice">3 of a kind</td>
-                </tr>
-                <tr>
-                    <td title="add total of all dice">4 of a kind</td>
-                </tr>
-                <tr>
-                    <td title="score 25">full house</td>
-                </tr>
-                <tr>
-                    <td title="score 30">small straight</td>
-                </tr>
-                <tr>
-                    <td title="score 40">large straight</td>
-                </tr>
-                <tr>
-                    <td title="score 50">yahtzee</td>
-                </tr>
-                <tr>
-                    <td title="score total of all dice">chance</td>
-                </tr>
-                <tr>
-                    <td colspan="2" id='grandTotal'>grand total</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-frame">
+            <table>
+                <thead>
+                    <tr id="table-player-name" class="noBorder">
+                        <td colspan="2" class="noBorder" id="showTurn"></td>
+                    </tr>
+                </thead>
+                <tbody id="table-upper">
+                    <tr>
+                        <th rowspan="7" class="textOriantation">upper section</th>
+                        <td title="count and add only aces">aces</td>
+                    </tr>
+                    <tr>
+                        <td title="count and add only twos">twos</td>
+                    </tr>
+                    <tr>
+                        <td title="count and add only threes">threes</td>
+                    </tr>
+                    <tr>
+                        <td title="count and add only fours">fours</td>
+                    </tr>
+                    <tr>
+                        <td title="count and add only fives">fives</td>
+                    </tr>
+                    <tr>
+                        <td title="count and add only sixes">sixes</td>
+                    </tr>
+                    <tr>
+                        <td>total top</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">bonus (top &gt; 62)</td>
+                    </tr>
+                </tbody>
+                <tbody id="table-lower">
+                    <tr>
+                        <th rowspan="7" class="textOriantation">lower section</th>
+                        <td title="add total of all dice">3 of a kind</td>
+                    </tr>
+                    <tr>
+                        <td title="add total of all dice">4 of a kind</td>
+                    </tr>
+                    <tr>
+                        <td title="score 25">full house</td>
+                    </tr>
+                    <tr>
+                        <td title="score 30">small straight</td>
+                    </tr>
+                    <tr>
+                        <td title="score 40">large straight</td>
+                    </tr>
+                    <tr>
+                        <td title="score 50">yahtzee</td>
+                    </tr>
+                    <tr>
+                        <td title="score total of all dice">chance</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id='grandTotal'>grand total</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </main>
     <!-- sound to be implemented, when dice roll -->
@@ -313,9 +315,11 @@
         <div class="modal-content">
             <article>
                 <div class="modal-header">
-                    <h2>yahtzee<br><img class="header-dice" src="assets/images/logo/logo-dice.svg" alt="two red dices">
+                    <h2>yahtzee<br><img width="40" height="40" class="header-dice"
+                            src="assets/images/logo/logo-dice.svg" alt="two red dices">
                         dice
-                        <img class="header-dice" src="assets/images/logo/logo-dice.svg" alt="two red dices"><br>roller
+                        <img width="40" height="40" class="header-dice" src="assets/images/logo/logo-dice.svg"
+                            alt="two red dices"><br>roller
                         Tutorial</h2>
                 </div>
                 <div class="sticky">
@@ -352,25 +356,25 @@
                     <li>click on the "add human player" button <br>
                         <!-- <img width="80" height="32"
                             src="assets/images/doc/tutorial/add_new_player.webp" alt="add new player button"> -->
-                        <img class="add-new-player" alt=""
+                        <img width="80" height="32" class="add-new-player" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAAAqAQMAAACKgOe7AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAA9JREFUeNpjYBgFo4DeAAACdgABEJ9GIQAAAABJRU5ErkJggg==">
                     </li>
                     <li>enter the name of the player (no special characters, e.g. &, $)
                         <!-- <img width="250" height="74"
                             src="assets/images/doc/tutorial/enter_player_name.webp" alt="write player name box"> -->
-                        <img class="enter-player-name" alt=""
+                        <img width="250" height="74" class="enter-player-name" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAa8AAACAAQMAAACGKHQVAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAB5JREFUeNrtwTEBAAAAwqD1T20JT6AAAAAAAACAlwEbgAABKf203AAAAABJRU5ErkJggg==">
                     </li>
                     <li>a new player is created <br>
                         <!-- <img width="80" height="35.42"
                             src="assets/images/doc/tutorial/player_button.webp" alt="player button"> -->
-                        <img class="player-button" alt=""
+                        <img width="80" height="35.42" class="player-button" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAAfAQMAAABgYSn4AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAA1JREFUeNpjYBgFpAMAATYAAYmPbdgAAAAASUVORK5CYII=">
                     </li>
                     <li>you can add as many players as you like but every player must have a different name</li>
                 </ol>
                 <figure>
-                    <video width="260" height="auto" muted autoplay>
+                    <video width="260" height="280" muted autoplay>
                         <source src="assets/videos/create_player.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -381,7 +385,7 @@
                         <br>
                         <!-- <img width="80" height="43" src="assets/images/doc/tutorial/restard_game.webp"
                             alt="restart game button"> -->
-                        <img class="restard-game" alt=""
+                        <img width="80" height="43" class="restard-game" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAAAsAQMAAAAn/cZqAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAA5JREFUeNpjYBgFowABAAIQAAGa4R7GAAAAAElFTkSuQmCC">
                     </li>
                 </ol>
@@ -389,12 +393,12 @@
                 <h3 id="playGame">Play the game</h3>
                 <ol>
                     <li>the name of the player who's turn it is, is flashing
-                        <figure>
-                            <video width="80" height="auto" muted autoplay>
+                        <!-- <figure>
+                            <video width="80" height="24" muted autoplay>
                                 <source src="assets/videos/player-flash.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                        </figure>
+                        </figure> -->
                     </li>
                     <li>every time a player presses their button (when flashing) the dices are rolled and the turn
                         counter increases <br><img width="60" height="29" src="assets/images/doc/tutorial/turn_of.webp"
@@ -408,7 +412,7 @@
                         <!-- <img width="110" height="27"
                             src="assets/images/doc/tutorial/score_2_twoes.webp"
                             alt="button to click for writing points into table"> -->
-                        <img class="score-2-twoes" alt=""
+                        <img width="110" height="27" class="score-2-twoes" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAAAfAQMAAAAbRes0AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAA5JREFUeNpjYBgFowAOAAIPAAF8zUheAAAAAElFTkSuQmCC">
 
                     </li>
@@ -418,14 +422,14 @@
                     <li>individual dices can be locked <br>
                         <!-- <img width="40" height="58"
                             src="assets/images/doc/tutorial/lock_close.webp" alt="lock icon closed"> -->
-                        <img class="lock-close" alt=""
+                        <img width="40" height="58" class="lock-close" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAA1AQMAAAATRNvlAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAA1JREFUeNpjYBgF5AMAAT4AAcOXSRkAAAAASUVORK5CYII=">
                         <br>by clicking on the lock icon over the dice
                     </li>
                     <li>they can also be unlocked <br>
                         <!-- <img width="60" height="64"
                             src="assets/images/doc/tutorial/lock_open.webp" alt="lock icon open"> -->
-                        <img class="lock-open" alt=""
+                        <img width="60" height="64" class="lock-open" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAA1AQMAAADSw5FJAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAA5JREFUeNpjYBgFQwEAAAGoAAGt4uPwAAAAAElFTkSuQmCC">
                         <br>by clicking the lock icon again
                     </li>
@@ -434,7 +438,7 @@
                         <!-- <img width="60" height="44"
                             src="assets/images/doc/tutorial/no_point.webp"
                             alt="button to click when there are no points"> -->
-                        <img class="no-point" alt=""
+                        <img width="60" height="44" class="no-point" alt=""
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAnAQMAAACVNpKjAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAA1JREFUeNpjYBgF5AAAATgAAUGORwUAAAAASUVORK5CYII=">
                     </li>
                     <li>after the first player, the second player follows, this process continues till all points have
@@ -445,7 +449,7 @@
                     </li>
                 </ol>
                 <figure>
-                    <video width="260" height="auto" muted autoplay>
+                    <video width="260" height="250" muted autoplay>
                         <source src="assets/videos/play_game.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -460,7 +464,7 @@
                     </a>
                     <br>
                     <a href="https://www.ultraboardgames.com/yahtzee/game-rules.php" rel="noopener" target="_blank"><img
-                            src="assets/images/doc/tutorial/ultraBoardGamesLogo.webp"
+                            width="305" height="48" src="assets/images/doc/tutorial/ultraBoardGamesLogo.webp"
                             alt="logo of the company ultra board games">
                     </a>
                 </p>
@@ -538,7 +542,7 @@
                 </p>
                 <figure>
                     <!-- <img width="150" height="27" src="assets/images/doc/tutorial/game1.webp" alt="five dices"> -->
-                    <img class="game1" alt=""
+                    <img width="150" height="27" class="game1" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARIAAAAyAQMAAACqIsbiAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABZJREFUeNpjYBgFo2AUjIJRMApGLgAABwgAATtPb8QAAAAASUVORK5CYII=">
                 </figure>
                 <p>
@@ -548,7 +552,7 @@
                 <figure>
                     <!-- <img class="wider-image" width="260" height="268" src="assets/images/doc/tutorial/score-sheet.webp"
                         alt="score table"> -->
-                    <img class="score-sheet" alt=""
+                    <img width="260" height="268" class="score-sheet" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAALOAQMAAABPl//BAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAExJREFUeNrtwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgLcB1SgAARqsw3MAAAAASUVORK5CYII=">
                 </figure>
                 <h5 id="LowerSection">Lower Section</h5>
@@ -562,7 +566,7 @@
                 </p>
                 <figure>
                     <!-- <img width="150" height="27" src="assets/images/doc/tutorial/3OfKind.webp" alt="five dices"> -->
-                    <img class="game3" alt=""
+                    <img width="150" height="27" class="game3" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARUAAAAzAQMAAACDog4+AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABdJREFUeNpjYBgFo2AUjIJRMApGAT4AAAcsAAEjMnqrAAAAAElFTkSuQmCC">
                     <figcaption>This would score 18 (total of all dice).</figcaption>
                 </figure>
@@ -570,7 +574,7 @@
                 <p>Score the total of all dice provided they include 4 dice of the same number. For example:</p>
                 <figure>
                     <!-- <img width="150" height="27" src="assets/images/doc/tutorial/4OfKind.webp" alt="five dices"> -->
-                    <img class="game4" alt=""
+                    <img width="150" height="27" class="game4" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAAzAQMAAAB2XIWOAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABdJREFUeNpjYBgFo2AUjIJRMApGAT4AAAcsAAEjMnqrAAAAAElFTkSuQmCC">
                     <figcaption>
                         This would score 14 (total of all dice) in the "4 of a kind" box. (You may also score in
@@ -581,7 +585,7 @@
                 <p>You need to roll both a "3 of a kind" and a pair. A "Full House" scores 25 points.</p>
                 <figure>
                     <!-- <img width="150" height="26" src="assets/images/doc/tutorial/fullHouse.webp" alt="five dices"> -->
-                    <img class="game5" alt=""
+                    <img width="150" height="26" class="game5" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARkAAAAyAQMAAABSwj0VAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABdJREFUeNpjYBgFo2AUjIJRMApGAfEAAAc6AAEBzEoLAAAAAElFTkSuQmCC">
                     <figcaption>(You may also score in "3 of a kind" or in the upper section).</figcaption>
                 </figure>
@@ -589,7 +593,7 @@
                 <p>This is any sequence of four numbers, such as:</p>
                 <figure>
                     <!-- <img width="120" height="89" src="assets/images/doc/tutorial/smallStraight.webp" alt="five dices"> -->
-                    <img class="game6" alt=""
+                    <img width="120" height="89" class="game6" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAAClAQMAAAAJTNH2AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABxJREFUeNrtwTEBAAAAwqD1T20ND6AAAAAA4MgAErEAAWuI6EUAAAAASUVORK5CYII=">
                     <figcaption>The 5th die can be any number. Any "Small Straight" is valued at 30 points.</figcaption>
                 </figure>
@@ -598,7 +602,7 @@
                 <p>A "Large Straight" is valued at 40 points.</p>
                 <figure>
                     <!-- <img width="150" height="57" src="assets/images/doc/tutorial/largeStraight.webp" alt="five dices"> -->
-                    <img class="game7" alt=""
+                    <img width="150" height="57" class="game7" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARsAAABtAQMAAACr71cKAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABtJREFUeNrtwTEBAAAAwqD1T20ND6AAAACAewMPwQAB0NQgnwAAAABJRU5ErkJggg==">
                     <figcaption>(You may also score a Large Straight in the Small Straight box).</figcaption>
                 </figure>
@@ -607,7 +611,7 @@
                     the other open boxes. Mark score by totalling number of points on all dice.</p>
                 <figure>
                     <!-- <img width="150" height="26" src="assets/images/doc/tutorial/chance.webp" alt="five dices"> -->
-                    <img class="game9" alt=""
+                    <img width="150" height="26" class="game9" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARsAAAAyAQMAAABWN+0oAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABdJREFUeNpjYBgFo2AUjIJRMApGAfEAAAc6AAEBzEoLAAAAAElFTkSuQmCC">
                     <figcaption>This combination scores 24 points.</figcaption>
                 </figure>
@@ -615,7 +619,7 @@
                 <p>This is any "five of a kind". Score 50 points in the "Yahtzee" box.</p>
                 <figure>
                     <!-- <img width="150" height="27" src="assets/images/doc/tutorial/yahtzee.webp" alt="five dices"> -->
-                    <img class="game8" alt=""
+                    <img width="150" height="27" class="game8" alt=""
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARkAAAAzAQMAAACZnu6wAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABdJREFUeNpjYBgFo2AUjIJRMApGAZUBAAdfAAH7dfiTAAAAAElFTkSuQmCC">
                 </figure>
                 <h4 id="bonus">Bonus</h4>

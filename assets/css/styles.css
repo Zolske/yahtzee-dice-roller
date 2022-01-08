@@ -18,16 +18,17 @@ html {
 body {
     background: rgb(162, 123, 94);
     background: linear-gradient(171deg, rgba(162, 123, 94, 0.9948354341736695) 30%, rgba(231, 226, 220, 1) 100%);
-    /* background-size: auto; */
+
 }
 
 main {
-    width: 95%;
-    height: 97.5rem;
+    /* width: 95%; */
+    width: fit-content;
+    height: fit-content;
+    /* height: 97.5rem; */
+    padding: .5rem 2rem;
     margin: 2rem auto 1rem auto;
     background-color: #ffffff4D;
-    /* background-color: yellow; */
-    padding: .5rem 0rem;
     border-radius: 10px;
     box-shadow: 5px 10px 18px #888888;
 }
@@ -116,10 +117,6 @@ header,
 /* >>> start <table> ///////////////////////////////////////////////////////////////////////////////////////////////////// */
 table {
     margin: 1rem auto .3rem auto;
-    background-image: url(../images/papper.webp);
-    background-position: center;
-    background-size: cover;
-    box-shadow: 5px 10px 18px #888888;
 }
 
 table,
@@ -140,17 +137,31 @@ table,
     border: none;
 }
 
+.table-frame {
+    margin: auto;
+    padding: 2rem;
+    width: fit-content;
+    background-image: url(../images/papper.webp);
+    background-position: center;
+    background-size: cover;
+    box-shadow: 5px 10px 18px #888888;
+}
+
 #table-player-name {
     vertical-align: middle;
     height: 8rem;
 }
 
+.noBorder button {
+    margin: 1rem;
+}
+
 .textOriantation {
     writing-mode: vertical-rl;
-    text-orientation: sideways-right;
     font-size: 2rem;
     letter-spacing: 0.2rem;
     width: .6rem;
+    padding: .5rem;
 }
 
 #grandTotal {
@@ -500,9 +511,9 @@ hr {
 /* <<< end <table> ///////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 @media only screen and (min-width: 37.5rem) {
-    main {
+    /* main {
         height: 118rem;
-    }
+    } */
 
     .game-buttons button {
         /* font-size: 1.2rem; */
@@ -540,10 +551,13 @@ hr {
     }
 
     .lock-container,
-    .dice-container,
-    .game-buttons {
+    .dice-container {
         gap: 4rem;
         padding-top: 1rem;
+    }
+
+    .game-buttons {
+        gap: .5 rem;
     }
 
     .wider-image {
