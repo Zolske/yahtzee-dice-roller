@@ -4,7 +4,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
 [link to the "Yahtzee Dice Roller" site](https://zolske.github.io/yahtzee-dice-roller/) _(press **CTRL** while clicking on the link opens a new tab)_
 
-![yahtzee-dice-roller mockup](assets/images/doc/readme/yathzee_dice-roller_mockup.webp)
+![yahtzee-dice-roller mockup](assets/images/doc/readme/yathzee_dice-roller_mockup.jpg)
 
 ---
 
@@ -13,7 +13,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 ### Existing Features:
 
 - **quick and easy game set up**  
-  ![game set up](assets/images/doc/readme/game-buttons.webp)
+  ![game set up](assets/images/doc/readme/game-buttons.jpg)
   - **"add human player"**
     - add as many players as you like _(to be played **manually** on one machine)_
   - **"add cpu player"**
@@ -23,7 +23,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
   - **"restart game"**
     - clears the the "game table" for a new game
 - **player name**  
-  ![player name](assets/images/doc/readme/player-name.webp)
+  ![player name](assets/images/doc/readme/player-name.jpg)
   - individual names can be given to the players
   - JavaScript is checking that the same name can not be used twice
 - **"game-logic"**  
@@ -46,7 +46,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
   - explains the Yahtzee game rules
   - easy to navigate through a navigation bar which sticks to the top of the screen
 - **"mobile first" design**  
-  ![iphone game view](assets/images/doc/readme/iphone-screenshot.webp)
+  ![iphone game view](assets/images/doc/readme/iphone-screenshot.png)
   - can be easily played on a smart phone with a big screen
   - buttons have been given enough spaced to avoid mistakes
   - only up and down scrolling _(only side scrolling if there are more than three players set up)_
@@ -100,5 +100,5 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 test image
 ![can you see 1](assets/images/icons/locked-64.png)
 ![can you see 2](/assets/images/icons/locked-64.png)
-![iphone game view](assets/images/doc/readme/iphone-screenshot.webp)
+![iphone game view](assets/images/doc/readme/iphone-screenshot.jpg)
 ![console cpu player](assets/images/doc/readme/console-cpu.gif)
