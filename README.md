@@ -4,7 +4,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
 [link to the "Yahtzee Dice Roller" site](https://zolske.github.io/yahtzee-dice-roller/) _(press **CTRL** while clicking on the link opens a new tab)_
 
-![yahtzee-dice-roller mockup](assets/images/doc/readme/yathzee_dice-roller_mockup-z.webp)
+![yahtzee-dice-roller mockup](assets/images/doc/readme/yathzee_dice-roller_mockup.jpg)
 
 ---
 
