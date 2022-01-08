@@ -51,9 +51,19 @@ The user can play a game of Yahtzee with a friend on the same machine or against
   - buttons have been given enough spaced to avoid mistakes
   - only up and down scrolling _(only side scrolling if there are more than three players set up)_
 
+### Features Left to Implement:
+
+- adding a setting menu, to customize user profile, dice color, theme
+- adding a data base would allow the user to save there profile and high score
+
 ---
 
 ## Testing
+
+### browser testing:
+
+- functionality- and layout- tests where successful on: _"Chrome"_, _"Mozilla Firefox"_ and _"Microsoft Edge"_
+- because the tester has no access to _"Safari"_, the site was not tested on that browser
 
 ---
 
