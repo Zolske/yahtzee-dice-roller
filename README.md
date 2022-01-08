@@ -96,3 +96,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 - **the color palette** was created with [coolors](https://coolors.co/)
 - **the gradients** where coded with [cssgradient](https://cssgradient.io/)
 - **icons** are from [flaticon](https://www.flaticon.com/)
+
+test image
+![can you see 1](assets/images/icons/locked-64.png)
+![can you see 2](/assets/images/icons/locked-64.png)
