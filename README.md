@@ -4,7 +4,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
 [link to the "Yahtzee Dice Roller" site](https://zolske.github.io/yahtzee-dice-roller/) _(press **CTRL** while clicking on the link opens a new tab)_
 
-![yahtzee-dice-roller mockup](assets/images/doc/readme/yathzee_dice-roller_mockup.webp)
+![yahtzee-dice-roller mockup](assets/images/doc/readme/yathzee_dice-roller_mockup-z.webp)
 
 ---
 
@@ -69,12 +69,12 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
 ### Validator Testing
 
-- [**Nu Html Checker**](https://validator.w3.org/nu/?doc=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F) :
+- **HTML** [**Nu Html Checker**](https://validator.w3.org/nu/?doc=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F) :
   - test returned clean, no errors or warnings
-- [**CSS Jigsaw Test**](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) :
+- **CSS** [**Jigsaw Test**](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) :
   - the document validates as CSS level 3 + SVG !
-  - test returned clean, no errors and 28 warnings which are related to "safari" and "Mozilla" related code _(e.g. -webkit-border-radius, -moz-animation)_  
-   <p>
+  - test returned clean, no errors and 28 warnings which are related to "safari" and "Mozilla" code _(e.g. -webkit-border-radius, -moz-animation)_
+  <p>
   <a href="https://jigsaw.w3.org/css-validator/check/referer">
   <img style="border:0;width:88px;height:31px"
               src="https://jigsaw.w3.org/css-validator/images/vcss"
