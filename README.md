@@ -100,3 +100,5 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 test image
 ![can you see 1](assets/images/icons/locked-64.png)
 ![can you see 2](/assets/images/icons/locked-64.png)
+![iphone game view](assets/images/doc/readme/iphone-screenshot.webp)
+![console cpu player](assets/images/doc/readme/console-cpu.gif)
