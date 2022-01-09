@@ -105,10 +105,10 @@ clicking on this link -> [JavaScript game logic](assets/doc/Control-Flow-Graph-d
 2. ### Validator Testing
 
    - **HTML** [**Nu Html Checker**](https://validator.w3.org/nu/?doc=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F) :
-     - test returned clean, no errors or warnings
+     - test returned clean, **NO ERRORS** or warnings
    - **CSS** [**Jigsaw Test**](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) :
      - the document validates as CSS level 3 + SVG !
-     - test returned clean, no errors and 28 warnings which are related to "safari" and "Mozilla" code _(e.g. -webkit-border-radius, -moz-animation)_
+     - test returned clean, **NO ERRORS** and 28 warnings which are related to "safari" and "Mozilla" code _(e.g. -webkit-border-radius, -moz-animation)_
        <p>
        <a href="https://jigsaw.w3.org/css-validator/check/referer">
        <img style="border:0;width:88px;height:31px"
@@ -121,6 +121,30 @@ clicking on this link -> [JavaScript game logic](assets/doc/Control-Flow-Graph-d
                    alt="Valid CSS!" />
        </a>
        </p>
+   - **JavaScript** [**JSHint**](https://jshint.com/) :  
+      _(**config:** New JavaScript features (ES6): **ON** | Unused variables: **OFF** )_  
+      _(JavaScript is split into 3 flies, to improve maintainability and readability. **Unused variable** option is turned off for the test because functions are **imported** between files and variable could be used during runtime.)_
+
+     - **script.js** _(base script)_
+       - **NO ERRORS** and no warnings
+       - There are **4 functions** in this file.
+       - Function with the largest signature take 1 arguments, while the median is 0.
+       - **Largest function** has **2 statements** in it, while the median is 1.
+       - The most complex function has a cyclomatic complexity value of 2 while the median is 1.
+     - **function.js** _(containing all the code for the base game)_
+       - **NO ERRORS** and 6 warnings
+       - There are **28 functions** in this file.
+       - Function with the largest signature take 2 arguments, while the median is 1.
+       - **Largest function** has **206 statements** in it, while the median is 6.
+       - The most complex function has a cyclomatic complexity value of 60 while the median is 2.
+     - **cpu.js** _(containing all the code for the "computer" player)_
+       - **NO ERRORS** and 12 warnings
+       - There are **106 functions** in this file.
+       - Function with the largest signature take 3 arguments, while the median is 0.
+       - **Largest function** has **49 statements** in it, while the median is 1.
+       - The most complex function has a cyclomatic complexity value of 109 while the median is 1
+
+     **NOTE:** All 18 warnings are related to semantics, but they are necessary for the script to function correctly _( "Functions declared within loops referencing an outer scoped variable **may lead to confusing semantics**. (i)" )_
 
 3. ### Performance Test
    - **Lighthouse** _(desktop)_ report:  
@@ -147,7 +171,7 @@ clicking on this link -> [JavaScript game logic](assets/doc/Control-Flow-Graph-d
 - **CSS** for styling the site
 - **JavaScript** for functionality and logic
 - **Git** for version control (back up)
-- **GitHub** for making the sites source code accessible and deploying the site via "GitHub Pages"
+- **GitHub** for making the source code accessible and deploying the site via "GitHub Pages"
 
 ---
 
