@@ -1,5 +1,7 @@
 /* imports the 'Monoton' font from google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+/* imports the 'Russo One' font from google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 /* color variables */
 :root {
@@ -43,6 +45,7 @@ h1 {
     background-color: #ffffff80;
     align-self: center;
     padding: .5rem;
+    margin: 0;
 }
 
 /* >>> start <header> //////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -93,12 +96,13 @@ header,
     background-color: #ffffff80;
     border-radius: 10px;
     color: var(--color-header);
-    font-family: 'Monoton', cursive, serif;
+    font-family: 'Russo One', sans-serif;
     letter-spacing: 0.1rem;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: bold;
     box-shadow: 5px 8px 12px #888888;
     padding: 0.3rem;
+    text-transform: uppercase;
 }
 
 .game-buttons button:hover {

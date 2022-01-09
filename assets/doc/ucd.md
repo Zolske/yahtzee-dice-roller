@@ -115,13 +115,19 @@ The **background** of the heading is semi transparent and white. This was done t
 
 ### **"Font"**
 
+#### **"Monoton"** _(for the headings)_
+
 ![Monoton](../images/readme/font-family.webp)  
 The font was created by **"Vernon Adams"** _(you can follow him on [sansoxygen](http://sansoxygen.com/))_ which can be imported from here ["Monoton" Google Fonts](https://fonts.google.com/specimen/Monoton#standard-styles) .
 
 _" Monoton is a contemporary take on metalpress fonts like, for example, 'Prisma' (originally designed in 1931 by Rudolf Koch.) "_
 
-I choose the font because it looks like a old style gambling casino font to me. This font is only meant to be for larger headings _(font sizes above 30 points)_ because on smaller sizes the details getting lost.  
-_(Note: The font has been used for the "game setting" buttons, even the details are lost, they still look good.)_
+I choose the font because it looks like a old style gambling casino font to me. This font is only meant to be for larger headings _(font sizes above 30 points)_ because on smaller sizes the details getting lost.
+
+#### **"Russo One"** _(for the game set up buttons)_
+
+![Russo One](../images/readme/font-family_Russo-One.webp)  
+The font was created by Jovanny Lemonad, I choose the font because it is easy to read and solid.
 
 ### **"Color Schema"**
 
