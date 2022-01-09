@@ -18,12 +18,6 @@ import {
 } from "./function.js";
 
 import { cpuPlayer } from "./cpu.js";
-// global variable //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// let turnCount = null; // counts how many turns the player has played, max 3, see playTurn()
-// let turnScore = []; //the dice score after ever turn
-// let playerId;
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
  * 1. adds an click event listener with the function changeLock() to all lock-container children
  */
@@ -42,13 +36,6 @@ document
   .addEventListener("click", function () {
     newPlayer("cpu");
   });
-// test button /////////////////////////////////////////////////////////////////////////////////////////////
-function test() {
-  console.log(playerArray[playerOrder]);
-  // theWinnerIs();
-}
-
-// document.getElementById("test-cpu-player").addEventListener("click", test);
 
 // >>> start modal code ////////////////////////////////////////////////////////////////
 //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
@@ -77,5 +64,4 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
-
 // <<< end modal code ////////////////////////////////////////////////////////////////
