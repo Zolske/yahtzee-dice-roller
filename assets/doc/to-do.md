@@ -7,6 +7,6 @@
 - [x] add footer with **"contact"** me and **"social media"**
 - [x] add **"The Surface"** to ucd
 - [] refactor and improve comments in JavaScript
-- [] improve **"Lighthouse"** score and add to README test section
+- [x] improve **"Lighthouse"** score and add to README test section
 - [] add **"Jshint validator"**
 - [] add sound for when the game is won

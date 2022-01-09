@@ -76,6 +76,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
 - adding a setting menu, to customize user profile, dice color, theme
 - adding a data base would allow the user to save there profile and high score
+- increase sites "Lighthouse" performers by minimizing **"Cumulative Layout Shift"**,
 
 ---
 
@@ -87,32 +88,36 @@ Please, follow [this link](assets/doc/ucd.md) for the **"customer story"** and *
 
 ## Testing
 
-### Browser Testing:
+1. ### Browser Testing:
 
-- functionality- and layout- tests where successful on: _"Chrome"_, _"Mozilla Firefox"_ and _"Microsoft Edge"_
-- because the tester has no access to _"Safari"_, the site was not tested on that browser
+   - functionality- and layout- tests where successful on: _"Chrome"_, _"Mozilla Firefox"_ and _"Microsoft Edge"_
+   - because the tester has no access to _"Safari"_, the site was not tested on that browser
 
----
+2. ### Validator Testing
 
-### Validator Testing
+   - **HTML** [**Nu Html Checker**](https://validator.w3.org/nu/?doc=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F) :
+     - test returned clean, no errors or warnings
+   - **CSS** [**Jigsaw Test**](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) :
+     - the document validates as CSS level 3 + SVG !
+     - test returned clean, no errors and 28 warnings which are related to "safari" and "Mozilla" code _(e.g. -webkit-border-radius, -moz-animation)_
+       <p>
+       <a href="https://jigsaw.w3.org/css-validator/check/referer">
+       <img style="border:0;width:88px;height:31px"
+                   src="https://jigsaw.w3.org/css-validator/images/vcss"
+                   alt="Valid CSS!" />
+       </a>
+       <a href="https://jigsaw.w3.org/css-validator/check/referer">
+       <img style="border:0;width:88px;height:31px"
+                   src="https://jigsaw.w3.org/css-validator/images/vcss-blue"
+                   alt="Valid CSS!" />
+       </a>
+       </p>
 
-- **HTML** [**Nu Html Checker**](https://validator.w3.org/nu/?doc=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F) :
-  - test returned clean, no errors or warnings
-- **CSS** [**Jigsaw Test**](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fzolske.github.io%2Fyahtzee-dice-roller%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) :
-  - the document validates as CSS level 3 + SVG !
-  - test returned clean, no errors and 28 warnings which are related to "safari" and "Mozilla" code _(e.g. -webkit-border-radius, -moz-animation)_
-  <p>
-  <a href="https://jigsaw.w3.org/css-validator/check/referer">
-  <img style="border:0;width:88px;height:31px"
-              src="https://jigsaw.w3.org/css-validator/images/vcss"
-              alt="Valid CSS!" />
-  </a>
-  <a href="https://jigsaw.w3.org/css-validator/check/referer">
-  <img style="border:0;width:88px;height:31px"
-              src="https://jigsaw.w3.org/css-validator/images/vcss-blue"
-              alt="Valid CSS!" />
-  </a>
-  </p>
+3. ### Performance Test
+   - **Lighthouse** :  
+      ![lighthouse desktop performance](assets/images/readme/lighthouse-desktop.webp)
+     - the **performance** could be improved by minimizing **"Cumulative Layout Shift"**,  
+       link to article -> [smashingmagazine](https://www.smashingmagazine.com/2021/06/how-to-fix-cumulative-layout-shift-issues/)
 
 ---
 
