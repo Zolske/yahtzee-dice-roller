@@ -78,6 +78,12 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
 ---
 
+## **U**ser **C**entric **D**esign
+
+Please, follow [this link](assets/doc/ucd.md) for the **"customer story"** and **"user experience"**.
+
+---
+
 ## Testing
 
 ### Browser Testing:
@@ -120,6 +126,16 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
 ---
 
+## Technologies used
+
+- **HTML** for marking up the text elements on the site
+- **CSS** for styling the site
+- **JavaScript** for functionality and logic
+- **Git** for version control (back up)
+- **GitHub** for making the sites source code accessible and deploying the site via "GitHub pages"
+
+---
+
 ## Deployment
 
 The site was deployed to **"GitHub pages"**. The steps to deploy are as follows:
@@ -155,6 +171,7 @@ I would like to thank the creators of the free tools, art and tutorials which ha
 
 ### Tools
 
+- **code editing** was done with [vscode](https://code.visualstudio.com/)
 - **the sound** was downloaded from [mixkit](https://mixkit.co/free-sound-effects/robot/)
 - **the logo** was created with [freelogodesign](https://www.freelogodesign.org/)
 - **the favicon** was converted with [favicon](https://favicon.io/favicon-converter/)
