@@ -30,9 +30,6 @@ export function cpuPlayer() {
   document
     .getElementById("button-" + playerId)
     .setAttribute("src", "assets/images/robot-pointing.gif");
-  // document
-  //   .getElementById("button-" + playerId)
-  //   .classList.toggle("player-flash");
 
   cpuDecisionThree().then((rollAgain) => {
     if (consoleDecisionTree) {
@@ -544,14 +541,6 @@ function cpuDecisionThree() {
   });
   return promiseThree;
 }
-// if (playerArray[playerOrder].turn == 3) {
-//   // document
-//   //   .getElementById("button-" + playerId)
-//   //   .classList.remove("player-flash");
-//   crossOff();
-// }
-
-// document.getElementById("button-" + playerId).classList.add("player-flash");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 1. writes points into the table

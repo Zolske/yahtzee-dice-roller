@@ -12,8 +12,8 @@ Update: the code is based now on CHRIS GODBER  https://icodemag.com/3d-rolling-d
 let turnCount = null; // counts how many turns the player has played, max 3, see playTurn()
 let turnScore = []; //the dice score after ever turn
 let playerArray = []; // contains the players of the game
-let playerId;
-let playerOrder = 0;
+let playerId; // is used to identify the player and its tablerow / points
+let playerOrder = 0; // is used to access the right player object in the playerArray
 export { playerOrder, playerArray };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 import { cpuPlayer } from "./cpu.js";
@@ -251,12 +251,6 @@ export function newPlayer(what) {
       playerArray.push(new Player(playerName, playerId));
       if (what === "cpu") {
         playerArray[playerArray.length - 1].human = false;
-        // let robotImage = document.getElementsByClassName('robot')
-        // for(let i = 0; i< robotImage.length; i++){
-        //   robotImage
-        // }
-        // document.getElementById("button-" + playerId).innerHTML = `
-        // <img width="60" height="60" src="assets/images/robot-pointing.gif" alt="">`;
       }
       createTableRow(playerName, playerId);
       break;
@@ -316,14 +310,6 @@ export function createTableRow(playerName, playerId) {
     "total",
   ];
   let tableLower = document.getElementById("table-lower");
-
-  // let tableHead = document.createElement("th");
-  // tableHead.textContent = "Player";
-  // document.getElementById("table-head").appendChild(tableHead);
-
-  // let tablePlayerName = document.createElement("th");
-  // tablePlayerName.textContent = playerName;
-  // document.getElementById("table-player-name").appendChild(tablePlayerName);
 
   for (let i = 0; i < tableDataUpper.length; i++) {
     let tempTableElement = document.createElement("td");
@@ -763,22 +749,6 @@ export function writeScoreTable() {
     }
   }
 
-  // console.log('<<< start test dice roll category <<<')
-  // console.log('the dice show ' + turnScore);
-  // console.log('the yahtzee is ' + yahtzee);
-  // console.log('the fourOfKind is ' + fourOfKind);
-  // console.log('the threeOfKind is ' + threeOfKind);
-  // console.log('the fullHouse is ' + fullHouse);
-  // console.log('the smallStraight is ' + smallStraight);
-  // console.log('the largeStraight is ' + largeStraight);
-  // console.log('the aces is ' + aces);
-  // console.log('the twos is ' + twos);
-  // console.log('the threes is ' + threes);
-  // console.log('the fours is ' + fours);
-  // console.log('the fives is ' + fives);
-  // console.log('the sixes is ' + sixes);
-  // console.log('>>> end >>>')
-
   for (let i = 0; i < allButtonPlayer.length; i++) {
     if (!allButtonPlayer[i].hasAttribute("disabled")) {
       allButtonPlayer[i].addEventListener("click", savePointsTable);
@@ -888,23 +858,6 @@ export function nextPlayer() {
   // <<< end checks if all players reached the end of the game
 
   return playerArray[playerOrder].playerId;
-
-  // let playerId = playerArray[playerOrder].playerId;
-  // const currentPlayer = (element) => element === playerId;
-  // let playerPosition = playerArray.findIndex(currentPlayer);
-  // let arrayLength = playerArray.length - 1;
-
-  // if (playerPosition < arrayLength) {
-  //   ++playerPosition;
-  // } else {
-  //   playerPosition = 0;
-  // }
-  // playerId = playerArray[playerPosition];
-  // if (playerId === "CPU") {
-  //   // console.log("fuck it is the CPU");
-  //   cpuPlayer();
-  // }
-  // return playerArray[playerPosition];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -953,9 +906,6 @@ export function countTableScore() {
   document.getElementById("totalTop" + playerId).textContent = totalTop;
   let bonusTop = (document.getElementById("bonusTop" + playerId).textContent =
     totalTop >= 63 ? 35 : 0);
-  // let totalUpper = (document.getElementById(
-  //   "totalUpper" + playerId
-  // ).textContent = !isNaN(bonusTop) ? bonusTop + totalTop : totalTop);
 
   let totalLower = 0;
   let chanceElement = parseInt(
@@ -1000,13 +950,14 @@ export function countTableScore() {
   if (!isNaN(largeStraightElement)) {
     totalLower += largeStraightElement;
   }
-  // document.getElementById("totalLower" + playerId).textContent = totalLower;
-  // document.getElementById("copyTotalUpper" + playerId).textContent = totalTop;
   document.getElementById("total" + playerId).textContent =
     totalLower + totalTop + bonusTop;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/**
+ * 1. finds out who is the winner by comparing the total scores of all players
+ * 2. informs the user via alert message who won the game and with how many points
+ */
 export function theWinnerIs() {
   let scoreArray = [];
   for (let i = 0; i < playerArray.length; i++) {
@@ -1023,19 +974,3 @@ export function theWinnerIs() {
     }
   }
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * 1. adds an click event listener with the function changeLock() to all lock-container children
- */
-// for (let i = 0; i < 5; i++) {
-//   let tempImg =
-//     document.getElementsByClassName("lock-container")[0].children[i];
-//   tempImg.addEventListener("click", changeLock);
-// }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * adds an click event to the button with the id 'create-player', which triggers the buttonDiceRoller() function
- */
-// document.getElementById("create-player").addEventListener("click", newPlayer);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
