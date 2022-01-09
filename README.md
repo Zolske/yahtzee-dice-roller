@@ -133,24 +133,25 @@ Please, follow [this link](assets/doc/ucd.md) for the **"customer story"** and *
 - **CSS** for styling the site
 - **JavaScript** for functionality and logic
 - **Git** for version control (back up)
-- **GitHub** for making the sites source code accessible and deploying the site via "GitHub pages"
+- **GitHub** for making the sites source code accessible and deploying the site via "GitHub Pages"
 
 ---
 
 ## Deployment
 
-The site was deployed to **"GitHub pages"**. The steps to deploy are as follows:
+The site was deployed to **"GitHub Pages"**. The steps to deploy are as follows:
 
 1. In the GitHub repository, navigate to the **"Settings"** tab.
 2. In the "Settings" tab, navigate to the **"Pages"** tab.
 3. In the section "GitHub Pages":
 
-   - From the **"source"** section drop-down menu, select the **"Main"** Branch and click on **"Save"**
-   - above a message appears "Your site is published at ... " with the link to the GitHub page
+   - From the **"Source"** section drop-down menu, select the **"main"** Branch and click on **"Save"**
+   - above a message appears "Your site is published at ... " with the link to the GitHub Page
 
-     ![GitHub page setup](assets/images/readme/gitHub-pages.webp)
+     ![GitHub Page setup](assets/images/readme/gitHub-pages.webp)
 
-The live link to the "Yahtzee Dice Roller" GitHub page can be found here -> [https://zolske.github.io/yahtzee-dice-roller/](https://zolske.github.io/yahtzee-dice-roller/) .
+The live link to the "Yahtzee Dice Roller" GitHub Page can be found  
+here -> [https://zolske.github.io/yahtzee-dice-roller/](https://zolske.github.io/yahtzee-dice-roller/) .
 
 ---
 
@@ -169,6 +170,7 @@ I would like to thank the creators of the free tools, art and tutorials which ha
 - the **robot ".gif"** is from ["Graphic Mama"](https://graphicmama.com/blog/free-gifs-powerpoint/)
 - the **emojis** are from [html-css-js](https://html-css-js.com/html/character-codes/)
 - **"tutorial navbar"** is based on the code from [w3schools](https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp)
+- the **font** for the heading is "Monoton" and was created by **"Vernon Adams"** _(you can follow him on [sansoxygen](http://sansoxygen.com/))_
 
 ### Tools
 
@@ -185,6 +187,8 @@ I would like to thank the creators of the free tools, art and tutorials which ha
 - **icons** are from [flaticon](https://www.flaticon.com/)
 - **the sprite** has been made with [Responsive CSS Sprites](https://responsive-css.spritegen.com/)
 - **the gif** was created with [Screen to Gif](https://www.screentogif.com/)
+- **the mock up** was created with [techsini](http://techsini.com/multi-mockup/index.php)
+- **the font** was imported from [Fonts Google](https://fonts.google.com/)
 
 ### Tutorials
 

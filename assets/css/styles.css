@@ -371,7 +371,7 @@ table,
 
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-    background-color: red;
+    background-color: var(--color-header);
 }
 
 .dropdown-content {
