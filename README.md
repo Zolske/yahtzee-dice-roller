@@ -100,7 +100,7 @@ clicking on this link -> [JavaScript game logic](assets/doc/Control-Flow-Graph-d
 1. ### Browser Testing:
 
    - functionality- and layout- tests where successful on: **"Chrome"**, **"Mozilla Firefox"** and **"Microsoft Edge"**
-   - because the tester has no access to **"Safari"**, the site was not tested on that browser
+   - because the tester has no access to **"Safari"**, the site was not tested on that browser _(Apple does not support the Windows version of Safari any longer.)_
 
 2. ### Validator Testing
 
