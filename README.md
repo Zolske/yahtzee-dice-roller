@@ -54,6 +54,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
   ![console cpu player](assets/images/readme/console-cpu.gif)
 
   - with the chrome "dev tool" _(F12)_ the console can be opened in which the "player-object" and some important values are displayed while the cpu is playing
+  - clicking on this link -> [JavaScript game logic](assets/doc/Control-Flow-Graph-drawio.md)
 
 - **intuitive game design**
 
@@ -84,6 +85,13 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 ## **U**ser **C**entric **D**esign
 
 Please, follow [this link](assets/doc/ucd.md) for the **"customer story"** and **"user experience"**.
+
+---
+
+## **Control Flow Graph** for the JavaScript logic
+
+Please, have a look at the diagram for the JavaScript game logic!  
+clicking on this link -> [JavaScript game logic](assets/doc/Control-Flow-Graph-drawio.md)
 
 ---
 
@@ -195,6 +203,7 @@ I would like to thank the creators of the free tools, art and tutorials which ha
 - **the gif** was created with [Screen to Gif](https://www.screentogif.com/)
 - **the mock up** was created with [techsini](http://techsini.com/multi-mockup/index.php)
 - **the font** was imported from [Fonts Google](https://fonts.google.com/)
+- **control flow graph** was created with [diagrams](https://www.diagrams.net/)
 
 ### Tutorials
 
