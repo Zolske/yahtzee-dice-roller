@@ -40,7 +40,6 @@ The user can play a game of Yahtzee with a friend on the same machine or against
   - the possible choices which the play has are highlighted by the "game-logic"  
     _(you can see in the image above, that "Player 1" rolled two twos but no ones. The "game-logic" highlighted 4 points in "twos" but no "ones".)_
   - the player is guided through flashing-buttons (e.g. next player and where he can write points)
-  - you can see a diagram of the game logic by clicking on this link -> [game logic](assets/doc/Control-Flow-Graph-drawio.md)
 
 - **"cpu player"**
 
@@ -53,8 +52,7 @@ The user can play a game of Yahtzee with a friend on the same machine or against
 
   ![console cpu player](assets/images/readme/console-cpu.gif)
 
-  - with the chrome "dev tool" _(F12)_ the console can be opened in which the "player-object" and some important values are displayed while the cpu is playing
-  - clicking on this link -> [JavaScript game logic](assets/doc/Control-Flow-Graph-drawio.md)
+  - with the chrome "dev tool" _(F12)_ the console can be opened in which the "player-object" and some important values are displayed while the cpu is playing _( [JavaScript game logic control flow graph](assets/doc/Control-Flow-Graph-drawio.md))_
 
 - **intuitive game design**
 
