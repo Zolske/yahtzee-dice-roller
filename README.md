@@ -2,7 +2,8 @@
 
 The user can play a game of Yahtzee with a friend on the same machine or against the computer. A tutorial provides instructions on how the game works on this site and the Yahtzee game rules in general.
 
-[link to the "Yahtzee Dice Roller" site](https://zolske.github.io/yahtzee-dice-roller/) _(press **CTRL** while clicking on the link opens a new tab)_
+[link to the "Yahtzee Dice Roller" site](https://zolske.github.io/yahtzee-dice-roller/)  
+**TIP!** _>>> press **CTRL** while clicking on a link opens the page in a new tab <<<_
 
 ![yahtzee-dice-roller mockup](assets/images/readme/yathzee_dice-roller_mockup.webp)
 
