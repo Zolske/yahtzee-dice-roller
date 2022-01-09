@@ -65,11 +65,22 @@ header,
 /* <<< end <header> //////////////////////////////////////////////////////////////////////////////////////////////////// */
 .lock-container,
 .dice-container,
-.game-buttons {
+.game-buttons,
+.contact {
     display: flex;
     justify-content: center;
     gap: 1rem;
     padding-top: .5rem;
+}
+
+.contact {
+    gap: 3rem;
+    padding-bottom: 2rem;
+}
+
+.contact img:hover {
+    height: 68px;
+    width: 68px;
 }
 
 .game-buttons {
@@ -562,6 +573,10 @@ hr {
     .wider-image {
         width: 420px;
         height: auto;
+    }
+
+    .contact {
+        gap: 6rem;
     }
 
 }
