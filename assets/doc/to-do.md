@@ -4,8 +4,8 @@
   - special characters
   - no numbers in the beginning
   - no hyphen
-- [] add footer with **"contact"** me and **"social media"**
-- [] add **"The Surface"** to ucd
+- [x] add footer with **"contact"** me and **"social media"**
+- [x] add **"The Surface"** to ucd
 - [] refactor and improve comments in JavaScript
 - [] improve **"Lighthouse"** score and add to README test section
 - [] add **"Jshint validator"**
