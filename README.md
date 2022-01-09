@@ -90,8 +90,8 @@ Please, follow [this link](assets/doc/ucd.md) for the **"customer story"** and *
 
 1. ### Browser Testing:
 
-   - functionality- and layout- tests where successful on: _"Chrome"_, _"Mozilla Firefox"_ and _"Microsoft Edge"_
-   - because the tester has no access to _"Safari"_, the site was not tested on that browser
+   - functionality- and layout- tests where successful on: **"Chrome"**, **"Mozilla Firefox"** and **"Microsoft Edge"**
+   - because the tester has no access to **"Safari"**, the site was not tested on that browser
 
 2. ### Validator Testing
 
@@ -114,7 +114,7 @@ Please, follow [this link](assets/doc/ucd.md) for the **"customer story"** and *
        </p>
 
 3. ### Performance Test
-   - **Lighthouse** :  
+   - **Lighthouse** _(desktop)_ report:  
       ![lighthouse desktop performance](assets/images/readme/lighthouse-desktop.webp)
      - the **performance** could be improved by minimizing **"Cumulative Layout Shift"**,  
        link to article -> [smashingmagazine](https://www.smashingmagazine.com/2021/06/how-to-fix-cumulative-layout-shift-issues/)
